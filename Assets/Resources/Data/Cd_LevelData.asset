@@ -13,12 +13,51 @@ MonoBehaviour:
   m_Name: Cd_LevelData
   m_EditorClassIdentifier: 
   LevelData:
-    LevelGanarateData:
-      XOffsetofWall: 1
-      YOffsetofWall: -0.5
-      _distanceVerticalOfWall: 23
-      NumberOfSpawnWalLineCountOnStart: 50
-      Posibility: 30
-      AmountOfIncreaseRatePerNextWall: 0.5
-      MinVerticalDistanceLimit: 20
-      MaxVerticalDistanceLimit: 22
+  - EnemyData:
+      enemies:
+        m_Keys: 000000000100000002000000
+        m_Values:
+        - Healt: 0
+          Speed: 0
+          enemySpawnData:
+            numberOFEnemy: 3
+        - Healt: 0
+          Speed: 1
+          enemySpawnData:
+            numberOFEnemy: 1
+        - Healt: 0
+          Speed: 0
+          enemySpawnData:
+            numberOFEnemy: 1
+  - EnemyData:
+      enemies:
+        m_Keys: 000000000100000002000000
+        m_Values:
+        - Healt: 0
+          Speed: 0
+          enemySpawnData:
+            numberOFEnemy: 5
+        - Healt: 0
+          Speed: 0
+          enemySpawnData:
+            numberOFEnemy: 3
+        - Healt: 0
+          Speed: 0
+          enemySpawnData:
+            numberOFEnemy: 5
+  - EnemyData:
+      enemies:
+        m_Keys: 000000000100000002000000
+        m_Values:
+        - Healt: 0
+          Speed: 0
+          enemySpawnData:
+            numberOFEnemy: 7
+        - Healt: 0
+          Speed: 0
+          enemySpawnData:
+            numberOFEnemy: 3
+        - Healt: 0
+          Speed: 0
+          enemySpawnData:
+            numberOFEnemy: 5

@@ -9,8 +9,7 @@ namespace Controller
 {
     public class CameraSettingController : MonoBehaviour
     {
-        [SerializeField]
-        private CharacterManager caracterManager;
+     
 
         [SerializeField]
         private GameObject testobject;

@@ -1,53 +1,127 @@
 ﻿using Data.ValueObject;
-using Interfaces;
-using Managers;
-using Signals;
-using Type;
+using Sirenix.OdinInspector;
+using System.Collections.Generic;
+using UnityEditor;
 using UnityEngine;
+using System.IO;
+using Data.UnityObject;
+using Sirenix.OdinInspector.Editor;
+using System;
 
 namespace Controller
 {
-    public class LevelGanarateController : MonoBehaviour, IPullObject, IPushObject, ICanRenderable
+   
+    [Serializable]
+    public class GridElement
     {
+        public GameObject gridElement;
+        public int _height;
+        public int _width;
+    }
 
+    [ExecuteInEditMode]
+    public class LevelGanarater :OdinEditorWindow
+    {
+        [MenuItem("Tools/LevelGanarater")]
+        private static void OpenWindow()
+        {
+            GetWindow<LevelGanarater>().Show();
+        }
 
-        [SerializeField]
-        private LevelManager levelManager;
-
-        private Camera _camera;
+        //[SerializeField]
+        //private List<GameObject> newGrid;
 
         private LevelGanarateData _levelGanarateData;
 
-   
-        public void SetData(LevelGanarateData levelGanarateData)
+
+        [BoxGroup("LevelEditor",centerLabel:true)]
+        [SerializeField,ChildGameObjectsOnly]
+        private GameObject InstanceGameObject;
+
+        [SerializeField, BoxGroup("LevelEditor")]
+        private Cd_LevelGanareterData cdLeveGanaraterData;
+
+        int counter;
+        private float xOffset;
+        private float yOffset;
+
+        private GridElement gridElement;
+
+
+        [Button(ButtonSizes.Medium)]
+        private void GenarateNewLevel()
         {
-            _levelGanarateData = levelGanarateData;
+            counter = 0;
+
+            _levelGanarateData = cdLeveGanaraterData.LevelGanarateData;
+
+            GanerateGrid();
         }
 
-        private void Awake() => Init();
-
-        private void Init() => _camera = Camera.main;
-
-        public bool CanSeeOnCamera(GameObject wallGameObject)
+        private  void GanerateGrid()
         {
-            Plane[] planes = GeometryUtility.CalculateFrustumPlanes(_camera);
+            GameObject levelPrefab = new GameObject();
+        
+            levelPrefab.name = $"Level0";
 
-            return GeometryUtility.TestPlanesAABB(planes, wallGameObject.GetComponent<Collider>().bounds);
+            GenratedLevelController genratedLevelController = levelPrefab.AddComponent<GenratedLevelController>();
+
+            genratedLevelController.NewGrid = new List<GridElement>();
+
+            for (int h = 0; h < _levelGanarateData.gridData.Height; h++)
+            {
+                for (int v = 0; v < _levelGanarateData.gridData.Width; v++)
+                {
+                    genratedLevelController.NewGrid.Add(new GridElement());
+
+                    genratedLevelController.NewGrid[counter].gridElement = GameObject.CreatePrimitive(PrimitiveType.Cube);
+
+                    genratedLevelController.NewGrid[counter].gridElement.transform.SetParent(levelPrefab.transform);
+
+                    genratedLevelController.NewGrid[counter]._height = h;
+
+                    genratedLevelController.NewGrid[counter]._width = v;
+
+                    //We can't use pool becouse that line script to editor mod;
+
+                    Vector3 gridPos = new Vector3(v - xOffset, 0,h - yOffset);
+
+                    genratedLevelController.NewGrid[counter].gridElement.transform.position = gridPos;
+                   
+                    counter++;
+                
+                    xOffset += _levelGanarateData.gridData.HorizontalOffset;
+                }
+
+                xOffset = 0;
+
+                yOffset += _levelGanarateData.gridData.VerticalOffset;
+            }
+
+       
+
+
+            CreatePrefabs(levelPrefab);
+
         }
 
-        public GameObject PullFromPool(PoolObjectType poolObjectType)
+        private void CreatePrefabs(GameObject levelPrefab)
         {
-            return PoolSignals.Instance.onGetObjectFromPool?.Invoke(poolObjectType);
-        }
+            if (!Directory.Exists("Assets/Resources/LevelPrefabs"))
+                AssetDatabase.CreateFolder("LevelPrefabs", "Level0");
 
-        public void PushToPool(PoolObjectType poolObjectType, GameObject obj)
-        {
-            PoolSignals.Instance.onReleaseObjectFromPool?.Invoke(poolObjectType, obj);
-        }
+            string localPath = "Assets/Resources/LevelPrefabs/" + levelPrefab.name + ".prefab";
 
-        internal void ResetGenareLevel()
-        {
-            
+            localPath = AssetDatabase.GenerateUniqueAssetPath(localPath);
+
+            bool prefabSuccess;
+            PrefabUtility.SaveAsPrefabAssetAndConnect(levelPrefab, localPath, InteractionMode.UserAction, out prefabSuccess);
+            if (prefabSuccess == true)
+                Debug.Log("Prefab was saved successfully");
+            else
+                Debug.Log("Prefab failed to save" + prefabSuccess);
+
+            DestroyImmediate(levelPrefab);
         }
     }
 }

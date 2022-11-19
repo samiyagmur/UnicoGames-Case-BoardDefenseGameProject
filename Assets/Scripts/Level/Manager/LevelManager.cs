@@ -8,26 +8,18 @@ using UnityEngine;
 
 namespace Managers
 {
-    public class LevelManager : MonoBehaviour//Modules
+    public class LevelManager : MonoBehaviour
     {
         [SerializeField]
-        private LevelGanarateController levelGanarateController;//EndlessGame//Grid
+        private Transform levelholder;
+
         [SerializeField]
         private LevelLoaderCommand levelLoaderCommand;
+
         [SerializeField]
         private ClearActiveLevelCommand clearActiveLevelCommand;
-        [SerializeField]
-        private Transform levelholder;
-        private int _levelID;
 
-        private string _dataPath = "Data/Cd_LevelData";
-
-        private void Awake() => Init();
-
-        private void Init() => levelGanarateController.SetData(GetLevelData().LevelGanarateData);
-
-        private LevelData GetLevelData() => Resources.Load<Cd_LevelData>(_dataPath).LevelData[_levelID];
-
+        private int _levelID=0;
 
         private void OnEnable() => SubscribeEvents();
 
@@ -56,6 +48,12 @@ namespace Managers
         private void Start()
         {
             CoreGameSignals.Instance.onLevelInitilize?.Invoke(_levelID);
+            InitSpawnPosition();
+        }
+
+        private void InitSpawnPosition()
+        {
+            
         }
 
         private void OnLevelInitilize(int _levelID)
@@ -81,7 +79,7 @@ namespace Managers
         }
         private void OnClearActiveLevel()
         {
-            clearActiveLevelCommand.ClearActiveLevel(levelholder);
+            //clearActiveLevelCommand.ClearActiveLevel(levelholder);
             CoreGameSignals.Instance.onLevelInitilize?.Invoke(_levelID);
             CoreGameSignals.Instance.onReset?.Invoke();
         }

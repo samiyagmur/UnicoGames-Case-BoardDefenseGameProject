@@ -1,5 +1,6 @@
 using Data.UnityObject;
 using Signals;
+using Sirenix.OdinInspector;
 using System;
 using System.Collections.Generic;
 using Type;
@@ -24,6 +25,11 @@ namespace Extantions
 
         private void Awake()
         {
+            InitPool();
+        }
+
+        private void InitPool()
+        {
             objectPool = new SerializedDictionary<PoolObjectType, Queue<GameObject>>();
 
             for (; poolCount < _loadPoolCount; poolCount++)
@@ -40,7 +46,6 @@ namespace Extantions
                 }
             }
         }
-
         #region EventSubscribtion
 
         private void OnEnable() => SubscribeEvents();

@@ -164,16 +164,6 @@ namespace Managers
         }
 
 
-
-        internal void ArangementSoundVolume(float value)
-        {
-            AudioSignals.Instance.onUpdateSoundVolume?.Invoke(value);
-        }
-
-        internal void ChangeSoundStatus(bool soundStatus)
-        {
-            AudioSignals.Instance.onUpdateSoundStatus?.Invoke(soundStatus);
-        }
         internal void ChangeVibrationStatus(bool vibrationStatus)
         {
             CoreGameSignals.Instance.onUpdateVibrationStatus?.Invoke(vibrationStatus);

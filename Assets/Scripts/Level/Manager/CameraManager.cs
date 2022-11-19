@@ -67,8 +67,5 @@ namespace Manager
         private void OnNextLevel() => cameraStateController.WhenEnterNextLevel();
         private void OnReset() => cameraStateController.WhenPressReset();
 
-
-
-
     }
 }
