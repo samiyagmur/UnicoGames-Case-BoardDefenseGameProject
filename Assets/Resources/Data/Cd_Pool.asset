@@ -12,4 +12,16 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: abc7258607775374ab87b79ca99b0d93, type: 3}
   m_Name: Cd_Pool
   m_EditorClassIdentifier: 
-  ObjectData: []
+  ObjectData:
+  - poolObjectType: 0
+    poolType: 0
+    PoolObject: {fileID: 5536041939876112880, guid: a06608724ab83ee49948574e83ce75b1, type: 3}
+    PoolCount: 20
+  - poolObjectType: 1
+    poolType: 0
+    PoolObject: {fileID: 4393533681422944865, guid: 27e0e9778dc9e764f9e6121adc10e39f, type: 3}
+    PoolCount: 20
+  - poolObjectType: 2
+    poolType: 0
+    PoolObject: {fileID: 3525915846164176840, guid: 38dea20050d179b4fbe140f25562c3c0, type: 3}
+    PoolCount: 20

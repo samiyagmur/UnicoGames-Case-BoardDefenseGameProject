@@ -1,4 +1,5 @@
 ﻿using Signals;
+using System;
 using UnityEngine;
 
 namespace Managers
@@ -27,17 +28,23 @@ namespace Managers
         {
             if (_isFirstTouchTaken)
             {
-                if (Input.GetMouseButtonDown(0))
-                {
-                    InputSignals.Instance.onInputTouch?.Invoke();
-                }
-                else if (Input.GetMouseButtonUp(0))
-                {
-                    InputSignals.Instance.onInputReleased?.Invoke();
-                }
+                InputSignals.Instance.onDragMouse?.Invoke();
+            }
+
+
+            if (Input.GetMouseButtonDown(0))
+            {
+                InputSignals.Instance.onInputTouch?.Invoke();
+            }
+            else if (Input.GetMouseButtonUp(0))
+            {
+                InputSignals.Instance.onInputReleased?.Invoke();
             }
         }
-
+        private void Start()
+        {
+            _isFirstTouchTaken = true;
+        }
         private void OnPlay() => StartToInput();
 
         private void OnFail() => StopToInput();

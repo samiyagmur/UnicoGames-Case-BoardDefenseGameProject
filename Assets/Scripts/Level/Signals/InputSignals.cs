@@ -7,5 +7,6 @@ namespace Signals
     {
         public UnityAction onInputTouch = delegate { };
         public UnityAction onInputReleased = delegate { };
+        public UnityAction onDragMouse = delegate { };
     }
 }

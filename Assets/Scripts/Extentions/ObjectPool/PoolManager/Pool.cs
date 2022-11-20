@@ -25,11 +25,6 @@ namespace Extantions
 
         private void Awake()
         {
-            InitPool();
-        }
-
-        private void InitPool()
-        {
             objectPool = new SerializedDictionary<PoolObjectType, Queue<GameObject>>();
 
             for (; poolCount < _loadPoolCount; poolCount++)
@@ -44,8 +39,12 @@ namespace Extantions
 
                     objectPool[_cd_ObjectDatas.ObjectData[poolCount].poolObjectType].Enqueue(poolObj);
                 }
+
             }
+
         }
+
+    
         #region EventSubscribtion
 
         private void OnEnable() => SubscribeEvents();

@@ -9,7 +9,6 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 7579796415740104521}
-  - component: {fileID: 7579796415740104520}
   m_Layer: 0
   m_Name: ParitcalManager
   m_TagString: Untagged
@@ -32,19 +31,6 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &7579796415740104520
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 7579796415740104526}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 47f133456aafe9d4e8ba99e12e83b69c, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  particalSpawnController: {fileID: 7579796416506073278}
 --- !u!1 &7579796416506073276
 GameObject:
   m_ObjectHideFlags: 0
@@ -54,7 +40,6 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 7579796416506073279}
-  - component: {fileID: 7579796416506073278}
   m_Layer: 0
   m_Name: ParticalSpawnController
   m_TagString: Untagged
@@ -76,15 +61,3 @@ Transform:
   m_Father: {fileID: 7579796415740104521}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &7579796416506073278
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 7579796416506073276}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 4dbe0630f31a7ec49929f9d7af4d6a42, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 

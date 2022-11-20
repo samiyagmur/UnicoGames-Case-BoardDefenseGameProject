@@ -21,14 +21,17 @@ MonoBehaviour:
           Speed: 0
           enemySpawnData:
             numberOFEnemy: 3
-        - Healt: 0
-          Speed: 1
-          enemySpawnData:
-            numberOFEnemy: 1
+            percentOfSpawn: 30
         - Healt: 0
           Speed: 0
           enemySpawnData:
             numberOFEnemy: 1
+            percentOfSpawn: 40
+        - Healt: 0
+          Speed: 0
+          enemySpawnData:
+            numberOFEnemy: 1
+            percentOfSpawn: 40
   - EnemyData:
       enemies:
         m_Keys: 000000000100000002000000
@@ -37,14 +40,17 @@ MonoBehaviour:
           Speed: 0
           enemySpawnData:
             numberOFEnemy: 5
+            percentOfSpawn: 0
         - Healt: 0
           Speed: 0
           enemySpawnData:
             numberOFEnemy: 3
+            percentOfSpawn: 0
         - Healt: 0
           Speed: 0
           enemySpawnData:
             numberOFEnemy: 5
+            percentOfSpawn: 0
   - EnemyData:
       enemies:
         m_Keys: 000000000100000002000000
@@ -53,11 +59,14 @@ MonoBehaviour:
           Speed: 0
           enemySpawnData:
             numberOFEnemy: 7
+            percentOfSpawn: 0
         - Healt: 0
           Speed: 0
           enemySpawnData:
             numberOFEnemy: 3
+            percentOfSpawn: 0
         - Healt: 0
           Speed: 0
           enemySpawnData:
             numberOFEnemy: 5
+            percentOfSpawn: 0

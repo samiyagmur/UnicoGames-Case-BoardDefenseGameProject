@@ -21,67 +21,95 @@ namespace Controller
         private List<EnemyType> willSpawnEnemy = new List<EnemyType>();
 
         private EnemySpawnData _enemyspawndata;
+        private float _timer;
+        private int count;
 
-        internal void SetData(Dictionary<EnemyType, EnemyCharacterData> enemySpawnData)
+        internal  void SetData(Dictionary<EnemyType, EnemyCharacterData> enemySpawnData)
         {
             _characterData = enemySpawnData;
-        }
 
-        private void Start()
-        {
             StackSpawnedEnemyAsType();
         }
-        private async void StackSpawnedEnemyAsType()
+
+        private  async void StackSpawnedEnemyAsType()
         {
-            for (int i = 0; i < _characterData.Count; i++)
-            {
-                 _enemyspawndata=_characterData[(EnemyType)i].enemySpawnData;
 
-                for (int j = 0;j < _enemyspawndata.numberOFEnemy; j++)
-                {
-                   
-
-                    willSpawnEnemy.Add((EnemyType)i);
-
-                    int persentace=Random.Range(0, _enemyspawndata.numberOFEnemy);
-
-                    if (persentace < _enemyspawndata.percentOfSpawn)
-                    {
-                        await Task.Delay(4000);
-                        SpawnEnemy((EnemyType)i);
-
-                        willSpawnEnemy.RemoveAt(willSpawnEnemy.Count-1);
-
-                        willSpawnEnemy.TrimExcess();
-                    }
-              
-                }
-
-            }
-        }
-
-
-
-        internal void SetSpawnPoint(List<GridElement> levelGridElementList)
-        {   
-            float gridElementScaleYAxis= levelGridElementList[0].gridElement.transform.localScale.y;
-
-            for (int i =0 ; i < levelGridElementList.Count ; i++)
-            {
-                if (levelGridElementList[i]._height== levelGridElementList.Count-1)
-                {   
-                    spawnPoints.Add(new Vector3(levelGridElementList[i]._width, gridElementScaleYAxis/2+0.1f, levelGridElementList[i]._height));
-                }
-            }
-        }
-
-        private  void SpawnEnemy(EnemyType type)
-        {   
             
+            for (int i=0; i < _characterData.Count ;i++)
+            {
+                _enemyspawndata =_characterData[(EnemyType)i].enemySpawnData;
 
-            int randomSpawnPoint = Random.Range(0,spawnPoints.Count+1);
+                for (int j = 0 ; j < _enemyspawndata.numberOFEnemy; j++)
+                {
+                   willSpawnEnemy.Add((EnemyType)i);//prometreus//permetreus//prometreus
+                 
+                }
+                
+            }
+
+            while (willSpawnEnemy.Count!=0)
+            {
+                await Task.Delay(500);
+                ArangePosibltyOFWillSpawnObject();
+            }
+        }
+
+
+        private  void ArangePosibltyOFWillSpawnObject()
+        {   
+
+            if (willSpawnEnemy.Count <= 0) return;
+
+
+
+            int selectRandomEnemy = Random.Range(0, _characterData.Count);
+
+            int persentace = Random.Range(0, 100);
+
+            Debug.Log(persentace);
+
+            if (!willSpawnEnemy.Contains((EnemyType)selectRandomEnemy))return;
+
+            if (persentace < _characterData[(EnemyType)selectRandomEnemy].enemySpawnData.percentOfSpawn)
+            {
+             
+                Debug.Log((EnemyType)selectRandomEnemy);
+          
+                SpawnEnemy((EnemyType)selectRandomEnemy);
+      
+                willSpawnEnemy.Remove((EnemyType)selectRandomEnemy);
+ 
+                willSpawnEnemy.TrimExcess();
+            }
+        }
+
+        internal void SetSpawnPoint(List<GridElements> levelGridElementList)
+        {
+           
+            float gridElementScaleYAxis = levelGridElementList[0]._gridElement.transform.localScale.y;
+
+            int _totalGridHeigh  = levelGridElementList[0].TotalHeight;
+            int _totalGridWeight = levelGridElementList[0].TotalWeight;
+
+            for (int i = 0; i < levelGridElementList.Count; i++)//29 30 31 32
+            {
+                if (i >= ((_totalGridHeigh - 1) * _totalGridWeight))
+                {
+                    spawnPoints.Add(new Vector3(levelGridElementList[i].Width,
+                            gridElementScaleYAxis+ 0.1f, levelGridElementList[i].Height));
+                }
+            }
+        }
+
+
+        private void SpawnEnemy(EnemyType type)
+        {
+  
+
+            int randomSpawnPoint = Random.Range(0, spawnPoints.Count);
 
             GameObject willSpawnEnemy = PullFromPool((PoolObjectType)(int)type);
+
 
             willSpawnEnemy.transform.position = spawnPoints[randomSpawnPoint];
 

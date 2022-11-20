@@ -8,15 +8,31 @@ namespace Controller
     public class GenratedLevelController : MonoBehaviour
     {
         [SerializeField]
-        private List<GridElement> newGrid=new List<GridElement>();
+        private List<GridElements> newGrid=new List<GridElements>();
 
-        public List<GridElement> NewGrid { get => newGrid; set => newGrid = value; }
+        public List<GridElements> NewGrid { get => newGrid; set => newGrid = value; }
 
         public int LevelID;
 
-        private void OnEnable()
+
+        private void Start()
+        {
+            InitFetures();
+        }
+
+        private void InitFetures()
         {
             EnemySignals.Instance.onLevelInitilize?.Invoke(newGrid);
+
+                
+            for (int i = 0; i < NewGrid.Count; i++)
+            {
+                transform.GetChild(i).GetComponent<Renderer>().material = NewGrid[i].Material;
+
+            }
+                
+            
+
         }
     }
 }

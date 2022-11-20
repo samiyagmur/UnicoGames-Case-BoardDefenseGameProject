@@ -9,7 +9,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 7983053667620590514}
-  - component: {fileID: 7983053667620590413}
+  - component: {fileID: 3543147468615223038}
   m_Layer: 0
   m_Name: PoolManager
   m_TagString: Untagged
@@ -31,7 +31,7 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &7983053667620590413
+--- !u!114 &3543147468615223038
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -46,4 +46,3 @@ MonoBehaviour:
   _cd_ObjectDatas: {fileID: 11400000, guid: 9bb8a8ed3e625ab43ab034ebafad3419, type: 2}
   objectPool:
     m_Keys: 
-  objectHolder: {fileID: 0}

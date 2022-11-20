@@ -9,7 +9,7 @@ namespace Signals
 {
     public class EnemySignals : MonoSingleton<EnemySignals>
     {
-        public UnityAction<List<GridElement>> onLevelInitilize = delegate { };
+        public UnityAction<List<GridElements>> onLevelInitilize = delegate { };
 
         public UnityAction onPlay = delegate { };
 
