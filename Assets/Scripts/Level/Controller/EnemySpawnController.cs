@@ -1,8 +1,6 @@
 ﻿using Data.ValueObject;
 using Interfaces;
 using Signals;
-using System;
-using System.Collections;
 using System.Collections.Generic;
 using System.Threading.Tasks;
 using Type;
@@ -66,15 +64,12 @@ namespace Controller
 
             int persentace = Random.Range(0, 100);
 
-            Debug.Log(persentace);
-
             if (!willSpawnEnemy.Contains((EnemyType)selectRandomEnemy))return;
 
             if (persentace < _characterData[(EnemyType)selectRandomEnemy].enemySpawnData.percentOfSpawn)
             {
              
-                Debug.Log((EnemyType)selectRandomEnemy);
-          
+              
                 SpawnEnemy((EnemyType)selectRandomEnemy);
       
                 willSpawnEnemy.Remove((EnemyType)selectRandomEnemy);
@@ -85,20 +80,24 @@ namespace Controller
 
         internal void SetSpawnPoint(List<GridElements> levelGridElementList)
         {
-           
+          
             float gridElementScaleYAxis = levelGridElementList[0]._gridElement.transform.localScale.y;
 
-            int _totalGridHeigh  = levelGridElementList[0].TotalHeight;
-            int _totalGridWeight = levelGridElementList[0].TotalWeight;
+            float _totalGridHeigh  = levelGridElementList[0].TotalHeight;
+            float _totalGridWeight = levelGridElementList[0].TotalWeight;
+
+            float scaleX = levelGridElementList[0].Scale.x;
+            float scaleY = levelGridElementList[0].Scale.z;
 
             for (int i = 0; i < levelGridElementList.Count; i++)//29 30 31 32
             {
-                if (i >= ((_totalGridHeigh - 1) * _totalGridWeight))
+                if (i >= (((_totalGridHeigh/ scaleX) - 1) * (_totalGridWeight/ scaleY)))
                 {
                     spawnPoints.Add(new Vector3(levelGridElementList[i].Width,
-                            gridElementScaleYAxis+ 0.1f, levelGridElementList[i].Height));
+                            gridElementScaleYAxis/2+0.31f, levelGridElementList[i].Height));
                 }
             }
+
         }
 
 

@@ -1,4 +1,5 @@
 ﻿using Extantions;
+using UnityEngine;
 using UnityEngine.Events;
 
 namespace Signals
@@ -7,6 +8,6 @@ namespace Signals
     {
         public UnityAction onInputTouch = delegate { };
         public UnityAction onInputReleased = delegate { };
-        public UnityAction onDragMouse = delegate { };
+        public UnityAction<RaycastHit> onDragMouse = delegate { };
     }
 }

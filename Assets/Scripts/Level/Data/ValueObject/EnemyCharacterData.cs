@@ -8,8 +8,11 @@ namespace Data.ValueObject
     public class EnemyCharacterData 
     {
         public int Healt;
-        public int Speed;
-
+        public float Speed;
+        public int EarnedGold;
+        public int PercentOfDropGem;
+        public int EarnGem;
+        public int Damage;
         public EnemySpawnData enemySpawnData;
     }
 }

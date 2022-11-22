@@ -18,3 +18,4 @@ MonoBehaviour:
       Height: 8
       HorizontalOffset: 0
       VerticalOffset: 0
+      scale: {x: 1, y: 1, z: 1}

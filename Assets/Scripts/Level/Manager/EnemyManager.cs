@@ -2,15 +2,22 @@
 using Data.UnityObject;
 using Data.ValueObject;
 using Signals;
-using System.Collections.Generic;
+using System;
+using System.Collections;
+using Type;
 using UnityEngine;
 
 namespace Manager
 {
-    public class EnemyManager : MonoBehaviour
+    public class EnemyManager : MonoBehaviour 
     {
         [SerializeField]
-        private EnemySpawnController spawnController;
+        private EnemyHealtController enemyHealtController;
+        [SerializeField]
+        private EnemyMovementController enemyMovementController;
+
+        [SerializeField]
+        private EnemyType _enemyType;
 
         private int _levelID;
 
@@ -19,44 +26,76 @@ namespace Manager
         private void Start()
         {
             Init();
-
-          
         }
 
         private void Init()
         {
-      
-            spawnController.SetData(GetData().enemies);
+            enemyHealtController.SetData(GetData());
+            enemyMovementController.SetData(GetData());
+       
         }
-        private EnemyData GetData() => Resources.Load<Cd_LevelData>(_dataPath).LevelData[_levelID].EnemyData;
 
+        private EnemyCharacterData GetData() => Resources.Load<Cd_LevelData>(_dataPath).LevelData[_levelID].EnemyData.enemies[_enemyType];
         private void OnEnable() => SubscribeEvents();
 
         private void SubscribeEvents()
         {
-            EnemySignals.Instance.onLevelInitilize += OnLevelInitilize;
-            CoreGameSignals.Instance.onLevelInitilize+=OnLevelInit;
+            CoreGameSignals.Instance.onLevelInitilize += OnLevelInitilize;
+            
         }
+
 
         private void UnsubscribeEvents()
         {
-            EnemySignals.Instance.onLevelInitilize -= OnLevelInitilize;
-            CoreGameSignals.Instance.onLevelInitilize -= OnLevelInit;
+            CoreGameSignals.Instance.onLevelInitilize -= OnLevelInitilize;
 
         }
 
         private void OnDisable() => UnsubscribeEvents();
 
 
-        private void OnLevelInitilize(List<GridElements> levelGridElementList)
+        internal void WhenExitOnBoard()
         {
-            spawnController.SetSpawnPoint(levelGridElementList);
+            //  enemyMovementController.StopToMoveForward();
         }
 
-        private void OnLevelInit(int levelId)
+        internal void WhenSpawnOnBoard()
         {
-            _levelID = levelId;
+            // enemyMovementController.StartToMoveForward();
         }
 
+        internal void WhenHitDefender()
+        {
+            enemyMovementController.StopToMoveForward();
+        }
+
+        internal void WhenHitBullet(int damager)
+        {
+            enemyHealtController.DecreaseHealt(damager,_enemyType);
+        }
+
+        internal void IsDeadEnemy(bool IsDead)
+        {
+          
+            ScoreSignals.Instance.onUpdateGold(GetData().EarnedGold);
+
+            //reset/partical/animator
+        }
+
+        internal void IsGemDropFromEnemy(bool IsDropGem)
+        {
+            ScoreSignals.Instance.onUpdateGem(GetData().EarnGem);
+        }
+
+        private void OnLevelInitilize(int levelID)
+        {
+            _levelID=levelID;
+        }
+
+
+        public int GetDamageWhenHitDefender()
+        {
+            return GetData().Damage;
+        }
     }
 }

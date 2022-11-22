@@ -19,9 +19,33 @@ MonoBehaviour:
     PoolCount: 20
   - poolObjectType: 1
     poolType: 0
-    PoolObject: {fileID: 4393533681422944865, guid: 27e0e9778dc9e764f9e6121adc10e39f, type: 3}
+    PoolObject: {fileID: 6005922006963420320, guid: 27e0e9778dc9e764f9e6121adc10e39f, type: 3}
     PoolCount: 20
   - poolObjectType: 2
     poolType: 0
-    PoolObject: {fileID: 3525915846164176840, guid: 38dea20050d179b4fbe140f25562c3c0, type: 3}
+    PoolObject: {fileID: 8753735195043818790, guid: 38dea20050d179b4fbe140f25562c3c0, type: 3}
     PoolCount: 20
+  - poolObjectType: 3
+    poolType: 0
+    PoolObject: {fileID: 4137708972292832943, guid: eca705b6d2568b94cb007333a386e349, type: 3}
+    PoolCount: 20
+  - poolObjectType: 4
+    poolType: 0
+    PoolObject: {fileID: 3940569607822126478, guid: 6cab3ae3b40a975499ffd3f931e5b74e, type: 3}
+    PoolCount: 20
+  - poolObjectType: 5
+    poolType: 0
+    PoolObject: {fileID: 8470605188582684567, guid: 505bb8f0e21dd3943957203e3ef11f1e, type: 3}
+    PoolCount: 20
+  - poolObjectType: 6
+    poolType: 0
+    PoolObject: {fileID: 5243145929292976284, guid: 14795bbe5e12cbc469124cd846917a62, type: 3}
+    PoolCount: 200
+  - poolObjectType: 7
+    poolType: 0
+    PoolObject: {fileID: 8301112232634667749, guid: 8e3ea17fa7526bc408a9925c63ee2c46, type: 3}
+    PoolCount: 200
+  - poolObjectType: 8
+    poolType: 0
+    PoolObject: {fileID: 1833350195234149948, guid: adbd7d5c09a24704fa7339a05a62abc7, type: 3}
+    PoolCount: 200

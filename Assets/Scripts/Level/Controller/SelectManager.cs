@@ -1,6 +1,8 @@
 ﻿using Signals;
 using System;
 using System.Collections;
+using System.Collections.Generic;
+using Type;
 using UnityEngine;
 
 namespace Controller
@@ -11,9 +13,12 @@ namespace Controller
         [SerializeField]
         private SelectedObjectMeshController selectedObjectMeshController;
 
-        private GameObject _hitObj;
+        [SerializeField]
+        private List<GameObject> SelectableGridElementList;
 
-        private int IsThisFirstTimes=0;
+        private GameObject _hitObj;
+        private Vector3 _hitObjPoint;
+        private int _triggerCount;
 
         private void OnEnable() => SubscribeEvents();
 
@@ -21,33 +26,29 @@ namespace Controller
         {
             InputSignals.Instance.onInputTouch += OnInputTouch;
             InputSignals.Instance.onDragMouse += OnDragMouse;
-            InputSignals.Instance.onInputReleased += OnInputReleased;
+            SelectSignals.Instance.onSelectedGrid += onSelectedGrid;
         }
 
         private void UnsubscribeEvents()
         {
+            
             InputSignals.Instance.onInputTouch -= OnInputTouch;
             InputSignals.Instance.onDragMouse -= OnDragMouse;
-            InputSignals.Instance.onInputReleased -= OnInputReleased;
+            SelectSignals.Instance.onSelectedGrid -= onSelectedGrid;
+
+            //if kill defender activete list
         }
 
 
         private void OnDisable() => UnsubscribeEvents();
-        private void OnDragMouse()
+        private void OnDragMouse(RaycastHit hit)
         {
-           
-           
-            Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
-
-            if (Physics.Raycast(ray, out RaycastHit hit, 100f))
+            if (SelectableGridElementList.Contains(hit.transform.gameObject))
             {
+                if (hit.transform.gameObject == null) return;
 
-              
-                if (hit.transform == null) UnClick(_hitObj);
-          
-                if (_hitObj!= hit.transform.gameObject)
+                if (_hitObj != hit.transform.gameObject)
                 {
-                   
 
                     UnClick(_hitObj);
                 }
@@ -60,28 +61,47 @@ namespace Controller
             {
                 UnClick(_hitObj);
             }
-            
+            if (hit.transform.CompareTag("Ground"))
+            {
+                UnClick(_hitObj);
+            }
+        }
+
+        private void onSelectedGrid(List<GridElements> gridElements)
+        {
+            for (int i = 0; i < gridElements.Count; i++)
+            {
+                if (gridElements[i].gridElementStatus == GridElementStatus.Selectable)
+                {
+                    SelectableGridElementList.Add(gridElements[i]._gridElement);
+                }
+            }
+        }
+
+        private void Click(GameObject hitObj)
+        {
+            selectedObjectMeshController.TurnOnLight(hitObj);
+            selectedObjectMeshController.MoveToTop(hitObj);
+
         }
 
         private void UnClick(GameObject hitObj)
         {
             if(hitObj == null) return;
-             Debug.Log(_hitObj);
+
             selectedObjectMeshController.TurnOffLight(hitObj);
+            selectedObjectMeshController.GetBackPositon(hitObj);
+     
+
         }
-
-        private void Click(GameObject hitObj) => selectedObjectMeshController.TurnOnLight(hitObj);
-
 
         private void OnInputTouch()
         {
-
+            if (!SelectableGridElementList.Contains(_hitObj)) return;
+            SelectableGridElementList.Remove(_hitObj);
         }
 
-        private void OnInputReleased()
-        {
-            throw new NotImplementedException();
-        }
 
     }
 }
+

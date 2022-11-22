@@ -7,6 +7,12 @@ namespace Signals
     {
         public UnityAction<int> onScoreMultiply = delegate { };
 
-        public UnityAction onScoreTaken = delegate { };
+        public UnityAction<int> onUpdateGold = delegate { };
+
+        public UnityAction<int> onUpdateGem = delegate { };
+
+        public UnityAction<int> onInitLastGoldScore = delegate { };
+
+        public UnityAction<int> onInitLastDiamondScore = delegate { };
     }
 }

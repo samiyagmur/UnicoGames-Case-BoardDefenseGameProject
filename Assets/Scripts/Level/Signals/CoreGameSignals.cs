@@ -1,11 +1,14 @@
-﻿using Extantions;
+﻿using Data.ValueObject;
+using Extantions;
+using System.Collections.Generic;
+using Type;
 using UnityEngine.Events;
+using UnityEngine.Rendering;
 
 namespace Signals
 {
     public class CoreGameSignals : MonoSingleton<CoreGameSignals>
     {
-        public UnityAction<int> onScoreUpdate = delegate { };
 
         public UnityAction<int> onLevelInitilize = delegate { };
 
@@ -21,11 +24,11 @@ namespace Signals
 
         public UnityAction onNextLevel = delegate { };
 
-        public UnityAction<bool>onUpdateVibrationStatus = delegate { };
+        public UnityAction<bool> onUpdateVibrationStatus = delegate { };
 
-        public UnityAction<int> onInitLastDiamondScore= delegate { };
+        public UnityAction<DefanderType> onClickCharacterButton = delegate { };
 
-        public UnityAction<int> onInitLastGoldScore = delegate { };
+        public UnityAction<DefanderData> onInitDefenderInfo=delegate { };
 
     }
 }

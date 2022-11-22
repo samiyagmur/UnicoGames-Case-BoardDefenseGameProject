@@ -22,9 +22,11 @@ namespace Controller
 
         private void InitFetures()
         {
-            EnemySignals.Instance.onLevelInitilize?.Invoke(newGrid);
+            EnemySignals.Instance.onLevelInitilize?.Invoke(NewGrid);
 
-                
+            SelectSignals.Instance.onSelectedGrid?.Invoke(NewGrid);
+            
+
             for (int i = 0; i < NewGrid.Count; i++)
             {
                 transform.GetChild(i).GetComponent<Renderer>().material = NewGrid[i].Material;

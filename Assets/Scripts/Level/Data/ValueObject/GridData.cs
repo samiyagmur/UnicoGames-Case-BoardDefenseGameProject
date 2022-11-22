@@ -13,5 +13,6 @@ namespace Data.ValueObject
 
         public float HorizontalOffset;
         public float VerticalOffset;
+        public Vector3 scale;
     }
 }

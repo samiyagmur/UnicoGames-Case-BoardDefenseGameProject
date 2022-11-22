@@ -11,33 +11,27 @@ namespace Managers
 {
     public class ScoreManager : MonoBehaviour
     {
-        [SerializeField]
-        private int _currentScore;
-
         private ScoreData _scoreData;
 
-        private ISaver _saver;
-        private ILoader _loader;
+        //private ISaver _saver;
+        //private ILoader _loader;
         private string _dataPath = "Data/Cd_ScoreData";
         private void Awake()
         {
             GetData();
-            SetInstance();
-            InitData(); 
-
-
+            // SetInstance();
+            //InitData(); 
+     
         }
 
-        private void SetInstance()
+        private void Start()
         {
-            _saver  = new SaveLoadManager();
-            _loader = new SaveLoadManager();
+            InitData();
         }
-
         private void InitData()
         {   
-            CoreGameSignals.Instance.onInitLastDiamondScore?.Invoke(_scoreData.LastDiamondScore);
-            CoreGameSignals.Instance.onInitLastGoldScore?.Invoke(_scoreData.LastGoldScore);
+            ScoreSignals.Instance.onInitLastDiamondScore?.Invoke(_scoreData.LastDiamondScore);
+            ScoreSignals.Instance.onInitLastGoldScore?.Invoke(_scoreData.LastGoldScore);
 
         }
 
@@ -50,33 +44,43 @@ namespace Managers
 
         private void SubscribeEvents()
         {
-            ScoreSignals.Instance.onScoreMultiply += OnScoreMultiply;
-            ScoreSignals.Instance.onScoreTaken += OnScoreTaken;
+           // ScoreSignals.Instance.onScoreMultiply += OnScoreMultiply;
+            ScoreSignals.Instance.onUpdateGold += OnUpdateGold;
+            ScoreSignals.Instance.onUpdateGem += OnUpdateGem;
             CoreGameSignals.Instance.onReset += OnReset;
             CoreGameSignals.Instance.onLevelSuccessfull += OnLevelSuccessfull;
         }
 
         private void UnsubscribeEvents()
         {
-            ScoreSignals.Instance.onScoreMultiply -= OnScoreMultiply;
-            ScoreSignals.Instance.onScoreTaken -= OnScoreTaken;
+           // ScoreSignals.Instance.onScoreMultiply -= OnScoreMultiply;
+            ScoreSignals.Instance.onUpdateGold -= OnUpdateGold;
+            ScoreSignals.Instance.onUpdateGem -= OnUpdateGem;
             CoreGameSignals.Instance.onReset -= OnReset;
             CoreGameSignals.Instance.onLevelSuccessfull -= OnLevelSuccessfull;
         }
 
+
         private void OnDisable() => UnsubscribeEvents();
 
-        private void OnScoreTaken()
+        private void OnUpdateGold(int takenGold)
         {
-            _currentScore++;
+            _scoreData.LastGoldScore += takenGold;
 
-            CoreGameSignals.Instance.onScoreUpdate?.Invoke(_currentScore);
+            ScoreSignals.Instance.onInitLastGoldScore?.Invoke(_scoreData.LastGoldScore);
         }
 
-        private void OnScoreMultiply(int score)
+        private void OnUpdateGem(int takenDiamond)
         {
-            _currentScore *= score;
+            _scoreData.LastDiamondScore += takenDiamond;
+
+            ScoreSignals.Instance.onInitLastDiamondScore?.Invoke(_scoreData.LastDiamondScore);
         }
+
+        //private void OnScoreMultiply(int score)
+        //{
+        //    _currentScore *= score;
+        //}
 
         private void OnLevelSuccessfull()
         {
@@ -85,21 +89,21 @@ namespace Managers
 
         private void OnReset()
         {
-            _currentScore = 0;
+           
         }
-        [Button]//ForTesting
-        private void Save()
-        {
-            _saver.UpdateSave(_scoreData);
-        }
-        [Button]//ForTesting
-        private void Load()
-        {
-            _scoreData= _loader.UpdateLoad<ScoreData>();
+        //[Button]//ForTesting
+        //private void Save()
+        //{
+        //    _saver.UpdateSave(_scoreData);
+        //}
+        //[Button]//ForTesting
+        //private void Load()
+        //{
+        //    _scoreData= _loader.UpdateLoad<ScoreData>();
 
-            OnLevelSuccessfull(); ;
+        //    OnLevelSuccessfull(); ;
 
-        }
+        //}
 
     }
 }

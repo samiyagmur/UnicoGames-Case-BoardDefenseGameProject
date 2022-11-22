@@ -3,7 +3,10 @@
 --- !u!78 &1
 TagManager:
   serializedVersion: 2
-  tags: []
+  tags:
+  - GridElement
+  - Ground
+  - Weapon
   layers:
   - Default
   - TransparentFX
@@ -15,13 +18,13 @@ TagManager:
   - 
   - 
   - 
-  - 
-  - 
-  - 
-  - 
-  - 
-  - 
-  - 
+  - GridElement
+  - EnemyPhysics
+  - DefenderPysics
+  - Ground
+  - Bullet
+  - Weapon
+  - DefenderDetection
   - 
   - 
   - 
