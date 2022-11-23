@@ -20,8 +20,6 @@ namespace Controller
             if (other.TryGetComponent(out EnemyPhysicController enemyPhysicController))
             {
                 PushToPool(poolObjectType, transform.parent.gameObject);
-
-                Debug.Log(other.gameObject.name);
             }
             if (other.TryGetComponent(out WeaponAtackController weaponAtackController))
             {

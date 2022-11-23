@@ -4,6 +4,7 @@ using Data.ValueObject;
 using Signals;
 using System;
 using System.Collections;
+using System.Collections.Generic;
 using Type;
 using UnityEngine;
 
@@ -19,51 +20,45 @@ namespace Manager
         [SerializeField]
         private EnemyType _enemyType;
 
-        private int _levelID;
+        private LevelData _levelData;
+        private int deadAmountOnPortal;
+        private int _spawnedEnemyCount;
 
-        private const string _dataPath = "Data/Cd_LevelData";
-
-        private void Start()
+        private void OnLevelInitilize( LevelData levelData)
         {
-            Init();
+            _levelData = levelData;
+            Init(levelData);
         }
 
-        private void Init()
+        private void Init(LevelData levelData)
         {
-            enemyHealtController.SetData(GetData());
-            enemyMovementController.SetData(GetData());
+          
+            enemyHealtController.SetData(levelData.EnemyData.enemies[_enemyType]);
+            enemyMovementController.SetData(levelData.EnemyData.enemies[_enemyType]);
        
         }
 
-        private EnemyCharacterData GetData() => Resources.Load<Cd_LevelData>(_dataPath).LevelData[_levelID].EnemyData.enemies[_enemyType];
         private void OnEnable() => SubscribeEvents();
 
         private void SubscribeEvents()
         {
-            CoreGameSignals.Instance.onLevelInitilize += OnLevelInitilize;
+            CoreGameSignals.Instance.onGetLevelData += OnLevelInitilize;
             
         }
 
-
         private void UnsubscribeEvents()
         {
-            CoreGameSignals.Instance.onLevelInitilize -= OnLevelInitilize;
+            CoreGameSignals.Instance.onGetLevelData -= OnLevelInitilize;
 
         }
 
-        private void OnDisable() => UnsubscribeEvents();
-
-
-        internal void WhenExitOnBoard()
+        private void OnDisable()
         {
-            //  enemyMovementController.StopToMoveForward();
-        }
+            UnsubscribeEvents();
 
-        internal void WhenSpawnOnBoard()
-        {
-            // enemyMovementController.StartToMoveForward();
-        }
+            EnemySignals.Instance.onDeadEnemy?.Invoke();
 
+        }
         internal void WhenHitDefender()
         {
             enemyMovementController.StopToMoveForward();
@@ -73,29 +68,24 @@ namespace Manager
         {
             enemyHealtController.DecreaseHealt(damager,_enemyType);
         }
-
         internal void IsDeadEnemy(bool IsDead)
         {
-          
-            ScoreSignals.Instance.onUpdateGold(GetData().EarnedGold);
+            EnemySignals.Instance.onEnemyDeadFromDefander?.Invoke();
 
+            ScoreSignals.Instance.onUpdateGold(_levelData.EnemyData.enemies[_enemyType].EarnedGold);
+            
             //reset/partical/animator
         }
 
         internal void IsGemDropFromEnemy(bool IsDropGem)
         {
-            ScoreSignals.Instance.onUpdateGem(GetData().EarnGem);
+            ScoreSignals.Instance.onUpdateGem(_levelData.EnemyData.enemies[_enemyType].EarnGem);
         }
-
-        private void OnLevelInitilize(int levelID)
-        {
-            _levelID=levelID;
-        }
-
 
         public int GetDamageWhenHitDefender()
         {
-            return GetData().Damage;
+            return _levelData.EnemyData.enemies[_enemyType].Damage;
         }
+
     }
 }

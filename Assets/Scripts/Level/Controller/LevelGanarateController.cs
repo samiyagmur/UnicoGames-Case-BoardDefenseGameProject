@@ -23,8 +23,6 @@ namespace Controller
         public float TotalWeight;
         public Vector3 Scale;
         public GridElementStatus gridElementStatus;
-      
-
     }
 
     [ExecuteInEditMode]
@@ -77,67 +75,70 @@ namespace Controller
 
         private  void GanerateGrid()
         {
+
+     
             GameObject levelPrefab = new GameObject();
         
             levelPrefab.name = $"Level{_levelID}";
 
-            GenratedLevelController genratedLevelController = levelPrefab.AddComponent<GenratedLevelController>();
+            GenratedLevelController generatedLevelController = levelPrefab.AddComponent<GenratedLevelController>();
 
-            genratedLevelController.NewGrid = new List<GridElements>();
+            generatedLevelController.NewGrid = new List<GridElements>();
 
             _scaleX = _levelGanarateData.gridData.scale.x;
             _scaleZ = _levelGanarateData.gridData.scale.z;
 
             _totalWeigt = _levelGanarateData.gridData.Width * _scaleX;
             _totalHeigh = _levelGanarateData.gridData.Height * _scaleZ;
-        
+
+            
 
             for (float h = 0; h < _totalHeigh; h += _scaleZ)
             {
                 for (float v = 0; v < _totalWeigt; v += _scaleX)
                 {
-                    genratedLevelController.NewGrid.Add(new GridElements());
+                    generatedLevelController.NewGrid.Add(new GridElements());
 
-                    genratedLevelController.NewGrid[counter]._gridElement = GameObject.CreatePrimitive(PrimitiveType.Cube);
+                    generatedLevelController.NewGrid[counter]._gridElement = GameObject.CreatePrimitive(PrimitiveType.Cube);
 
-                    genratedLevelController.NewGrid[counter]._gridElement.transform.SetParent(levelPrefab.transform);
+                    generatedLevelController.NewGrid[counter]._gridElement.transform.SetParent(levelPrefab.transform);
 
-                    genratedLevelController.NewGrid[counter]._gridElement.transform.localScale = new Vector3(_scaleX,1, _scaleZ);
+                    generatedLevelController.NewGrid[counter]._gridElement.transform.localScale = new Vector3(_scaleX,1, _scaleZ);
 
-                    genratedLevelController.NewGrid[counter].Scale = new Vector3(_scaleX, 1, _scaleZ);
+                    generatedLevelController.NewGrid[counter].Scale = new Vector3(_scaleX, 1, _scaleZ);
 
-                    genratedLevelController.NewGrid[counter]._gridElement.tag = "GridElement";
+                    generatedLevelController.NewGrid[counter]._gridElement.tag = "GridElement";
 
-                    genratedLevelController.NewGrid[counter]._gridElement.layer =LayerMask.NameToLayer("GridElement");
+                    generatedLevelController.NewGrid[counter]._gridElement.layer =LayerMask.NameToLayer("GridElement");
 
-                    genratedLevelController.NewGrid[counter].Height = h;
+                    generatedLevelController.NewGrid[counter].Height = h;
 
-                    genratedLevelController.NewGrid[counter].Width = v;
+                    generatedLevelController.NewGrid[counter].Width = v;
 
-                    genratedLevelController.NewGrid[counter].TotalHeight = _totalHeigh;
+                    generatedLevelController.NewGrid[counter].TotalHeight = _totalHeigh;
 
-                    genratedLevelController.NewGrid[counter].TotalWeight = _totalWeigt;
+                    generatedLevelController.NewGrid[counter].TotalWeight = _totalWeigt;
 
-                    genratedLevelController.NewGrid[counter].Material = SelectedMaterial;
+                    generatedLevelController.NewGrid[counter].Material = SelectedMaterial;
 
                     if (counter < (_levelGanarateData.gridData.Height* _levelGanarateData.gridData.Width)/2)
                     {
-                        genratedLevelController.NewGrid[counter].gridElementStatus = GridElementStatus.Selectable;
+                        generatedLevelController.NewGrid[counter].gridElementStatus = GridElementStatus.Selectable;
                     }
                     else
                     {
-                        genratedLevelController.NewGrid[counter].gridElementStatus = GridElementStatus.UnSelectable;
+                        generatedLevelController.NewGrid[counter].gridElementStatus = GridElementStatus.UnSelectable;
                     }
 
 
                     //We can't use pool becouse that line script to editor mod;
 
-                    Vector3 gridPos = new Vector3(v - xOffset, 0,h - yOffset);
+                    Vector3 gridPos = new Vector3(v - xOffset- (_totalWeigt / 2)+0.5f, 0,h - yOffset);
 
-                    genratedLevelController.NewGrid[counter]._gridElement.transform.position = gridPos;
+                    generatedLevelController.NewGrid[counter]._gridElement.transform.position = gridPos;
 
                     counter++;
-                
+                  
                     xOffset += _levelGanarateData.gridData.HorizontalOffset;
                 }
 

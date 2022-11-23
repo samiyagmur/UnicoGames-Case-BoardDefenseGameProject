@@ -92,15 +92,17 @@ namespace Managers
         {
             _levelID = levelID;
             levelPanelController.InitLevelID(levelID);
-           // OnOpenPanel(UIPanelType.StartPanel);
+            //OnOpenPanel(UIPanelType.StartPanel);
         }
         internal void ChangePanelStatusOnPlay()
         {
-            CoreGameSignals.Instance.onPlay?.Invoke();
+            //CoreGameSignals.Instance.onPlay?.Invoke();
         }
         private void OnPlay()
         {
             OnClosePanel(UIPanelType.StartPanel);
+            OnOpenPanel(UIPanelType.LevelPanel);
+            OnOpenPanel(UIPanelType.CharPanel);
         }
 
         public void ChangePanelStatusOnStartAsSetting(UIPanelType uIPanelType)
@@ -117,6 +119,7 @@ namespace Managers
         {
             OnOpenPanel(uIPanelType);
             OnClosePanel(UIPanelType.LevelPanel);
+            OnClosePanel(UIPanelType.CharPanel);
             CoreGameSignals.Instance.onClearActiveLevel?.Invoke();
         }
        
@@ -141,6 +144,7 @@ namespace Managers
         {
             OnClosePanel(uIPanelType);
             OnOpenPanel(UIPanelType.LevelPanel);
+            OnOpenPanel(UIPanelType.CharPanel);
             CoreGameSignals.Instance.onNextLevel?.Invoke();
         }
         private void OnReset()

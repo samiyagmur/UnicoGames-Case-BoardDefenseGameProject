@@ -12,6 +12,8 @@ namespace Signals
 
         public UnityAction<int> onLevelInitilize = delegate { };
 
+        public UnityAction<LevelData> onGetLevelData = delegate { };
+
         public UnityAction onPlay = delegate { };
 
         public UnityAction onFail = delegate { };

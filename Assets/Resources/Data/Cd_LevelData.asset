@@ -17,27 +17,30 @@ MonoBehaviour:
       enemies:
         m_Keys: 000000000100000002000000
         m_Values:
-        - Healt: 115
+        - Healt: 20
           Speed: 1
           EarnedGold: 50
           PercentOfDropGem: 100
           EarnGem: 4
+          Damage: 0
           enemySpawnData:
             numberOFEnemy: 3
             percentOfSpawn: 30
-        - Healt: 125
+        - Healt: 20
           Speed: 0.25
           EarnedGold: 125
           PercentOfDropGem: 30
           EarnGem: 10
+          Damage: 0
           enemySpawnData:
             numberOFEnemy: 1
             percentOfSpawn: 40
-        - Healt: 75
+        - Healt: 20
           Speed: 0.5
           EarnedGold: 75
           PercentOfDropGem: 20
           EarnGem: 6
+          Damage: 0
           enemySpawnData:
             numberOFEnemy: 1
             percentOfSpawn: 40
@@ -69,6 +72,7 @@ MonoBehaviour:
           Interval: 0.5
           defenderSpawnData:
             TotalCountOfDefender: 1
+    FailAmount: 2
   - EnemyData:
       enemies:
         m_Keys: 000000000100000002000000
@@ -78,6 +82,7 @@ MonoBehaviour:
           EarnedGold: 0
           PercentOfDropGem: 0
           EarnGem: 0
+          Damage: 0
           enemySpawnData:
             numberOFEnemy: 5
             percentOfSpawn: 0
@@ -86,6 +91,7 @@ MonoBehaviour:
           EarnedGold: 0
           PercentOfDropGem: 0
           EarnGem: 0
+          Damage: 0
           enemySpawnData:
             numberOFEnemy: 3
             percentOfSpawn: 0
@@ -94,6 +100,7 @@ MonoBehaviour:
           EarnedGold: 0
           PercentOfDropGem: 0
           EarnGem: 0
+          Damage: 0
           enemySpawnData:
             numberOFEnemy: 5
             percentOfSpawn: 0
@@ -125,6 +132,7 @@ MonoBehaviour:
           Interval: 0
           defenderSpawnData:
             TotalCountOfDefender: 0
+    FailAmount: 3
   - EnemyData:
       enemies:
         m_Keys: 000000000100000002000000
@@ -134,6 +142,7 @@ MonoBehaviour:
           EarnedGold: 0
           PercentOfDropGem: 0
           EarnGem: 0
+          Damage: 0
           enemySpawnData:
             numberOFEnemy: 7
             percentOfSpawn: 0
@@ -142,6 +151,7 @@ MonoBehaviour:
           EarnedGold: 0
           PercentOfDropGem: 0
           EarnGem: 0
+          Damage: 0
           enemySpawnData:
             numberOFEnemy: 3
             percentOfSpawn: 0
@@ -150,6 +160,7 @@ MonoBehaviour:
           EarnedGold: 0
           PercentOfDropGem: 0
           EarnGem: 0
+          Damage: 0
           enemySpawnData:
             numberOFEnemy: 5
             percentOfSpawn: 0
@@ -181,3 +192,4 @@ MonoBehaviour:
           Interval: 0
           defenderSpawnData:
             TotalCountOfDefender: 0
+    FailAmount: 5

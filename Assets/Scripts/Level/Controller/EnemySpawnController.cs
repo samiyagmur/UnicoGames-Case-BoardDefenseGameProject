@@ -11,20 +11,21 @@ namespace Controller
 {
     public class EnemySpawnController : MonoBehaviour,IPullObject
     {
-        private Dictionary<EnemyType, EnemyCharacterData> _characterData;
+        private Dictionary<EnemyType, EnemyCharacterData> characterData;
+
         [SerializeField]
         private List<Vector3> spawnPoints=new List<Vector3>();
 
         [SerializeField]
-        private List<EnemyType> willSpawnEnemy = new List<EnemyType>();
+        private List<EnemyType> willSpawnEnemyList = new List<EnemyType>();
+
 
         private EnemySpawnData _enemyspawndata;
-        private float _timer;
-        private int count;
+        private int _spawnedCount;
 
         internal  void SetData(Dictionary<EnemyType, EnemyCharacterData> enemySpawnData)
         {
-            _characterData = enemySpawnData;
+            this.characterData = enemySpawnData;
 
             StackSpawnedEnemyAsType();
         }
@@ -33,19 +34,18 @@ namespace Controller
         {
 
             
-            for (int i=0; i < _characterData.Count ;i++)
+            for (int i=0; i < characterData.Count ;i++)
             {
-                _enemyspawndata =_characterData[(EnemyType)i].enemySpawnData;
+                _enemyspawndata =characterData[(EnemyType)i].enemySpawnData;
 
                 for (int j = 0 ; j < _enemyspawndata.numberOFEnemy; j++)
                 {
-                   willSpawnEnemy.Add((EnemyType)i);//prometreus//permetreus//prometreus
-                 
+                   willSpawnEnemyList.Add((EnemyType)i);//prometreus//permetreus//prometreus
                 }
                 
             }
-
-            while (willSpawnEnemy.Count!=0)
+            _spawnedCount = willSpawnEnemyList.Count;
+            while (willSpawnEnemyList.Count!=0)
             {
                 await Task.Delay(500);
                 ArangePosibltyOFWillSpawnObject();
@@ -54,28 +54,26 @@ namespace Controller
 
 
         private  void ArangePosibltyOFWillSpawnObject()
-        {   
+        {
 
-            if (willSpawnEnemy.Count <= 0) return;
+            if (willSpawnEnemyList.Count <= 0) return;
 
+            int selectRandomEnemy = Random.Range(0, characterData.Count);
 
+            int percentage = Random.Range(0, 100);
 
-            int selectRandomEnemy = Random.Range(0, _characterData.Count);
+            if (!willSpawnEnemyList.Contains((EnemyType)selectRandomEnemy))return ;
 
-            int persentace = Random.Range(0, 100);
-
-            if (!willSpawnEnemy.Contains((EnemyType)selectRandomEnemy))return;
-
-            if (persentace < _characterData[(EnemyType)selectRandomEnemy].enemySpawnData.percentOfSpawn)
+            if (percentage < characterData[(EnemyType)selectRandomEnemy].enemySpawnData.percentOfSpawn)
             {
-             
-              
                 SpawnEnemy((EnemyType)selectRandomEnemy);
-      
-                willSpawnEnemy.Remove((EnemyType)selectRandomEnemy);
+
+                willSpawnEnemyList.Remove((EnemyType)selectRandomEnemy);
  
-                willSpawnEnemy.TrimExcess();
+                willSpawnEnemyList.TrimExcess();
             }
+
+            
         }
 
         internal void SetSpawnPoint(List<GridElements> levelGridElementList)
@@ -93,22 +91,20 @@ namespace Controller
             {
                 if (i >= (((_totalGridHeigh/ scaleX) - 1) * (_totalGridWeight/ scaleY)))
                 {
-                    spawnPoints.Add(new Vector3(levelGridElementList[i].Width,
-                            gridElementScaleYAxis/2+0.31f, levelGridElementList[i].Height));
+                    spawnPoints.Add(new Vector3(levelGridElementList[i]._gridElement.transform.position.x,
+                                                levelGridElementList[i]._gridElement.transform.position.y + 
+                                                levelGridElementList[i]._gridElement.transform.localScale.y/2 +0.31f, 
+                                                levelGridElementList[i]._gridElement.transform.position.z));
                 }
             }
 
         }
 
-
         private void SpawnEnemy(EnemyType type)
         {
-  
-
             int randomSpawnPoint = Random.Range(0, spawnPoints.Count);
 
             GameObject willSpawnEnemy = PullFromPool((PoolObjectType)(int)type);
-
 
             willSpawnEnemy.transform.position = spawnPoints[randomSpawnPoint];
 
@@ -118,6 +114,12 @@ namespace Controller
         {
             return PoolSignals.Instance.onGetObjectFromPool?.Invoke(poolObjectType);
         }
+
+        public int SpawnObjectCount()
+        {
+            return _spawnedCount;
+        }
+
 
     }
 }

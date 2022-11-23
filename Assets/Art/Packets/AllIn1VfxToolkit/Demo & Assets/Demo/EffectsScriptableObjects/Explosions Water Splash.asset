@@ -10,21 +10,21 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 68c1d07ca14386b448937146f73392cb, type: 3}
-  m_Name: Shields Water
+  m_Name: Explosions Water Splash
   m_EditorClassIdentifier: 
-  onlyOneAtATime: 1
-  canBePlayedAgain: 0
-  randomSpreadRadius: 0
+  onlyOneAtATime: 0
+  canBePlayedAgain: 1
+  randomSpreadRadius: 2
+  cooldown: 0
   isShootProjectile: 0
-  effectPrefab: {fileID: 5950102653247709576, guid: 862784398b0561347ac1540ebfa9cf4c,
-    type: 3}
+  effectPrefab: {fileID: 5270293092982160256, guid: 31b7e818b1c9ab8458e851630289e0d5, type: 3}
   spawnTouchingFloor: 1
   projectileSpeed: 15
   projectilePrefab: {fileID: 0}
   muzzleFlashPrefab: {fileID: 0}
   impactPrefab: {fileID: 0}
-  doCameraShake: 0
-  mainEffectShakeAmount: 1
+  doCameraShake: 1
+  mainEffectShakeAmount: 0.05
   projectileImpactShakeAmount: 1
-  positionOffset: {x: 0, y: 0.3, z: 0}
-  scaleMultiplier: 0.6
+  positionOffset: {x: 0, y: 0, z: 0}
+  scaleMultiplier: 2

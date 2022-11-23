@@ -25,10 +25,7 @@ namespace Manager
 
         private const string _dataPath = "Data/Cd_CameraData";
 
-        private void Awake()
-        {
-            Init();
-        }
+        private void Awake() => Init();
 
         private void Init()
         {

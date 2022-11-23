@@ -5,6 +5,7 @@ using Type;
 using Data.ValueObject;
 using Data.UnityObject;
 using System;
+using Signals;
 
 namespace Manager
 {
@@ -15,29 +16,36 @@ namespace Manager
 
         [SerializeField]
         public WeaponAtackController atackController;
+        [SerializeField]
+        private DefanderType _defanderType;
 
         private bool _ısStartAttack;
 
-
-        public const string _dataPath = "Data/Cd_LevelData";
-        private int _levelID;
-        private DefanderType _defanderType;
-
-        public bool IsStartAttack { get; private set; }
-
-        private void Start()
+        private void OnLevelInitilize(LevelData leveldata)
         {
-            Init();
+            Init(leveldata);
         }
 
-        private void Init()
+        private void Init(LevelData leveldata)
         {
-       
-            atackController.SetData(GetData().DefanderCharacterData);
+            atackController.SetData(leveldata.DefanderData.DefanderCharacterData[_defanderType]);
         }
 
-        private DefanderData GetData() => Resources.Load<Cd_LevelData>(_dataPath).LevelData[_levelID].DefanderData;
+        private void OnEnable() => SubscribeEvents();
 
+        private void SubscribeEvents()
+        {
+            CoreGameSignals.Instance.onGetLevelData += OnLevelInitilize;
+
+        }
+
+        private void UnsubscribeEvents()
+        {
+            CoreGameSignals.Instance.onGetLevelData -= OnLevelInitilize;
+
+        }
+
+        private void OnDisable() => UnsubscribeEvents();
         internal void WhenHitEnemy(GameObject gameObject)
         {
 
@@ -45,10 +53,9 @@ namespace Manager
             _ısStartAttack = true;
         }
 
-        internal void WhenEnterDetectArea(DefanderType defanderType)
+        internal void WhenEnterDetectArea()
         {
-            _defanderType = defanderType;
-            atackController.StartAtack( defanderType, _ısStartAttack);
+            atackController.StartAtack( _ısStartAttack);
         }
 
     }

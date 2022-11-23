@@ -21,12 +21,8 @@ namespace Controller
         [ShowInInspector]
         private Stack<GameObject> spawnDefenderList = new Stack<GameObject>();
 
-
         [SerializeField]
-        private List<GameObject> selectableGridElementList;
-
-        private Vector3 plantPoint;
-
+        private List<GameObject> gridElements;
 
         private RaycastHit _hitObj;
 
@@ -36,13 +32,7 @@ namespace Controller
         }
         internal void SelectableGridElement(List<GridElements> gridElements)
         {
-            for (int i = 0; i < gridElements.Count; i++)
-            {
-                if (gridElements[i].gridElementStatus == GridElementStatus.Selectable)
-                {
-                    selectableGridElementList.Add(gridElements[i]._gridElement);
-                }
-            }
+            //this.gridElements = gridElements;
         }
 
 
@@ -52,14 +42,10 @@ namespace Controller
 
             if (spawnDefenderList.Count == 0) return;
 
-           
-
             if (_setSpawnDefender == null) return;
 
             if (hitObj.transform.CompareTag("GridElement") )
             {
-                
-                
                 spawnDefenderList.Peek().transform.position = new Vector3(hitObj.transform.position.x, 
                                                           hitObj.point.y + spawnDefenderList.Peek().transform.localScale.y, 
                                                           hitObj.transform.position.z);
@@ -76,13 +62,13 @@ namespace Controller
         internal void ChosePlantPoint()
         {
 
-            if (selectableGridElementList.Contains(_hitObj.transform.gameObject))
+            if (gridElements.Contains(_hitObj.transform.gameObject))
             {
                 if (spawnDefenderList.Count == 0) return;
 
                 spawnDefenderList.Peek().transform.position += new Vector3(0, 0, 0);
 
-                selectableGridElementList.Remove(_hitObj.transform.gameObject);
+                gridElements.Remove(_hitObj.transform.gameObject);
 
                 spawnDefenderList.Pop();
 

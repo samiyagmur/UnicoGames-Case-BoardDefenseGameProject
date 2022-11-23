@@ -1,5 +1,6 @@
 ﻿using Controller;
 using Extantions;
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -9,7 +10,7 @@ namespace Signals
 {
     public class EnemySignals : MonoSingleton<EnemySignals>
     {
-        public UnityAction<List<GridElements>> onLevelInitilize = delegate { };
+        public UnityAction<List<GridElements>> onLevelInit = delegate { };
 
         public UnityAction onPlay = delegate { };
 
@@ -22,6 +23,11 @@ namespace Signals
         public UnityAction onReset = delegate { };
 
         public UnityAction onNextLevel = delegate { };
+
+        public UnityAction onEnemyDeadFromDefander = delegate {  };
+
+        public UnityAction onDeadEnemy = delegate { };
+
 
     }
 }

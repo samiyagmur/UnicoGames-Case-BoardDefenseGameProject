@@ -12,30 +12,27 @@ namespace Controller
 {
     public class WeaponAtackController : MonoBehaviour, IPullObject
     {
-        private SerializedDictionary<DefanderType, DefanderCharacterData> _defanderCharacterData;
+        private DefanderCharacterData _defanderCharacterData;
 
         private bool _ısStartAttack;
 
         private Rigidbody _rigidbody;
 
         private float _timer=0.5f;
-        private DefanderType _defanderType;
         private PoolObjectType poolObjectType;
 
-        internal void SetData(SerializedDictionary<DefanderType, DefanderCharacterData> defanderCharacterData)
+        internal void SetData(DefanderCharacterData defanderCharacterData)
         {
             _defanderCharacterData = defanderCharacterData;
         }
 
-        internal void StartAtack(DefanderType defanderType, bool ısStartAttack)
+        internal void StartAtack(bool ısStartAttack)
         {
-            _defanderType = defanderType;
-
             if (gameObject == null) return;
 
             _ısStartAttack = ısStartAttack;
 
-            poolObjectType = (PoolObjectType)(int)_defanderCharacterData[defanderType].bulletType;
+            poolObjectType = (PoolObjectType)(int)_defanderCharacterData.bulletType;
         }
 
         private void FixedUpdate()
@@ -48,7 +45,7 @@ namespace Controller
                 if (_timer < 0)
                 {
                      Fire();
-                    _timer = _defanderCharacterData[_defanderType].Interval;
+                    _timer = _defanderCharacterData.Interval;
                 }
             }
         }
@@ -71,7 +68,7 @@ namespace Controller
 
         public int GetPowerToDefender()
         {
-            return _defanderCharacterData[_defanderType].Damage;
+            return _defanderCharacterData.Damage;
         }
 
 

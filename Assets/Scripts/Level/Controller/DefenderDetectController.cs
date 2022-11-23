@@ -9,9 +9,6 @@ namespace Controller
     {
         [SerializeField]
         private DefanderManager defanderManager;
-        [SerializeField]
-        private DefanderType defanderType;
-
 
         private void OnTriggerEnter(Collider other)
         {
@@ -19,7 +16,7 @@ namespace Controller
             {
 
                 defanderManager.WhenHitEnemy(other.gameObject);
-                defanderManager.WhenEnterDetectArea(defanderType);
+                defanderManager.WhenEnterDetectArea();
             }
         }
 

@@ -11,5 +11,9 @@ namespace Data.ValueObject
         public EnemyData EnemyData;
         [BoxGroup("DefanderData", centerLabel: true)]
         public DefanderData DefanderData;
+
+        [BoxGroup("DefanderData", centerLabel: true)]
+        public int FailAmount;
+
     }
 }

@@ -61,8 +61,9 @@ namespace Controller
         }
         internal void InitLevelID(int levelID)
         {
-            startPanelassignments.CurrentLevel.text= levelID.ToString();
-            startPanelassignments.CurrentLevel.text = (levelID+1).ToString();
+
+            startPanelassignments.CurrentLevel.text= (levelID + 1).ToString();
+            startPanelassignments.NextLevel.text = (levelID+2).ToString();
         }
         private void InitButton()
         {

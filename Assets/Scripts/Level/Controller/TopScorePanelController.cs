@@ -53,7 +53,6 @@ namespace Controller
 
         internal void SetTopScore(List<RankedScore> value)
         {
-            Debug.Log("ss");
             
             for (int i = 0; i < value.Count; i++)
             {

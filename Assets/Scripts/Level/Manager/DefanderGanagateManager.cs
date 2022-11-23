@@ -15,61 +15,48 @@ namespace Manager
         [SerializeField]
         public DefanderSpawnController spawnController;
 
-
-
-        public const string _dataPath= "Data/Cd_LevelData";
-        private int _levelID;
-
-        public bool IsStartAttack { get; private set; }
-
-        private void Start()
+        private void OnLevelInitilize(LevelData levelData)
         {
-            Init();
+            Init(levelData);
         }
 
-
-        private void Init()
+        private void Init(LevelData levelData)
         {
-            spawnController.SetData(GetData().DefanderCharacterData);
-            InitDefenderCount();
-        }
-        private void InitDefenderCount()
-        {
-            CoreGameSignals.Instance.onInitDefenderInfo?.Invoke(GetData());
+            spawnController.SetData(levelData.DefanderData.DefanderCharacterData);
+            InitDefenderCount(levelData);
         }
 
-        private DefanderData GetData() => Resources.Load<Cd_LevelData>(_dataPath).LevelData[_levelID].DefanderData;
+        private void InitDefenderCount(LevelData levelData)
+        {
+            CoreGameSignals.Instance.onInitDefenderInfo?.Invoke(levelData.DefanderData);
+        }
+
 
         private void OnEnable() => SubscribeEvents();
 
         private void SubscribeEvents()
         {
-            CoreGameSignals.Instance.onLevelInitilize += OnLevelInitilize;
+            CoreGameSignals.Instance.onGetLevelData += OnLevelInitilize;
             CoreGameSignals.Instance.onClickCharacterButton += OnClickCharacterButton;
+            CoreGameSignals.Instance.onReset += OnReset;
             InputSignals.Instance.onInputTouch += OnInputTouch;
             InputSignals.Instance.onDragMouse += OnDragMause;
-            InputSignals.Instance.onInputReleased += OnInputReleased;
-            SelectSignals.Instance.onSelectedGrid += onSelectedGrid;
+            SelectSignals.Instance.onSelectedGrid += OnSelectedGrid;
 
         }
 
-
         private void UnsubscribeEvents()
         {
-            CoreGameSignals.Instance.onLevelInitilize -= OnLevelInitilize;
+            CoreGameSignals.Instance.onGetLevelData -= OnLevelInitilize;
             CoreGameSignals.Instance.onClickCharacterButton -= OnClickCharacterButton;
+            CoreGameSignals.Instance.onReset -= OnReset;
             InputSignals.Instance.onInputTouch -= OnInputTouch;
-            InputSignals.Instance.onDragMouse += OnDragMause;
-            InputSignals.Instance.onInputReleased -= OnInputReleased;
-            SelectSignals.Instance.onSelectedGrid += onSelectedGrid;
+            InputSignals.Instance.onDragMouse -= OnDragMause;
+            SelectSignals.Instance.onSelectedGrid -= OnSelectedGrid;
         }
 
         private void OnDisable() => UnsubscribeEvents();
 
-        private void OnLevelInitilize(int levelID)
-        {
-            _levelID = levelID;
-        }
 
         private void OnClickCharacterButton(DefanderType value)
         {
@@ -84,14 +71,15 @@ namespace Manager
         {
             spawnController.ChosePlantPoint();
         }
-        private void OnInputReleased()
-        {
-           // spawnController.PlantDefender();
-        }
 
-        private void onSelectedGrid(List<GridElements> gridElements)
+        private void OnSelectedGrid(List<GridElements> gridElements)
         {
             spawnController.SelectableGridElement(gridElements);
+        }
+
+        private void OnReset()
+        {
+            
         }
 
     }

@@ -65,7 +65,7 @@
         _AlphaCutoffValue("Alpha cutoff value", Range(0, 1)) = 0.25 //52
         _AlphaStepMin("Smoothstep Min", Range(0, 1)) = 0.0 //53
         _AlphaStepMax("Smoothstep Max", Range(0, 1)) = 0.075 //54
-        _AlphaFadeAmount("Fade Amount", Range(-0.1, 1)) = -0.1 //55
+        _AlphaFadeAmount("Fade Amount", Range(-0.1, z)) = -0.1 //55
         _AlphaFadeSmooth("Fade Transition", Range(0.0, 1.5)) = 0.075 //56
         _AlphaFadePow("Fade Power", Range(0.001, 10)) = 1 //57
     	

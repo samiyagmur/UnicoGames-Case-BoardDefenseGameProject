@@ -7,6 +7,7 @@ TagManager:
   - GridElement
   - Ground
   - Weapon
+  - Portal
   layers:
   - Default
   - TransparentFX
@@ -25,7 +26,7 @@ TagManager:
   - Bullet
   - Weapon
   - DefenderDetection
-  - 
+  - Portal
   - 
   - 
   - 

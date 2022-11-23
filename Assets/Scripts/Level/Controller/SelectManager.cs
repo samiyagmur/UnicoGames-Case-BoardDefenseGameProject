@@ -43,28 +43,19 @@ namespace Controller
         private void OnDisable() => UnsubscribeEvents();
         private void OnDragMouse(RaycastHit hit)
         {
-            if (SelectableGridElementList.Contains(hit.transform.gameObject))
+            if (SelectableGridElementList.Contains(hit.transform.gameObject)) 
             {
-                if (hit.transform.gameObject == null) return;
-
-                if (_hitObj != hit.transform.gameObject)
-                {
-
-                    UnClick(_hitObj);
-                }
+                if (_hitObj != hit.transform.gameObject) UnClick(_hitObj); 
 
                 _hitObj = hit.transform.gameObject;
 
-                Click(hit.transform.gameObject);
+                Click();
             }
             else
             {
                 UnClick(_hitObj);
             }
-            if (hit.transform.CompareTag("Ground"))
-            {
-                UnClick(_hitObj);
-            }
+            
         }
 
         private void onSelectedGrid(List<GridElements> gridElements)
@@ -78,11 +69,9 @@ namespace Controller
             }
         }
 
-        private void Click(GameObject hitObj)
+        private void Click()
         {
-            selectedObjectMeshController.TurnOnLight(hitObj);
-            selectedObjectMeshController.MoveToTop(hitObj);
-
+            selectedObjectMeshController.TurnOnLight(_hitObj);
         }
 
         private void UnClick(GameObject hitObj)
@@ -90,9 +79,6 @@ namespace Controller
             if(hitObj == null) return;
 
             selectedObjectMeshController.TurnOffLight(hitObj);
-            selectedObjectMeshController.GetBackPositon(hitObj);
-     
-
         }
 
         private void OnInputTouch()
