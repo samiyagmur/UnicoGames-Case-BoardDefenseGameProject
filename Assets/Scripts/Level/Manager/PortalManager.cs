@@ -25,12 +25,14 @@ namespace Manager
         private void SubscribeEvents()
         {
             CoreGameSignals.Instance.onGetLevelData += OnLevelInitilize;
+            CoreGameSignals.Instance.onReset += OnReset;
 
         }
 
         private void UnsubscribeEvents()
         {
             CoreGameSignals.Instance.onGetLevelData -= OnLevelInitilize;
+            CoreGameSignals.Instance.onReset -= OnReset;
         }
         private void OnDisable() => UnsubscribeEvents();
 
@@ -38,7 +40,16 @@ namespace Manager
         { 
             _numberOfPasses++;
             if (_numberOfPasses == _levelData.FailAmount) CoreGameSignals.Instance.onFail?.Invoke();
+
+
+            EnemySignals.Instance.onPassEnemyFromPortal?.Invoke();
         }
+
+        private void OnReset()
+        {
+            _numberOfPasses = 0;
+        }
+
 
     }
 }

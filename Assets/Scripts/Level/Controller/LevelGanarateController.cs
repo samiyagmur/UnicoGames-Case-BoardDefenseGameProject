@@ -12,18 +12,19 @@ using Type;
 namespace Controller
 {
    
-    [Serializable]
-    public class GridElements
-    {
-        public GameObject _gridElement;
-        public Material Material;
-        public float Height;
-        public float Width;
-        public float TotalHeight;
-        public float TotalWeight;
-        public Vector3 Scale;
-        public GridElementStatus gridElementStatus;
-    }
+    //[Serializable]
+    //public class GridElements
+    //{
+    //    public GameObject _gridElement;
+    //    public Material Material;
+    //    public float Height;
+    //    public float Width;
+    //    public float TotalHeight;
+    //    public float TotalWeight;
+    //    public Vector3 Scale;
+    //    public GridElementStatus GridElementStatus;
+    //    public GridData LevelGanarateData;
+    //}
 
     [ExecuteInEditMode]
     public class LevelGanarater :OdinEditorWindow
@@ -34,10 +35,7 @@ namespace Controller
             GetWindow<LevelGanarater>().Show();
         }
 
-        //[SerializeField]
-        //private List<GameObject> newGrid;
-
-        private LevelGanarateData _levelGanarateData;
+        private GridData _gridData;
 
 
         [BoxGroup("LevelEditor",centerLabel:true)]
@@ -67,7 +65,7 @@ namespace Controller
             
             counter = 0;
 
-            _levelGanarateData = cdLeveGanaraterData.LevelGanarateData;
+            _gridData = cdLeveGanaraterData.LevelGanarateData.gridData;
 
             GanerateGrid();
 
@@ -85,11 +83,12 @@ namespace Controller
 
             generatedLevelController.NewGrid = new List<GridElements>();
 
-            _scaleX = _levelGanarateData.gridData.scale.x;
-            _scaleZ = _levelGanarateData.gridData.scale.z;
+           
+            _scaleX = _gridData.scale.x;
+            _scaleZ = _gridData.scale.z;
 
-            _totalWeigt = _levelGanarateData.gridData.Width * _scaleX;
-            _totalHeigh = _levelGanarateData.gridData.Height * _scaleZ;
+            _totalWeigt = _gridData.Width * _scaleX;
+            _totalHeigh = _gridData.Height * _scaleZ;
 
             
 
@@ -99,21 +98,21 @@ namespace Controller
                 {
                     generatedLevelController.NewGrid.Add(new GridElements());
 
-                    generatedLevelController.NewGrid[counter]._gridElement = GameObject.CreatePrimitive(PrimitiveType.Cube);
+                    generatedLevelController.NewGrid[counter].GridElement = GameObject.CreatePrimitive(PrimitiveType.Cube);
 
-                    generatedLevelController.NewGrid[counter]._gridElement.transform.SetParent(levelPrefab.transform);
+                    generatedLevelController.NewGrid[counter].GridElement.transform.SetParent(levelPrefab.transform);
 
-                    generatedLevelController.NewGrid[counter]._gridElement.transform.localScale = new Vector3(_scaleX,1, _scaleZ);
+                    generatedLevelController.NewGrid[counter].GridElement.transform.localScale = new Vector3(_scaleX,1, _scaleZ);
 
                     generatedLevelController.NewGrid[counter].Scale = new Vector3(_scaleX, 1, _scaleZ);
 
-                    generatedLevelController.NewGrid[counter]._gridElement.tag = "GridElement";
+                    generatedLevelController.NewGrid[counter].GridElement.tag = "GridElement";
 
-                    generatedLevelController.NewGrid[counter]._gridElement.layer =LayerMask.NameToLayer("GridElement");
+                    generatedLevelController.NewGrid[counter].GridElement.layer =LayerMask.NameToLayer("GridElement");
 
-                    generatedLevelController.NewGrid[counter].Height = h;
+                    //generatedLevelController.NewGrid[counter].Height = h;
 
-                    generatedLevelController.NewGrid[counter].Width = v;
+                    //generatedLevelController.NewGrid[counter].Width = v;
 
                     generatedLevelController.NewGrid[counter].TotalHeight = _totalHeigh;
 
@@ -121,13 +120,13 @@ namespace Controller
 
                     generatedLevelController.NewGrid[counter].Material = SelectedMaterial;
 
-                    if (counter < (_levelGanarateData.gridData.Height* _levelGanarateData.gridData.Width)/2)
+                    if (counter < (_gridData.Height* _gridData.Width)/2)
                     {
-                        generatedLevelController.NewGrid[counter].gridElementStatus = GridElementStatus.Selectable;
+                        generatedLevelController.NewGrid[counter].GridElement.tag = "GridElement"; 
                     }
                     else
                     {
-                        generatedLevelController.NewGrid[counter].gridElementStatus = GridElementStatus.UnSelectable;
+                        generatedLevelController.NewGrid[counter].GridElement.tag = "GridUnSelectable"; 
                     }
 
 
@@ -135,17 +134,19 @@ namespace Controller
 
                     Vector3 gridPos = new Vector3(v - xOffset- (_totalWeigt / 2)+0.5f, 0,h - yOffset);
 
-                    generatedLevelController.NewGrid[counter]._gridElement.transform.position = gridPos;
+                    generatedLevelController.NewGrid[counter].GridElement.transform.position = gridPos;
 
                     counter++;
                   
-                    xOffset += _levelGanarateData.gridData.HorizontalOffset;
+                    xOffset += _gridData.HorizontalOffset;
                 }
 
                 xOffset = 0;
 
-                yOffset += _levelGanarateData.gridData.VerticalOffset;
+                yOffset += _gridData.VerticalOffset;
             }
+
+            Debug.Log(generatedLevelController.NewGrid.Count);
 
             CreatePrefabs(levelPrefab);
             _levelID++;

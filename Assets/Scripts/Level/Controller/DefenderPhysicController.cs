@@ -12,7 +12,11 @@ namespace Controller
 
         private void OnTriggerEnter(Collider other)
         {
-          
+            if (other.CompareTag("GridElement"))
+            {
+                defenderMeneger.WhenDropOnGridElement();
+            }
+            
         }
     }
 }

@@ -8,6 +8,7 @@ TagManager:
   - Ground
   - Weapon
   - Portal
+  - GridUnSelectable
   layers:
   - Default
   - TransparentFX

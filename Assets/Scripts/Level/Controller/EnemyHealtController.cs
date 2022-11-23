@@ -14,7 +14,7 @@ namespace Controller
     public class EnemyHealtController : MonoBehaviour,IPushObject
     {
         private EnemyCharacterData _enemyCharacterData;
-
+        private int _healt;
         [SerializeField]
         private EnemyManager enemyManager;
 
@@ -26,7 +26,9 @@ namespace Controller
         internal void SetData(EnemyCharacterData enemyCharacterData)
         {
             _enemyCharacterData = enemyCharacterData;
-            UpdateHealtText(_enemyCharacterData.Healt);
+
+            _healt = enemyCharacterData.Healt;
+            UpdateHealtText(_healt);
         }
 
         internal void DecreaseHealt(int damage, EnemyType _enemyType)
@@ -36,11 +38,11 @@ namespace Controller
 
         private void UpdateHealt(int damage, EnemyType _enemyType)
         {
-            _enemyCharacterData.Healt +=damage;
+            _healt +=damage;
         
-            UpdateHealtText(_enemyCharacterData.Healt);
+            UpdateHealtText(_healt);
 
-            IsDeadEnemy(_enemyCharacterData.Healt, _enemyType);
+            IsDeadEnemy(_healt, _enemyType);
         }
 
         private void IsDeadEnemy(int healt, EnemyType _enemyType)

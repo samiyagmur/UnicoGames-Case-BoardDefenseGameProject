@@ -1,6 +1,7 @@
 ﻿using Controller;
 using Data.UnityObject;
 using Data.ValueObject;
+using Interfaces;
 using Signals;
 using System;
 using System.Collections;
@@ -10,7 +11,7 @@ using UnityEngine;
 
 namespace Manager
 {
-    public class EnemyManager : MonoBehaviour 
+    public class EnemyManager : MonoBehaviour,IPushObject
     {
         [SerializeField]
         private EnemyHealtController enemyHealtController;
@@ -21,13 +22,21 @@ namespace Manager
         private EnemyType _enemyType;
 
         private LevelData _levelData;
-        private int deadAmountOnPortal;
-        private int _spawnedEnemyCount;
 
-        private void OnLevelInitilize( LevelData levelData)
+
+
+        private void Start()
+        {
+            _levelData = CoreGameSignals.Instance.onGetLevelDataWhenSpawn?.Invoke();
+
+           Init(_levelData);
+        }
+
+        private void OnGetLevelData( LevelData levelData)
         {
             _levelData = levelData;
-            Init(levelData);
+            Init(_levelData);
+            Debug.Log(_levelData.EnemyData.enemies[_enemyType].Healt);
         }
 
         private void Init(LevelData levelData)
@@ -42,21 +51,22 @@ namespace Manager
 
         private void SubscribeEvents()
         {
-            CoreGameSignals.Instance.onGetLevelData += OnLevelInitilize;
+            CoreGameSignals.Instance.onGetLevelData += OnGetLevelData;
+            CoreGameSignals.Instance.onReset+=OnReset;
+
             
         }
 
         private void UnsubscribeEvents()
         {
-            CoreGameSignals.Instance.onGetLevelData -= OnLevelInitilize;
+            CoreGameSignals.Instance.onGetLevelData -= OnGetLevelData;
+            CoreGameSignals.Instance.onReset -= OnReset;
 
         }
 
         private void OnDisable()
         {
             UnsubscribeEvents();
-
-            EnemySignals.Instance.onDeadEnemy?.Invoke();
 
         }
         internal void WhenHitDefender()
@@ -87,5 +97,13 @@ namespace Manager
             return _levelData.EnemyData.enemies[_enemyType].Damage;
         }
 
+        private void OnReset()
+        {
+            PushToPool((PoolObjectType)(int)_enemyType, gameObject);
+        }
+        public void PushToPool(PoolObjectType poolObjectType, GameObject obj)
+        {
+            PoolSignals.Instance.onReleaseObjectFromPool?.Invoke(poolObjectType, obj);
+        }
     }
 }

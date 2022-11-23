@@ -10,5 +10,8 @@ namespace Signals
     {
         public Func<PoolObjectType, GameObject> onGetObjectFromPool = delegate { return null; };
         public UnityAction<PoolObjectType, GameObject> onReleaseObjectFromPool = delegate { };
+        public UnityAction<PoolObjectType, GameObject> onAddNewType = delegate { };
+
+        
     }
 }

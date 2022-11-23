@@ -1,5 +1,6 @@
 ﻿using Data.ValueObject;
 using Extantions;
+using System;
 using System.Collections.Generic;
 using Type;
 using UnityEngine.Events;
@@ -13,6 +14,8 @@ namespace Signals
         public UnityAction<int> onLevelInitilize = delegate { };
 
         public UnityAction<LevelData> onGetLevelData = delegate { };
+
+        public Func<LevelData> onGetLevelDataWhenSpawn = delegate { return null; };
 
         public UnityAction onPlay = delegate { };
 

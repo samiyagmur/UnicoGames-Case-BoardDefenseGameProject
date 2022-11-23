@@ -53,12 +53,14 @@ namespace Extantions
         {
             PoolSignals.Instance.onGetObjectFromPool += OnGetObjcetFromPool;
             PoolSignals.Instance.onReleaseObjectFromPool += OnReleaseObjectFromPool;
+            PoolSignals.Instance.onAddNewType += OnAddNewType;
         }
 
         private void UnsubscribeEvents()
         {
             PoolSignals.Instance.onGetObjectFromPool -= OnGetObjcetFromPool;
             PoolSignals.Instance.onReleaseObjectFromPool -= OnReleaseObjectFromPool;
+            PoolSignals.Instance.onAddNewType -= OnAddNewType;
         }
 
         private void OnDisable() => UnsubscribeEvents();
@@ -88,9 +90,18 @@ namespace Extantions
 
         private void OnReleaseObjectFromPool(PoolObjectType type, GameObject obj)
         {
+            
+
             obj.SetActive(false);
 
             objectPool[type].Enqueue(obj);
+        }
+        private void OnAddNewType(PoolObjectType type, GameObject obj)
+        {
+
+            objectPool[type].Enqueue(obj);
+
+            Debug.Log(objectPool.Count);
         }
     }
 }

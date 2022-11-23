@@ -1,4 +1,5 @@
 ﻿using Interfaces;
+using Manager;
 using Signals;
 using System.Collections;
 using Type;
@@ -8,30 +9,26 @@ namespace Controller
 {
     public class BulletPhysicController : MonoBehaviour,IDemeger
     {
+ 
         [SerializeField]
-        private BulletType bulletType;
-
-        [SerializeField]
-        private PoolObjectType poolObjectType;
+        private BulletManager bulletManager;
         private int defenderPower;
 
         private void OnTriggerEnter(Collider other)
         {
             if (other.TryGetComponent(out EnemyPhysicController enemyPhysicController))
             {
-                PushToPool(poolObjectType, transform.parent.gameObject);
+                PushToPool((PoolObjectType)(int)bulletManager.GetBulutPoolType(), transform.parent.gameObject);
             }
             if (other.TryGetComponent(out WeaponAtackController weaponAtackController))
             {
               defenderPower=  weaponAtackController.GetPowerToDefender();
-
-                
             }
         }
 
         public int GetDamage()
         {
-           return defenderPower * (int)bulletType;
+           return defenderPower * (int)bulletManager.GetBulutPoolType();
         }
 
         public void PushToPool(PoolObjectType poolObjectType, GameObject obj)

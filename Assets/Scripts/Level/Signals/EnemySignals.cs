@@ -26,7 +26,7 @@ namespace Signals
 
         public UnityAction onEnemyDeadFromDefander = delegate {  };
 
-        public UnityAction onDeadEnemy = delegate { };
+        public UnityAction onPassEnemyFromPortal = delegate { };
 
 
     }

@@ -9,32 +9,26 @@ namespace Managers
         private bool _isFirstTouchTaken;
         private bool _isDrag;
 
-        private void Start()
-        {
-            _isFirstTouchTaken = true;
-            _isDrag = true;
-        }
         private void OnEnable() => SubscribeEvents();
 
         private void SubscribeEvents()
         {
             CoreGameSignals.Instance.onPlay += OnPlay;
-            CoreGameSignals.Instance.onFail += OnFail;
             CoreGameSignals.Instance.onReset += OnReset;
+
         }
 
         private void UnsubscribeEvents()
         {
             CoreGameSignals.Instance.onPlay -= OnPlay;
-            CoreGameSignals.Instance.onFail -= OnFail;
             CoreGameSignals.Instance.onReset -= OnReset;
+
         }
 
         private void OnDisable() => UnsubscribeEvents();
 
         private void Update()
         {
-            
             if (_isDrag)
             {
                 Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
@@ -46,7 +40,6 @@ namespace Managers
                 {
                     InputSignals.Instance.onDragMouse?.Invoke(hit);
                 }
-
             }
             if (_isFirstTouchTaken)
             {
@@ -57,21 +50,20 @@ namespace Managers
             }
 
         }
-         private void OnPlay() => StartToInput();
+        private void OnPlay() => StartToInput();
 
-        private void OnFail() => StopToInput();
+        private void OnReset() => StopToInput();
 
-
-        private void OnReset()
+        private void StartToInput()
         {
-            throw new NotImplementedException();
+            _isFirstTouchTaken = true;
+            _isDrag = true;
         }
 
-
-        private void StartToInput() => _isFirstTouchTaken = true;
-
-        private void StopToInput() => _isFirstTouchTaken = false;
-
-
+        private void StopToInput()
+        {
+            _isFirstTouchTaken = true;
+            _isDrag = true;
+        }
     }
 }

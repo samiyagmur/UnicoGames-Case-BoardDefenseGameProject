@@ -9,8 +9,11 @@ namespace Controller
     {
         [SerializeField]
         private new  Rigidbody rigidbody;
+
         private Vector3 velocity;
+
         private EnemyCharacterData _enemyCharacterData;
+
         private bool IsMoving;
 
         internal void SetData(EnemyCharacterData enemyCharacterData)

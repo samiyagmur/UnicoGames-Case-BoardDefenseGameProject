@@ -28,7 +28,7 @@ namespace Managers
         private void OnEnable()
         {
             SubscribeEvents();
-            Init();
+          
         }
 
         private void SubscribeEvents()
@@ -37,7 +37,8 @@ namespace Managers
             CoreGameSignals.Instance.onFail += OnFail;
             CoreGameSignals.Instance.onLevelSuccessfull += OnLevelSuccessfull;
             CoreGameSignals.Instance.onClearActiveLevel += OnClearActiveLevel;
-            CoreGameSignals.Instance.onNextLevel += OnNextLevel; 
+            CoreGameSignals.Instance.onNextLevel += OnNextLevel;
+            CoreGameSignals.Instance.onGetLevelDataWhenSpawn += OnGetLevelDataWhenSpawn;
         }
 
         private void UnsubscribeEvents()
@@ -47,44 +48,67 @@ namespace Managers
             CoreGameSignals.Instance.onLevelSuccessfull -= OnLevelSuccessfull;
             CoreGameSignals.Instance.onClearActiveLevel -= OnClearActiveLevel;
             CoreGameSignals.Instance.onNextLevel -= OnNextLevel;
+            CoreGameSignals.Instance.onGetLevelDataWhenSpawn -= OnGetLevelDataWhenSpawn;
         }
         private void OnDisable() => UnsubscribeEvents();
-        private void Init()
+
+        private void Start()
         {
-            
+            Init();
+        }
+        private void Init()
+        {  
+            CoreGameSignals.Instance.onLevelInitilize(_levelID);
+
             CoreGameSignals.Instance.onGetLevelData?.Invoke(GetData());
 
-            CoreGameSignals.Instance.onLevelInitilize(_levelID);
 
         }
 
         private void OnLevelInitilize(int levelID)
         {
             levelLoaderCommand.InsitializeLevel(levelID, levelholder);
-           
+            Debug.Log("OnLevelInitilize");
         }
 
         private void OnFail()
         {
+            Debug.Log("OnFail");
             CoreGameSignals.Instance.onReset?.Invoke();
         }
 
         private void OnLevelSuccessfull()
         {
-            CoreGameSignals.Instance.onNextLevel?.Invoke();
+            Debug.Log("OnLevelSuccessfull");
+            CoreGameSignals.Instance.onClearActiveLevel?.Invoke();
+           
+     
+        }
+
+        private void OnClearActiveLevel()
+        {
+            Debug.Log("OnClearActiveLevel");
+            clearActiveLevelCommand.ClearActiveLevel(levelholder);
+            CoreGameSignals.Instance.onReset?.Invoke();
+            
+
+            
         }
         private void OnNextLevel()
         {
+            Debug.Log("OnNextLevel");
             _levelID++;
-            CoreGameSignals.Instance.onClearActiveLevel?.Invoke();
-        }
-        private void OnClearActiveLevel()
-        {
-            clearActiveLevelCommand.ClearActiveLevel(levelholder);
-            CoreGameSignals.Instance.onReset?.Invoke();
             CoreGameSignals.Instance.onGetLevelData?.Invoke(GetData());
-            
+            CoreGameSignals.Instance.onLevelInitilize(_levelID);
+            CoreGameSignals.Instance.onPlay?.Invoke();
+
         }
+
+        private LevelData OnGetLevelDataWhenSpawn()
+        {
+            return GetData();
+        }
+
 
     }
 }

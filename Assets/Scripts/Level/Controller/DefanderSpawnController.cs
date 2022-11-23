@@ -15,14 +15,13 @@ namespace Controller
     public class DefanderSpawnController : MonoBehaviour, IPullObject
     {
         private SerializedDictionary<DefanderType, DefanderCharacterData> _defanderCharacterData;
-
+        private DefanderType _defanderType;
         private GameObject _setSpawnDefender;
 
-        [ShowInInspector]
+        [SerializeField]
         private Stack<GameObject> spawnDefenderList = new Stack<GameObject>();
 
-        [SerializeField]
-        private List<GameObject> gridElements;
+
 
         private RaycastHit _hitObj;
 
@@ -30,12 +29,6 @@ namespace Controller
         {
             _defanderCharacterData = defanderCharacterData;
         }
-        internal void SelectableGridElement(List<GridElements> gridElements)
-        {
-            //this.gridElements = gridElements;
-        }
-
-
         internal void SetSpawnPoint(RaycastHit hitObj)
         {
             _hitObj = hitObj;
@@ -47,46 +40,50 @@ namespace Controller
             if (hitObj.transform.CompareTag("GridElement") )
             {
                 spawnDefenderList.Peek().transform.position = new Vector3(hitObj.transform.position.x, 
-                                                          hitObj.point.y + spawnDefenderList.Peek().transform.localScale.y, 
+                                                          hitObj.point.y + spawnDefenderList.Peek().transform.localScale.y+1f, 
                                                           hitObj.transform.position.z);
 
             }
             else
             {
                 spawnDefenderList.Peek().transform.position = new Vector3(hitObj.point.x 
-                                                         ,hitObj.point.y + spawnDefenderList.Peek().transform.localScale.y
+                                                         ,hitObj.point.y + spawnDefenderList.Peek().transform.localScale.y+1f
                                                          ,hitObj.point.z);
             }
 
         }
         internal void ChosePlantPoint()
         {
-
-            if (gridElements.Contains(_hitObj.transform.gameObject))
+        
+            if (_hitObj.transform.CompareTag("GridElement"))
             {
                 if (spawnDefenderList.Count == 0) return;
 
                 spawnDefenderList.Peek().transform.position += new Vector3(0, 0, 0);
 
-                gridElements.Remove(_hitObj.transform.gameObject);
-
                 spawnDefenderList.Pop();
 
             }
         }
-        internal void SetSpawnDefenderType(DefanderType value)
+        internal void SetSpawnDefenderType(DefanderType defanderType)
         {
-            _setSpawnDefender = PullFromPool((PoolObjectType)(int)value);
+            _defanderType = defanderType;
 
+            _setSpawnDefender = PullFromPool((PoolObjectType)(int)defanderType);
 
             spawnDefenderList.Push(_setSpawnDefender);
 
+        }
+
+        internal void ResetSpawn()
+        {
+
+         
         }
         public GameObject PullFromPool(PoolObjectType poolObjectType)
         {
             return PoolSignals.Instance.onGetObjectFromPool?.Invoke(poolObjectType);
         }
 
-    
     }
 }

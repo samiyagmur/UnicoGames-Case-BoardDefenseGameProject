@@ -14,32 +14,39 @@ namespace Controller
     {
         private DefanderCharacterData _defanderCharacterData;
 
-        private bool _ısStartAttack;
-
+        private bool _isAttack;
+        private GameObject _gameObject;
         private Rigidbody _rigidbody;
 
         private float _timer=0.5f;
-        private PoolObjectType poolObjectType;
+
+        private PoolObjectType _poolObjectType;
 
         internal void SetData(DefanderCharacterData defanderCharacterData)
         {
             _defanderCharacterData = defanderCharacterData;
         }
 
-        internal void StartAtack(bool ısStartAttack)
+        internal void StartAtack(bool ısStartAttack, GameObject gameObject)
         {
             if (gameObject == null) return;
 
-            _ısStartAttack = ısStartAttack;
+            _isAttack = ısStartAttack;
 
-            poolObjectType = (PoolObjectType)(int)_defanderCharacterData.bulletType;
+            _gameObject = gameObject;
+
+            _poolObjectType = (PoolObjectType)(int)_defanderCharacterData.bulletType;
         }
 
         private void FixedUpdate()
         {
+            if (_gameObject == null) return;
 
-            if (_ısStartAttack)
+            if (!_gameObject.activeInHierarchy) return;
+
+            if (_isAttack)
             {
+                //sphereCollider.radius = 0.1f;
                 _timer -= Time.fixedDeltaTime;
 
                 if (_timer < 0)
@@ -52,7 +59,7 @@ namespace Controller
         private void Fire()
         {
    
-            GameObject chosenBullet = PullFromPool(poolObjectType);///lookagain
+            GameObject chosenBullet = PullFromPool(_poolObjectType);///lookagain
 
             _rigidbody = chosenBullet.GetComponent<Rigidbody>();
 
@@ -71,8 +78,13 @@ namespace Controller
             return _defanderCharacterData.Damage;
         }
 
+        internal void ResetAtack()
+        {
+            _isAttack = false;
+        }
+
 
     }
 
-    
+
 }

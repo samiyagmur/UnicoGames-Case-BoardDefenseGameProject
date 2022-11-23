@@ -9,6 +9,6 @@ namespace Signals
 {
     public class SelectSignals : MonoSingleton<SelectSignals>
     {
-        public UnityAction<List<GridElements>> onSelectedGrid = delegate { };
+        //public UnityAction<List<GridElements>> onSelectedGrid = delegate { };
     }
 }

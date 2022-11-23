@@ -49,3 +49,7 @@ MonoBehaviour:
     poolType: 0
     PoolObject: {fileID: 1833350195234149948, guid: adbd7d5c09a24704fa7339a05a62abc7, type: 3}
     PoolCount: 200
+  - poolObjectType: 9
+    poolType: 0
+    PoolObject: {fileID: 0}
+    PoolCount: 0

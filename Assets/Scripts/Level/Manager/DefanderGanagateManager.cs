@@ -41,7 +41,7 @@ namespace Manager
             CoreGameSignals.Instance.onReset += OnReset;
             InputSignals.Instance.onInputTouch += OnInputTouch;
             InputSignals.Instance.onDragMouse += OnDragMause;
-            SelectSignals.Instance.onSelectedGrid += OnSelectedGrid;
+ 
 
         }
 
@@ -52,7 +52,7 @@ namespace Manager
             CoreGameSignals.Instance.onReset -= OnReset;
             InputSignals.Instance.onInputTouch -= OnInputTouch;
             InputSignals.Instance.onDragMouse -= OnDragMause;
-            SelectSignals.Instance.onSelectedGrid -= OnSelectedGrid;
+
         }
 
         private void OnDisable() => UnsubscribeEvents();
@@ -71,15 +71,9 @@ namespace Manager
         {
             spawnController.ChosePlantPoint();
         }
-
-        private void OnSelectedGrid(List<GridElements> gridElements)
-        {
-            spawnController.SelectableGridElement(gridElements);
-        }
-
         private void OnReset()
         {
-            
+            spawnController.ResetSpawn();
         }
 
     }

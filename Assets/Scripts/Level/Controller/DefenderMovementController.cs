@@ -2,10 +2,13 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using Type;
 using UnityEngine;
 
 namespace Controller
 {
+
+
     public class DefenderMovementController : MonoBehaviour
     {
 
@@ -14,9 +17,10 @@ namespace Controller
         #region Private Variables
 
         [SerializeField]
-        private List<GameObject> _enemyList = new List<GameObject>();
+        private List<GameObject> _enemyDeadList = new List<GameObject>();
 
         private GameObject _botTarget;
+        private DefanderType _defanderType;
 
 
         #endregion Private Variables
@@ -24,13 +28,11 @@ namespace Controller
         #endregion Self Variabels
 
 
-        public void AddDeathList(GameObject enemy)
+        internal void AddDeathList(GameObject enemy, DefanderType defanderType)
         {
-            _enemyList.Add(enemy);
-           
-            // _botTarget = _enemyList.Peek();
+            _defanderType = defanderType;
+            _enemyDeadList.Add(enemy);
         }
-
         public void RemoveDeathList(GameObject gameObject)
         {
             //Debug.Log(gameObject);
@@ -41,24 +43,36 @@ namespace Controller
 
             //_botTarget = _deadList.Peek();
         }
-
-        public void RoteteToEnemy()
+        public GameObject GetTarger()
         {
-            //if (_deadList.Count <= 0) return;
-
-          
+            return _enemyDeadList[0];
         }
+       
+        private void Update()
+        {
+            RotateToEnemy();
+        }
+
+        public void RotateToEnemy()
+        {
+            if (_deadList.Count <= 0) return;
+
+
+
+
+
+
+        }
+
+
 
 
         //internal void RoteteToEnemy()
         //{
-            
+
         //}
-        
-        public GameObject GetTarger()
-        {
-            return _enemyList[0];
-        }
+
+
 
     }
 }

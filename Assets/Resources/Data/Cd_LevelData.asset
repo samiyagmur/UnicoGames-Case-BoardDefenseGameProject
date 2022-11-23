@@ -27,7 +27,7 @@ MonoBehaviour:
             numberOFEnemy: 3
             percentOfSpawn: 30
         - Healt: 20
-          Speed: 0.25
+          Speed: 0.5
           EarnedGold: 125
           PercentOfDropGem: 30
           EarnGem: 10
@@ -36,7 +36,7 @@ MonoBehaviour:
             numberOFEnemy: 1
             percentOfSpawn: 40
         - Healt: 20
-          Speed: 0.5
+          Speed: 0.25
           EarnedGold: 75
           PercentOfDropGem: 20
           EarnGem: 6
@@ -67,7 +67,7 @@ MonoBehaviour:
         - defenderMoveStatus: 0
           bulletType: 8
           Damage: 10
-          Range: 0
+          Range: 16
           Price: 250
           Interval: 0.5
           defenderSpawnData:
@@ -77,119 +77,119 @@ MonoBehaviour:
       enemies:
         m_Keys: 000000000100000002000000
         m_Values:
-        - Healt: 0
-          Speed: 0
-          EarnedGold: 0
-          PercentOfDropGem: 0
-          EarnGem: 0
-          Damage: 0
-          enemySpawnData:
-            numberOFEnemy: 5
-            percentOfSpawn: 0
-        - Healt: 0
-          Speed: 0
-          EarnedGold: 0
-          PercentOfDropGem: 0
-          EarnGem: 0
+        - Healt: 20
+          Speed: 1
+          EarnedGold: 50
+          PercentOfDropGem: 100
+          EarnGem: 4
           Damage: 0
           enemySpawnData:
             numberOFEnemy: 3
-            percentOfSpawn: 0
-        - Healt: 0
-          Speed: 0
-          EarnedGold: 0
-          PercentOfDropGem: 0
-          EarnGem: 0
+            percentOfSpawn: 30
+        - Healt: 20
+          Speed: 0.5
+          EarnedGold: 125
+          PercentOfDropGem: 30
+          EarnGem: 10
           Damage: 0
           enemySpawnData:
-            numberOFEnemy: 5
-            percentOfSpawn: 0
+            numberOFEnemy: 1
+            percentOfSpawn: 40
+        - Healt: 20
+          Speed: 0.25
+          EarnedGold: 75
+          PercentOfDropGem: 20
+          EarnGem: 6
+          Damage: 0
+          enemySpawnData:
+            numberOFEnemy: 1
+            percentOfSpawn: 40
     DefanderData:
       DefanderCharacterData:
         m_Keys: 030000000400000005000000
         m_Values:
         - defenderMoveStatus: 0
           bulletType: 6
-          Damage: 0
-          Range: 0
-          Price: 0
-          Interval: 0
+          Damage: 3
+          Range: 1
+          Price: 100
+          Interval: 0.5
           defenderSpawnData:
-            TotalCountOfDefender: 0
+            TotalCountOfDefender: 3
         - defenderMoveStatus: 0
           bulletType: 7
-          Damage: 0
-          Range: 0
-          Price: 0
-          Interval: 0
+          Damage: 5
+          Range: 2
+          Price: 150
+          Interval: 0.5
           defenderSpawnData:
-            TotalCountOfDefender: 0
+            TotalCountOfDefender: 1
         - defenderMoveStatus: 0
           bulletType: 8
-          Damage: 0
-          Range: 0
-          Price: 0
-          Interval: 0
+          Damage: 10
+          Range: 16
+          Price: 250
+          Interval: 0.5
           defenderSpawnData:
-            TotalCountOfDefender: 0
+            TotalCountOfDefender: 1
     FailAmount: 3
   - EnemyData:
       enemies:
         m_Keys: 000000000100000002000000
         m_Values:
-        - Healt: 0
-          Speed: 0
-          EarnedGold: 0
-          PercentOfDropGem: 0
-          EarnGem: 0
-          Damage: 0
-          enemySpawnData:
-            numberOFEnemy: 7
-            percentOfSpawn: 0
-        - Healt: 0
-          Speed: 0
-          EarnedGold: 0
-          PercentOfDropGem: 0
-          EarnGem: 0
+        - Healt: 20
+          Speed: 1
+          EarnedGold: 50
+          PercentOfDropGem: 100
+          EarnGem: 4
           Damage: 0
           enemySpawnData:
             numberOFEnemy: 3
-            percentOfSpawn: 0
-        - Healt: 0
-          Speed: 0
-          EarnedGold: 0
-          PercentOfDropGem: 0
-          EarnGem: 0
+            percentOfSpawn: 30
+        - Healt: 20
+          Speed: 0.5
+          EarnedGold: 125
+          PercentOfDropGem: 30
+          EarnGem: 10
           Damage: 0
           enemySpawnData:
-            numberOFEnemy: 5
-            percentOfSpawn: 0
+            numberOFEnemy: 1
+            percentOfSpawn: 40
+        - Healt: 20
+          Speed: 0.25
+          EarnedGold: 75
+          PercentOfDropGem: 20
+          EarnGem: 6
+          Damage: 0
+          enemySpawnData:
+            numberOFEnemy: 1
+            percentOfSpawn: 40
     DefanderData:
       DefanderCharacterData:
         m_Keys: 030000000400000005000000
         m_Values:
         - defenderMoveStatus: 0
           bulletType: 6
-          Damage: 0
-          Range: 0
-          Price: 0
-          Interval: 0
+          Damage: 3
+          Range: 1
+          Price: 100
+          Interval: 0.5
           defenderSpawnData:
-            TotalCountOfDefender: 0
+            TotalCountOfDefender: 3
         - defenderMoveStatus: 0
           bulletType: 7
-          Damage: 0
-          Range: 0
-          Price: 0
-          Interval: 0
+          Damage: 5
+          Range: 2
+          Price: 150
+          Interval: 0.5
           defenderSpawnData:
-            TotalCountOfDefender: 0
+            TotalCountOfDefender: 1
         - defenderMoveStatus: 0
           bulletType: 8
-          Damage: 0
-          Range: 0
-          Price: 0
-          Interval: 0
+          Damage: 10
+          Range: 16
+          Price: 250
+          Interval: 0.5
           defenderSpawnData:
-            TotalCountOfDefender: 0
-    FailAmount: 5
+            TotalCountOfDefender: 1
+    FailAmount: 1

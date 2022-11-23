@@ -21,39 +21,53 @@ namespace Controller
 
 
         private EnemySpawnData _enemyspawndata;
+
         private int _spawnedCount;
+        private bool _isSpawn=false;
+
 
         internal  void SetData(Dictionary<EnemyType, EnemyCharacterData> enemySpawnData)
         {
+             
             this.characterData = enemySpawnData;
-
-            StackSpawnedEnemyAsType();
         }
-
-        private  async void StackSpawnedEnemyAsType()
+        internal void StartSpawn()
         {
+        
+            _isSpawn = true;
+            LoadSpawnList();
+        }
 
-            
-            for (int i=0; i < characterData.Count ;i++)
+        private  void LoadSpawnList()
+        {
+            for (int i = 0; i < characterData.Count; i++)
             {
-                _enemyspawndata =characterData[(EnemyType)i].enemySpawnData;
+                _enemyspawndata = characterData[(EnemyType)i].enemySpawnData;
 
-                for (int j = 0 ; j < _enemyspawndata.numberOFEnemy; j++)
+                for (int j = 0; j < _enemyspawndata.numberOFEnemy; j++)
                 {
-                   willSpawnEnemyList.Add((EnemyType)i);//prometreus//permetreus//prometreus
+                    willSpawnEnemyList.Add((EnemyType)i);//prometreus//permetreus//prometreus
                 }
-                
+
             }
+
             _spawnedCount = willSpawnEnemyList.Count;
-            while (willSpawnEnemyList.Count!=0)
+
+             StartLoopForSpawn();
+
+        }
+
+        private async void StartLoopForSpawn()
+        {
+            while (willSpawnEnemyList.Count != 0 && _isSpawn)
             {
+
                 await Task.Delay(500);
-                ArangePosibltyOFWillSpawnObject();
+                ArrangePersentage();
             }
         }
 
-
-        private  void ArangePosibltyOFWillSpawnObject()
+        private  void ArrangePersentage()
         {
 
             if (willSpawnEnemyList.Count <= 0) return;
@@ -78,23 +92,22 @@ namespace Controller
 
         internal void SetSpawnPoint(List<GridElements> levelGridElementList)
         {
-          
-            float gridElementScaleYAxis = levelGridElementList[0]._gridElement.transform.localScale.y;
 
-            float _totalGridHeigh  = levelGridElementList[0].TotalHeight;
+            float _totalGridHeigh = levelGridElementList[0].TotalHeight;
             float _totalGridWeight = levelGridElementList[0].TotalWeight;
 
             float scaleX = levelGridElementList[0].Scale.x;
             float scaleY = levelGridElementList[0].Scale.z;
 
+
             for (int i = 0; i < levelGridElementList.Count; i++)//29 30 31 32
             {
-                if (i >= (((_totalGridHeigh/ scaleX) - 1) * (_totalGridWeight/ scaleY)))
+                if (i >= (((_totalGridHeigh / scaleX) - 1) * (_totalGridWeight / scaleY)))
                 {
-                    spawnPoints.Add(new Vector3(levelGridElementList[i]._gridElement.transform.position.x,
-                                                levelGridElementList[i]._gridElement.transform.position.y + 
-                                                levelGridElementList[i]._gridElement.transform.localScale.y/2 +0.31f, 
-                                                levelGridElementList[i]._gridElement.transform.position.z));
+                    spawnPoints.Add(new Vector3(levelGridElementList[i].GridElement.transform.position.x,
+                                                levelGridElementList[i].GridElement.transform.position.y +
+                                                levelGridElementList[i].GridElement.transform.localScale.y / 2 + 0.305f,
+                                                levelGridElementList[i].GridElement.transform.position.z));
                 }
             }
 
@@ -102,6 +115,7 @@ namespace Controller
 
         private void SpawnEnemy(EnemyType type)
         {
+
             int randomSpawnPoint = Random.Range(0, spawnPoints.Count);
 
             GameObject willSpawnEnemy = PullFromPool((PoolObjectType)(int)type);
@@ -115,10 +129,23 @@ namespace Controller
             return PoolSignals.Instance.onGetObjectFromPool?.Invoke(poolObjectType);
         }
 
-        public int SpawnObjectCount()
+        public int GetEnemyTotalCountOnBoard()
         {
             return _spawnedCount;
         }
+
+        internal void Reset()
+        {
+            spawnPoints.Clear();
+            spawnPoints.TrimExcess();
+            willSpawnEnemyList.Clear();
+            willSpawnEnemyList.TrimExcess();
+
+
+            _isSpawn =false;
+           
+        }
+
 
 
     }

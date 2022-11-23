@@ -92,11 +92,11 @@ namespace Managers
         {
             _levelID = levelID;
             levelPanelController.InitLevelID(levelID);
-            //OnOpenPanel(UIPanelType.StartPanel);
+
         }
         internal void ChangePanelStatusOnPlay()
         {
-            //CoreGameSignals.Instance.onPlay?.Invoke();
+            CoreGameSignals.Instance.onPlay?.Invoke();
         }
         private void OnPlay()
         {

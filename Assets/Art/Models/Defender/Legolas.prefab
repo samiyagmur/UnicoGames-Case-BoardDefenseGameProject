@@ -60,7 +60,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   defanderManager: {fileID: 8819096333616653257}
-  defanderType: 5
+  detectCollider: {fileID: 957409969981019046}
 --- !u!65 &957409969981019046
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -72,8 +72,8 @@ BoxCollider:
   m_IsTrigger: 1
   m_Enabled: 1
   serializedVersion: 2
-  m_Size: {x: 2, y: 1, z: 8}
-  m_Center: {x: 0, y: 0, z: 4}
+  m_Size: {x: 2, y: 1, z: 0}
+  m_Center: {x: 0, y: 0, z: 0}
 --- !u!1 &8470605188481619551
 GameObject:
   m_ObjectHideFlags: 0
@@ -134,8 +134,8 @@ BoxCollider:
   m_IsTrigger: 1
   m_Enabled: 1
   serializedVersion: 2
-  m_Size: {x: 3.333333, y: 3.333333, z: 3.333333}
-  m_Center: {x: 0, y: 0, z: 0}
+  m_Size: {x: 3.333333, y: 2.0473433, z: 0.98375475}
+  m_Center: {x: 0, y: -0.015485138, z: 0.0074831643}
 --- !u!114 &3627371241014496220
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -148,6 +148,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 92ea60dc584fcb042af2058380ffbb6f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  defenderMeneger: {fileID: 8819096333616653257}
 --- !u!1 &8470605188550604990
 GameObject:
   m_ObjectHideFlags: 0
@@ -318,10 +319,10 @@ Rigidbody:
   m_Mass: 1
   m_Drag: 0
   m_AngularDrag: 0.05
-  m_UseGravity: 0
-  m_IsKinematic: 1
+  m_UseGravity: 1
+  m_IsKinematic: 0
   m_Interpolate: 0
-  m_Constraints: 126
+  m_Constraints: 122
   m_CollisionDetection: 0
 --- !u!114 &3795697149234232489
 MonoBehaviour:
@@ -350,6 +351,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   movementController: {fileID: 3795697149234232489}
   atackController: {fileID: 4689808082702271044}
+  defenderDetectController: {fileID: 870289249512090876}
+  _defanderType: 5
 --- !u!1 &8470605188696336164
 GameObject:
   m_ObjectHideFlags: 0

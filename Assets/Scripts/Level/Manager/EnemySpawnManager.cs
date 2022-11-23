@@ -4,6 +4,7 @@ using Data.ValueObject;
 using Signals;
 using System;
 using System.Collections.Generic;
+using Type;
 using UnityEngine;
 
 namespace Manager
@@ -13,31 +14,46 @@ namespace Manager
         [SerializeField]
         private EnemySpawnController spawnController;
 
-        private int _deadCount;
+        private int _deadCountFromDefender;
         private int _totalSpawnedEnemy;
         private LevelData _levelData;
+        private int _passEnemyCountFromPortal;
+        private int _totalDeat;
 
         private void OnGetLevelData( LevelData levelData)
         {
             _levelData = levelData;
             Init(levelData);
+         
         }
 
         private void Init(LevelData levelData)
         {
             spawnController.SetData(levelData.EnemyData.enemies);
 
-            _totalSpawnedEnemy = spawnController.SpawnObjectCount();
+         
+           
         }
-      
+
+        private void OnPlay()
+        {
+
+            spawnController.StartSpawn();
+            _totalSpawnedEnemy = spawnController.GetEnemyTotalCountOnBoard();
+       
+           
+        }
+
+
         private void OnEnable() => SubscribeEvents();
 
         private void SubscribeEvents()
         {
-            EnemySignals.Instance.onLevelInit += onLevelInit;
+            EnemySignals.Instance.onLevelInit += OnLevelInit;
             CoreGameSignals.Instance.onGetLevelData+=OnGetLevelData;
             CoreGameSignals.Instance.onReset += OnReset;
-            EnemySignals.Instance.onDeadEnemy += OnDeadEnemy;
+            CoreGameSignals.Instance.onPlay += OnPlay;
+            EnemySignals.Instance.onPassEnemyFromPortal += OnPassEnemyFromPortal;
             EnemySignals.Instance.onEnemyDeadFromDefander += OnGetSpawnEnemyCount;
             
 
@@ -46,43 +62,52 @@ namespace Manager
         private void UnsubscribeEvents()
         {
             EnemySignals.Instance.onEnemyDeadFromDefander -= OnGetSpawnEnemyCount;
-            EnemySignals.Instance.onDeadEnemy -= OnDeadEnemy;
-            EnemySignals.Instance.onLevelInit -= onLevelInit;
+            EnemySignals.Instance.onPassEnemyFromPortal -= OnPassEnemyFromPortal;
+            EnemySignals.Instance.onLevelInit -= OnLevelInit;
             CoreGameSignals.Instance.onGetLevelData -= OnGetLevelData;
             CoreGameSignals.Instance.onReset -= OnReset;
+            CoreGameSignals.Instance.onPlay -= OnPlay;
 
         }
 
         private void OnDisable() => UnsubscribeEvents();
 
-        private void onLevelInit(List<GridElements> levelGridElementList)
+        private void OnLevelInit(List<GridElements> levelGridElementList)
         {
             spawnController.SetSpawnPoint(levelGridElementList);
         }
 
 
-        private void OnDeadEnemy()
+        private void OnGetSpawnEnemyCount()
         {
-            _totalSpawnedEnemy--;
+            _deadCountFromDefender++;
 
-            if (_totalSpawnedEnemy == 0)
+            _totalDeat = _deadCountFromDefender + _passEnemyCountFromPortal;
+
+
+            Debug.Log(_totalDeat);
+
+            if (_totalDeat == _totalSpawnedEnemy)
             {
-                if (_deadCount > ( _totalSpawnedEnemy - _levelData.FailAmount))
+                int _enoughCountForPassToLevel = _totalSpawnedEnemy - _levelData.FailAmount;
+
+                if (_enoughCountForPassToLevel < _deadCountFromDefender)
                 {
                     CoreGameSignals.Instance.onLevelSuccessfull?.Invoke();
                 }
             }
+
         }
 
-        private void OnGetSpawnEnemyCount()
+        private void OnPassEnemyFromPortal()
         {
-            _deadCount++;
+            _passEnemyCountFromPortal++;
         }
-
         private void OnReset()
         {
-            _deadCount=0;
-            _totalSpawnedEnemy=0;
+            _deadCountFromDefender = 0;
+
+            spawnController.Reset();
         }
 
 

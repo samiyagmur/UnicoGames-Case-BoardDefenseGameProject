@@ -13,8 +13,6 @@ namespace Controller
         [SerializeField]
         private SelectedObjectMeshController selectedObjectMeshController;
 
-        [SerializeField]
-        private List<GameObject> SelectableGridElementList;
 
         private GameObject _hitObj;
         private Vector3 _hitObjPoint;
@@ -24,17 +22,17 @@ namespace Controller
 
         private void SubscribeEvents()
         {
-            InputSignals.Instance.onInputTouch += OnInputTouch;
+           // InputSignals.Instance.onInputTouch += OnInputTouch;
             InputSignals.Instance.onDragMouse += OnDragMouse;
-            SelectSignals.Instance.onSelectedGrid += onSelectedGrid;
+
         }
 
         private void UnsubscribeEvents()
         {
             
-            InputSignals.Instance.onInputTouch -= OnInputTouch;
+            //InputSignals.Instance.onInputTouch -= OnInputTouch;
             InputSignals.Instance.onDragMouse -= OnDragMouse;
-            SelectSignals.Instance.onSelectedGrid -= onSelectedGrid;
+
 
             //if kill defender activete list
         }
@@ -42,9 +40,10 @@ namespace Controller
 
         private void OnDisable() => UnsubscribeEvents();
         private void OnDragMouse(RaycastHit hit)
-        {
-            if (SelectableGridElementList.Contains(hit.transform.gameObject)) 
+        {  
+            if (hit.transform.CompareTag("GridElement"))
             {
+             
                 if (_hitObj != hit.transform.gameObject) UnClick(_hitObj); 
 
                 _hitObj = hit.transform.gameObject;
@@ -56,17 +55,6 @@ namespace Controller
                 UnClick(_hitObj);
             }
             
-        }
-
-        private void onSelectedGrid(List<GridElements> gridElements)
-        {
-            for (int i = 0; i < gridElements.Count; i++)
-            {
-                if (gridElements[i].gridElementStatus == GridElementStatus.Selectable)
-                {
-                    SelectableGridElementList.Add(gridElements[i]._gridElement);
-                }
-            }
         }
 
         private void Click()
@@ -81,13 +69,11 @@ namespace Controller
             selectedObjectMeshController.TurnOffLight(hitObj);
         }
 
-        private void OnInputTouch()
-        {
-            if (!SelectableGridElementList.Contains(_hitObj)) return;
-            SelectableGridElementList.Remove(_hitObj);
-        }
-
-
+        //private void OnInputTouch()
+        //{
+        //    if (!_hitObj.transform.CompareTag("GridUnSelectable")) return;
+        //    SelectableGridElementList.Remove(_hitObj);
+        //}
     }
 }
 
