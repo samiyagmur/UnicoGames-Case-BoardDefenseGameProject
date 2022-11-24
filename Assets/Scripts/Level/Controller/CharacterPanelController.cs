@@ -69,7 +69,12 @@ namespace Controller
             int charAmount = Convert.ToInt32(_characterPanelAssignments.CharAmount[(int)charType-3].text);
 
             int charPrice  = Convert.ToInt32(_characterPanelAssignments.CharPrice[(int)charType-3].text);
-           
+
+            if (charPrice > 0 && charAmount > 0)
+            {
+                manager.OnBuyNewChar(charPrice);
+            }
+
             if (charAmount>0) 
             {
                 charAmount--;
@@ -79,10 +84,7 @@ namespace Controller
                 _characterPanelAssignments.CharAmount[(int)charType - 3].text = charAmount.ToString();
             }
 
-            if (charPrice > 0 && charAmount > 0)
-            {
-                manager.OnBuyNewChar(charPrice);
-            }
+            
 
         }
 

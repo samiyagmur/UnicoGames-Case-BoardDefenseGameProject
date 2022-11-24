@@ -80,7 +80,7 @@ namespace Manager
 
         private void OnGetSpawnEnemyCount()
         {
-            _totalSpawnedEnemy--; 
+            _totalSpawnedEnemy--;
 
             if (_totalSpawnedEnemy==0)
             {

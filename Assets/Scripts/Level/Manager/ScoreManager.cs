@@ -103,13 +103,13 @@ namespace Managers
 
         private void Save()
         {
-            _saver.UpdateSave(_scoreData);
+           // _saver.UpdateSave(_scoreData);
             
         }
         
         private void Load()
         {
-            _scoreData = _loader.UpdateLoad<ScoreData>();
+            //_scoreData = _loader.UpdateLoad<ScoreData>();
 
            
 

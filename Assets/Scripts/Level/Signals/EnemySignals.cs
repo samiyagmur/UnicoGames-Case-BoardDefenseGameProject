@@ -24,7 +24,7 @@ namespace Signals
 
         public UnityAction onNextLevel = delegate { };
 
-        public UnityAction onEnemyDeadFromDefander = delegate {  };
+        public UnityAction onEnemyDeadFromDefander = delegate { };
 
         public UnityAction onPassEnemyFromPortal = delegate { };
 

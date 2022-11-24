@@ -25,16 +25,15 @@ namespace Managers
 
         private ISaver _saver;
         private ILoader _loader;
-        private LevelData _levelData;
+
+        private LevelSaveData _levelSaveData;
 
         private void Awake()
         {
             _saver = new SaveLoadManager();
             _loader = new SaveLoadManager();
-            Load();
+            _levelSaveData = GetData().levelSave;
         }
-
-
 
         private const string _dataPath = "Data/Cd_LevelData";
 
@@ -43,6 +42,7 @@ namespace Managers
         private void OnEnable()
         {
             SubscribeEvents();
+               
 
         }
 
@@ -64,16 +64,21 @@ namespace Managers
             CoreGameSignals.Instance.onClearActiveLevel -= OnClearActiveLevel;
             CoreGameSignals.Instance.onNextLevel -= OnNextLevel;
             CoreGameSignals.Instance.onGetLevelDataWhenSpawn -= OnGetLevelDataWhenSpawn;
+    
         }
         private void OnDisable() => UnsubscribeEvents();
 
         private void Start()
         {
+            Load();
+
             Init();
+
         }
         private void Init()
         {
-            Load();
+            
+            
             CoreGameSignals.Instance.onLevelInitilize(_levelID);
 
             CoreGameSignals.Instance.onGetLevelData?.Invoke(GetData().LevelData[_levelID]);
@@ -106,23 +111,15 @@ namespace Managers
    
             clearActiveLevelCommand.ClearActiveLevel(levelholder);
             CoreGameSignals.Instance.onReset?.Invoke();
-
-
-
         }
         private void OnNextLevel()
         {
-
-            GetData().LevelID++;
             _levelID++;
+
+            GetData().levelSave.SetLevelID(_levelID);
             CoreGameSignals.Instance.onGetLevelData?.Invoke(GetData().LevelData[_levelID]);
             CoreGameSignals.Instance.onLevelInitilize(_levelID);
             CoreGameSignals.Instance.onPlay?.Invoke();
-            Save();
-        }
-
-        private void OnApplicationQuit()
-        {
             Save();
         }
 
@@ -132,16 +129,22 @@ namespace Managers
         }
         private void Save()
         {
-            //_saver.UpdateSave(_levelID);
+            _saver.UpdateSave(GetData().levelSave._levelID);
+        }
+        private void OnApplicationQuit()
+        {
+            Save();
         }
 
         private void Load()
         {
-            //_levelID = _loader.UpdateLoad<Cd_LevelData> ().LevelID;
+            _levelID = _loader.UpdateLoad<int>();
+
+
+            //if (!ES3.FileExists(GetData().levelSave.GetDataPath()));
+            //{
+              
+            //}
         }
-
-
-
-
     }
 }

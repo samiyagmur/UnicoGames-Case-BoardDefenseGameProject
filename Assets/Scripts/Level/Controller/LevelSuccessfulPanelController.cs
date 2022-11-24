@@ -38,7 +38,7 @@ namespace Controller
 
         internal void SetCurrenLevel(int levelID)
         {
-            levelSuccessfulPanelAssignments.LevelSuccessful.text =$"Level {levelID} Complated" ;
+            levelSuccessfulPanelAssignments.LevelSuccessful.text =$"Level {levelID+1} Complated" ;
         }
 
         private void InitButton()

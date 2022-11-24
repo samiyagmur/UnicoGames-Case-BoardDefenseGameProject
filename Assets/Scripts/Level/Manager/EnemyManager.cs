@@ -81,6 +81,7 @@ namespace Manager
         }
         internal void IsDeadEnemy(bool IsDead)
         {
+
             EnemySignals.Instance.onEnemyDeadFromDefander?.Invoke();
 
             ScoreSignals.Instance.onUpdateGold(_levelData.EnemyData.enemies[_enemyType].EarnedGold);
