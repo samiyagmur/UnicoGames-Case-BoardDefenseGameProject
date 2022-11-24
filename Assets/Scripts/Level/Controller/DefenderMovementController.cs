@@ -21,7 +21,7 @@ namespace Controller
         private LinkedList<GameObject> _enemyDeadList = new LinkedList<GameObject>();
 
         [SerializeField]
-        private new Rigidbody rigidbody;
+        private  GameObject defender;
 
         private GameObject _targetEnemy;
 
@@ -32,7 +32,6 @@ namespace Controller
         #endregion Self Variabels
         internal void StartFollowAsDefenderType()
         {
-            Debug.Log("ss");
             FollowEnemy(true);
             
         }
@@ -45,7 +44,6 @@ namespace Controller
 
         internal void AddDeathList(GameObject enemy)
         {
-            Debug.Log(enemy.transform.name);
             _enemyDeadList.AddLast(enemy);
         }
         public void RemoveDeathList(GameObject enemy)
@@ -61,7 +59,7 @@ namespace Controller
         public async  void FollowEnemy(bool _isFollow)
         {
     
-            while (true)
+            while (_isFollow)
             {
                 await Task.Delay(1);
 
@@ -94,12 +92,12 @@ namespace Controller
 
             if (_targetEnemy.transform.position == Vector3.zero) return;
 
-            Vector3 oldPos=new Vector3(transform.position.x,0, transform.position.z);
+            Vector3 oldPos=new Vector3(defender.transform.position.x,0, defender.transform.position.z);
 
             Vector3 _shotPositon = new Vector3(_targetEnemy.transform.position.x, 0, _targetEnemy.transform.position.z);
             Vector3  _relativePos = _shotPositon - oldPos;
             Quaternion _rotation = Quaternion.LookRotation(_relativePos);
-            transform.rotation = Quaternion.Lerp(transform.rotation, _rotation,0.1f);
+            defender.transform.localRotation = Quaternion.Lerp(defender.transform.localRotation, _rotation , 0.1f);
 
         }
 

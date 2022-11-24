@@ -36,7 +36,6 @@ namespace Manager
         {
             _levelData = levelData;
             Init(_levelData);
-            Debug.Log(_levelData.EnemyData.enemies[_enemyType].Healt);
         }
 
         private void Init(LevelData levelData)

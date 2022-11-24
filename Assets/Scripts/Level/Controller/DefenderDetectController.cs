@@ -19,6 +19,8 @@ namespace Controller
         public BoxCollider detectColliderStaticRotate;
 
         private DefanderCharacterData _defanderCharacterData;
+        private RoteteStatus _roteteStatus;
+
         internal void SetData(DefanderCharacterData defanderCharacterData)
         {
             _defanderCharacterData = defanderCharacterData;
@@ -29,6 +31,7 @@ namespace Controller
 
         private void SelectRotateMod(RoteteStatus roteteStatus, float range)
         {
+            _roteteStatus = roteteStatus;
             switch (roteteStatus)
             {
                 case RoteteStatus.Static:
@@ -47,7 +50,6 @@ namespace Controller
         }
         internal void OpenDetectPyhsic(float range)
         {
-            Debug.Log("OpenDetectPyhsic");
             detectColliderStaticRotate.size = new Vector3(2, 1, 16);
             detectColliderDynamicRotate.radius = 16;
         }
@@ -57,6 +59,7 @@ namespace Controller
         {
             if (other.TryGetComponent(out EnemyPhysicController enemyPhysicController))
             {
+                Debug.Log(_roteteStatus);
                 defanderManager.WhenEnemyEnterDetectArea(other.gameObject);
 
                 defanderManager.WhenEnterDetectArea();

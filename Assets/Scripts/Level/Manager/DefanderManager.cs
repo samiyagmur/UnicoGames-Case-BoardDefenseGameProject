@@ -61,10 +61,6 @@ namespace Manager
         internal void WhenEnemyEnterDetectArea(GameObject gameObject)
         {
             movementController.AddDeathList(gameObject);
-
-
-            //_roteteStatus = RoteteStatus.Dynamic;
-            Debug.Log(_roteteStatus);
             if (_roteteStatus == RoteteStatus.Static) return;
 
             movementController.StartFollowAsDefenderType();

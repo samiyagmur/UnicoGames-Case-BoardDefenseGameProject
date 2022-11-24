@@ -44,7 +44,7 @@ namespace Controller
         {
             if (_gameObject == null) return;
 
-           
+            if (!_gameObject.activeInHierarchy) return;
 
             if (_isAttack)
             {
@@ -53,15 +53,13 @@ namespace Controller
 
                 if (_timer < 0)
                 {
-                    // Fire();
+                     Fire();
                     _timer = _defanderCharacterData.Interval;
                 }
             }
         }
         private void Fire()
         {
-   
-            
 
             GameObject chosenBullet = PullFromPool(_poolObjectType);///lookagain
 

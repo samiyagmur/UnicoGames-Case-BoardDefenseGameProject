@@ -2,6 +2,8 @@ using Command;
 using Controller;
 using Data.UnityObject;
 using Data.ValueObject;
+using Interfaces;
+using Manager;
 using Signals;
 using System;
 using UnityEngine;
@@ -20,6 +22,24 @@ namespace Managers
         private ClearActiveLevelCommand clearActiveLevelCommand;
         [SerializeField]
         private int _levelID;
+
+        private ISaver _saver;
+        private ILoader _loader;
+        private LevelData _LevelData;
+
+        private void Awake()
+        {
+            _saver = new SaveLoadManager();
+            _loader = new SaveLoadManager();
+            gameLoad();
+
+            _LevelData = GetData();
+        }
+
+        private void gameLoad()
+        {
+            Load();
+        }
 
         private const string _dataPath = "Data/Cd_LevelData";
 
@@ -68,18 +88,18 @@ namespace Managers
         private void OnLevelInitilize(int levelID)
         {
             levelLoaderCommand.InsitializeLevel(levelID, levelholder);
-            Debug.Log("OnLevelInitilize");
+  
         }
 
         private void OnFail()
         {
-            Debug.Log("OnFail");
+
             CoreGameSignals.Instance.onReset?.Invoke();
         }
 
         private void OnLevelSuccessfull()
         {
-            Debug.Log("OnLevelSuccessfull");
+      
             CoreGameSignals.Instance.onClearActiveLevel?.Invoke();
 
 
@@ -87,7 +107,7 @@ namespace Managers
 
         private void OnClearActiveLevel()
         {
-            Debug.Log("OnClearActiveLevel");
+   
             clearActiveLevelCommand.ClearActiveLevel(levelholder);
             CoreGameSignals.Instance.onReset?.Invoke();
 
@@ -96,18 +116,32 @@ namespace Managers
         }
         private void OnNextLevel()
         {
-            Debug.Log("OnNextLevel");
+  
             _levelID++;
             CoreGameSignals.Instance.onGetLevelData?.Invoke(GetData());
             CoreGameSignals.Instance.onLevelInitilize(_levelID);
             CoreGameSignals.Instance.onPlay?.Invoke();
-
+            Save();
         }
 
         private LevelData OnGetLevelDataWhenSpawn()
         {
             return GetData();
         }
+        private void Save()
+        {
+            _saver.UpdateSave(_LevelData);
+        }
+
+        private void Load()
+        {
+            _LevelData = _loader.UpdateLoad<LevelData>();
+
+            OnLevelSuccessfull(); ;
+
+        }
+
+
 
 
     }
