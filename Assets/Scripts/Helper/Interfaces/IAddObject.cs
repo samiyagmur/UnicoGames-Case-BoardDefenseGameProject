@@ -1,10 +1,9 @@
-﻿using System.Collections;
-using Type;
+﻿using Type;
 using UnityEngine;
 
 namespace Interfaces
 {
-    public interface IAddObject 
+    public interface IAddObject
     {
         void AddToPool(PoolObjectType poolObjectType, GameObject obj);
     }

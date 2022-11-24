@@ -1,16 +1,13 @@
 ﻿using Data.ValueObject;
 using Extantions;
 using System;
-using System.Collections.Generic;
 using Type;
 using UnityEngine.Events;
-using UnityEngine.Rendering;
 
 namespace Signals
 {
     public class CoreGameSignals : MonoSingleton<CoreGameSignals>
     {
-
         public UnityAction<int> onLevelInitilize = delegate { };
 
         public UnityAction<LevelData> onGetLevelData = delegate { };
@@ -18,6 +15,8 @@ namespace Signals
         public Func<LevelData> onGetLevelDataWhenSpawn = delegate { return null; };
 
         public UnityAction onPlay = delegate { };
+
+        public UnityAction rePlay = delegate { };
 
         public UnityAction onFail = delegate { };
 
@@ -33,7 +32,6 @@ namespace Signals
 
         public UnityAction<DefanderType> onClickCharacterButton = delegate { };
 
-        public UnityAction<DefanderData> onInitDefenderInfo=delegate { };
-
+        public UnityAction<DefanderData> onInitDefenderInfo = delegate { };
     }
 }

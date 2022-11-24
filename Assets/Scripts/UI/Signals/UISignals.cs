@@ -1,6 +1,4 @@
-﻿using Data.ValueObject;
-using Extantions;
-using System.Collections.Generic;
+﻿using Extantions;
 using Type;
 using UnityEngine.Events;
 
@@ -10,6 +8,5 @@ namespace Signals
     {
         public UnityAction<UIPanelType> onOpenPanel = delegate { };
         public UnityAction<UIPanelType> onClosePanel = delegate { };
-
     }
 }

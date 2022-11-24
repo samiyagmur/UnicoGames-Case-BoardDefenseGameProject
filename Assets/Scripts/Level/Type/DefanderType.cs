@@ -1,14 +1,9 @@
-﻿using System.Collections;
-using UnityEngine;
-
-namespace Type
+﻿namespace Type
 {
-    public enum DefanderType 
+    public enum DefanderType
     {
-        Gimli=3,
-        Aragorn=4,
-        Legolas=5
-
-
+        Gimli = 3,
+        Aragorn = 4,
+        Legolas = 5
     }
 }

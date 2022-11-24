@@ -1,20 +1,17 @@
 ﻿using Controller;
-using Data.UnityObject;
 using Data.ValueObject;
 using Interfaces;
 using Signals;
-using System;
-using System.Collections;
-using System.Collections.Generic;
 using Type;
 using UnityEngine;
 
 namespace Manager
 {
-    public class EnemyManager : MonoBehaviour,IPushObject
+    public class EnemyManager : MonoBehaviour, IPushObject
     {
         [SerializeField]
         private EnemyHealtController enemyHealtController;
+
         [SerializeField]
         private EnemyMovementController enemyMovementController;
 
@@ -23,8 +20,6 @@ namespace Manager
 
         private LevelData _levelData;
 
-
-
         private void Start()
         {
             _levelData = CoreGameSignals.Instance.onGetLevelDataWhenSpawn?.Invoke();
@@ -32,7 +27,7 @@ namespace Manager
             Init(_levelData);
         }
 
-        private void OnGetLevelData( LevelData levelData)
+        private void OnGetLevelData(LevelData levelData)
         {
             _levelData = levelData;
             Init(_levelData);
@@ -40,12 +35,9 @@ namespace Manager
 
         private void Init(LevelData levelData)
         {
-          
             enemyHealtController.SetData(levelData.EnemyData.enemies[_enemyType]);
             enemyMovementController.SetData(levelData.EnemyData.enemies[_enemyType]);
             enemyMovementController.StartToMoveForward();
-
-
         }
 
         private void OnEnable() => SubscribeEvents();
@@ -53,23 +45,20 @@ namespace Manager
         private void SubscribeEvents()
         {
             CoreGameSignals.Instance.onGetLevelData += OnGetLevelData;
-            CoreGameSignals.Instance.onReset+=OnReset;
-
-            
+            CoreGameSignals.Instance.onReset += OnReset;
         }
 
         private void UnsubscribeEvents()
         {
             CoreGameSignals.Instance.onGetLevelData -= OnGetLevelData;
             CoreGameSignals.Instance.onReset -= OnReset;
-
         }
 
         private void OnDisable()
         {
             UnsubscribeEvents();
-
         }
+
         internal void WhenHitDefender()
         {
             enemyMovementController.StopToMoveForward();
@@ -77,15 +66,15 @@ namespace Manager
 
         internal void WhenHitBullet(int damager)
         {
-            enemyHealtController.DecreaseHealt(damager,_enemyType);
+            enemyHealtController.DecreaseHealt(damager, _enemyType);
         }
+
         internal void IsDeadEnemy(bool IsDead)
         {
-
             EnemySignals.Instance.onEnemyDeadFromDefander?.Invoke();
 
             ScoreSignals.Instance.onUpdateGold(_levelData.EnemyData.enemies[_enemyType].EarnedGold);
-            
+
             //reset/partical/animator
         }
 
@@ -100,9 +89,10 @@ namespace Manager
         }
 
         private void OnReset()
-        {   
+        {
             PushToPool((PoolObjectType)(int)_enemyType, gameObject);
         }
+
         public void PushToPool(PoolObjectType poolObjectType, GameObject obj)
         {
             PoolSignals.Instance.onReleaseObjectFromPool?.Invoke(poolObjectType, obj);

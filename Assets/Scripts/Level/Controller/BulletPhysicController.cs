@@ -1,17 +1,16 @@
 ﻿using Interfaces;
 using Manager;
 using Signals;
-using System.Collections;
 using Type;
 using UnityEngine;
 
 namespace Controller
 {
-    public class BulletPhysicController : MonoBehaviour,IDemeger
+    public class BulletPhysicController : MonoBehaviour, IDemager
     {
- 
         [SerializeField]
         private BulletManager bulletManager;
+
         private int defenderPower;
 
         private void OnTriggerEnter(Collider other)
@@ -24,15 +23,13 @@ namespace Controller
             {
                 transform.parent.rotation = weaponAtackController.gameObject.transform.rotation;
 
-
-
-              defenderPower =  weaponAtackController.GetPowerToDefender();
+                defenderPower = weaponAtackController.GetPowerToDefender();
             }
         }
 
         public int GetDamage()
         {
-           return defenderPower * (int)bulletManager.GetBulutPoolType();
+            return defenderPower * (int)bulletManager.GetBulutPoolType();
         }
 
         public void PushToPool(PoolObjectType poolObjectType, GameObject obj)

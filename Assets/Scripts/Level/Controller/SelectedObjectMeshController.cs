@@ -1,7 +1,4 @@
-﻿using Status;
-using System;
-using System.Collections;
-using UnityEngine;
+﻿using UnityEngine;
 
 namespace Controller
 {
@@ -22,6 +19,5 @@ namespace Controller
         {
             hitObj.GetComponent<Renderer>().material = _currentMaterial;
         }
-
     }
 }

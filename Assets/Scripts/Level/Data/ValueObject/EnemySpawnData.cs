@@ -1,7 +1,4 @@
 ﻿using System;
-using System.Collections;
-using Type;
-using UnityEngine;
 
 namespace Data.ValueObject
 {

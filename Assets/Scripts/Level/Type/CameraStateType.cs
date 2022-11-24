@@ -1,15 +1,11 @@
-﻿using System.Collections;
-using UnityEngine;
-
-namespace Type
+﻿namespace Type
 {
-    public enum CameraStateType 
+    public enum CameraStateType
     {
         Start,
         Level,
         Fail,
         Reset,
         Finish
-       
     }
 }

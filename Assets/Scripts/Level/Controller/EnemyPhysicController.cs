@@ -1,25 +1,22 @@
 ﻿using Interfaces;
 using Manager;
 using Signals;
-using System.Collections;
 using Type;
 using UnityEngine;
 
 namespace Controller
 {
-    public class EnemyPhysicController : MonoBehaviour, IDemeger, IPushObject
+    public class EnemyPhysicController : MonoBehaviour, IDemager, IPushObject
     {
         [SerializeField]
         private EnemyManager enemyManager;
 
         private PoolObjectType poolObject;
 
-
         private void OnTriggerEnter(Collider other)
         {
-            if (other.TryGetComponent(out IDemeger damager))
+            if (other.TryGetComponent(out IDemager damager))
             {
-
                 enemyManager.WhenHitBullet(damager.GetDamage());
             }
             if (other.TryGetComponent(out DefenderPhysicController defanderPhysicController))
@@ -28,9 +25,8 @@ namespace Controller
             }
             if (other.CompareTag("Portal"))
             {
-                 PushToPool(poolObject, transform.parent.gameObject);
+                PushToPool(poolObject, transform.parent.gameObject);
             }
-
         }
 
         public int GetDamage()

@@ -1,18 +1,12 @@
 ﻿using Signals;
-using System;
-using System.Collections;
-using System.Collections.Generic;
-using Type;
 using UnityEngine;
 
 namespace Controller
 {
     public class SelectManager : MonoBehaviour
     {
-
         [SerializeField]
         private SelectedObjectMeshController selectedObjectMeshController;
-
 
         private GameObject _hitObj;
         private Vector3 _hitObjPoint;
@@ -22,29 +16,21 @@ namespace Controller
 
         private void SubscribeEvents()
         {
-           // InputSignals.Instance.onInputTouch += OnInputTouch;
             InputSignals.Instance.onDragMouse += OnDragMouse;
-
         }
 
         private void UnsubscribeEvents()
         {
-            
-            //InputSignals.Instance.onInputTouch -= OnInputTouch;
             InputSignals.Instance.onDragMouse -= OnDragMouse;
-
-
-            //if kill defender activete list
         }
 
-
         private void OnDisable() => UnsubscribeEvents();
+
         private void OnDragMouse(RaycastHit hit)
-        {  
+        {
             if (hit.transform.CompareTag("GridElement"))
             {
-             
-                if (_hitObj != hit.transform.gameObject) UnClick(_hitObj); 
+                if (_hitObj != hit.transform.gameObject) UnClick(_hitObj);
 
                 _hitObj = hit.transform.gameObject;
 
@@ -54,7 +40,6 @@ namespace Controller
             {
                 UnClick(_hitObj);
             }
-            
         }
 
         private void Click()
@@ -64,16 +49,9 @@ namespace Controller
 
         private void UnClick(GameObject hitObj)
         {
-            if(hitObj == null) return;
+            if (hitObj == null) return;
 
             selectedObjectMeshController.TurnOffLight(hitObj);
         }
-
-        //private void OnInputTouch()
-        //{
-        //    if (!_hitObj.transform.CompareTag("GridUnSelectable")) return;
-        //    SelectableGridElementList.Remove(_hitObj);
-        //}
     }
 }
-

@@ -1,11 +1,10 @@
-﻿using System.Collections;
-using UnityEngine;
+﻿using UnityEngine;
 
-namespace ValueObject
+namespace Data.ValueObject
 {
     [SerializeField]
-    public class WeaponData 
+    public class WeaponData
     {
-        public float firePowen;
+        public float firePower;
     }
 }

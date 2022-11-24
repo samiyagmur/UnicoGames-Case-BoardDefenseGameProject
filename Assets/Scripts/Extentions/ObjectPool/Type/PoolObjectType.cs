@@ -12,7 +12,5 @@
         BulletType2,
         BulletType3,
         Level
-
-       
     }
 }

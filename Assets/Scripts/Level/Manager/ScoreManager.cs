@@ -3,9 +3,6 @@ using Data.ValueObject;
 using Interfaces;
 using Manager;
 using Signals;
-using Sirenix.OdinInspector;
-using System;
-using System.Threading.Tasks;
 using UnityEngine;
 
 namespace Managers
@@ -17,26 +14,26 @@ namespace Managers
         private ISaver _saver;
         private ILoader _loader;
         private string _dataPath = "Data/Cd_ScoreData";
-        private int _diamondScore=0;
-        private int _goldScore=0;
+        private int _diamondScore = 0;
+        private int _goldScore = 0;
 
         private void Awake()
         {
             GetData();
             InitSave();
-
         }
 
         private void InitSave()
         {
             _saver = new SaveLoadManager();
             _loader = new SaveLoadManager();
-
         }
+
         private void Start()
         {
             InitData();
         }
+
         private void InitData()
         {
             _diamondScore = _scoreData.LastDiamondScore;
@@ -54,25 +51,20 @@ namespace Managers
 
         private void SubscribeEvents()
         {
-
             ScoreSignals.Instance.onUpdateGold += OnUpdateGold;
             ScoreSignals.Instance.onUpdateGem += OnUpdateGem;
-           // CoreGameSignals.Instance.onPlay += OnPlay;
         }
 
         private void UnsubscribeEvents()
         {
-
             ScoreSignals.Instance.onUpdateGold -= OnUpdateGold;
             ScoreSignals.Instance.onUpdateGem -= OnUpdateGem;
-            //CoreGameSignals.Instance.onPlay -= OnPlay;
         }
 
         private void OnDisable() => UnsubscribeEvents();
 
         private void OnUpdateGold(int takenGold)
         {
-
             if (_goldScore > 0)
             {
                 _goldScore += takenGold;
@@ -82,8 +74,6 @@ namespace Managers
             {
                 _goldScore = 0;
             }
-
-  
         }
 
         private void OnUpdateGem(int takenDiamond)
@@ -97,23 +87,16 @@ namespace Managers
             {
                 _diamondScore = 0;
             }
-            
-        
         }
 
         private void Save()
         {
-           // _saver.UpdateSave(_scoreData);
-            
+            // _saver.UpdateSave(_scoreData);
         }
-        
+
         private void Load()
         {
             //_scoreData = _loader.UpdateLoad<ScoreData>();
-
-           
-
         }
-
     }
 }

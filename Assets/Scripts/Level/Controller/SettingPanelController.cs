@@ -1,7 +1,5 @@
 ﻿using Managers;
 using System;
-using System.Collections;
-using TMPro;
 using Type;
 using UnityEngine;
 using UnityEngine.UI;
@@ -11,8 +9,6 @@ namespace Controller
     [Serializable]
     internal struct SettingPanelAssignments
     {
-
-
         [SerializeField]
         private Button exit;
 
@@ -23,7 +19,7 @@ namespace Controller
         private Image vibrationButtonImage;
 
         public Button Exit { get => exit; }
-        public Button VibrationStatus { get => vibrationStatus;}
+        public Button VibrationStatus { get => vibrationStatus; }
         public Image VibrationButtonImage { get => vibrationButtonImage; set => vibrationButtonImage = value; }
     }
 
@@ -34,6 +30,7 @@ namespace Controller
 
         [SerializeField]
         private SettingPanelAssignments settingPanelAssignments;
+
         private bool _isVirating;
 
         private void Start()
@@ -48,13 +45,11 @@ namespace Controller
 
         private void InitButton()
         {
-           
             settingPanelAssignments.Exit.onClick.
                 AddListener(delegate { ArangePanelStatus(UIPanelType.Setting); });
-     
+
             settingPanelAssignments.VibrationStatus.onClick.
               AddListener(delegate { ArangeVibrationStatus(); });
-           
         }
 
         private void ArangePanelStatus(UIPanelType uIPanelType)
@@ -66,19 +61,14 @@ namespace Controller
         {
             if (settingPanelAssignments.VibrationButtonImage.color == Color.white)
             {
-                
                 settingPanelAssignments.VibrationButtonImage.color = Color.gray;
             }
             else
             {
-                
                 settingPanelAssignments.VibrationButtonImage.color = Color.white;
             }
-               
+
             manager.ChangeVibrationStatus(!(settingPanelAssignments.VibrationButtonImage.color == Color.white));
-
         }
-
     }
-
 }

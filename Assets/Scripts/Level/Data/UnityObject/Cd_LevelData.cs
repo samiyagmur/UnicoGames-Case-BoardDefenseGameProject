@@ -1,5 +1,4 @@
 ﻿using Data.ValueObject;
-using System;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -10,8 +9,6 @@ namespace Data.UnityObject
     {
         public List<LevelData> LevelData;
 
-        public LevelSaveData levelSave=new LevelSaveData();
-
-        
+        public LevelSaveData levelSave = new LevelSaveData();
     }
 }

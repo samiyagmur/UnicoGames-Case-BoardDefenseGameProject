@@ -1,6 +1,5 @@
 using Data.UnityObject;
 using Signals;
-using Sirenix.OdinInspector;
 using System;
 using System.Collections.Generic;
 using Type;
@@ -39,12 +38,9 @@ namespace Extantions
 
                     objectPool[_cd_ObjectDatas.ObjectData[poolCount].poolObjectType].Enqueue(poolObj);
                 }
-
             }
-
         }
 
-    
         #region EventSubscribtion
 
         private void OnEnable() => SubscribeEvents();
@@ -90,15 +86,13 @@ namespace Extantions
 
         private void OnReleaseObjectFromPool(PoolObjectType type, GameObject obj)
         {
-            
-
             obj.SetActive(false);
 
             objectPool[type].Enqueue(obj);
         }
+
         private void OnAddNewType(PoolObjectType type, GameObject obj)
         {
-
             objectPool[type].Enqueue(obj);
         }
     }

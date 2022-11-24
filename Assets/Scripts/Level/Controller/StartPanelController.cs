@@ -1,6 +1,5 @@
 ﻿using Managers;
 using System;
-using System.Collections;
 using TMPro;
 using Type;
 using UnityEngine;
@@ -13,20 +12,21 @@ namespace Controller
     {
         [SerializeField]
         private TextMeshProUGUI gameName;
+
         [SerializeField]
         private Button startButton;
+
         [SerializeField]
         private Button scorePanelButton;
+
         [SerializeField]
         private Button settingPanelButton;
 
-        public TextMeshProUGUI GameName { get => gameName;}
+        public TextMeshProUGUI GameName { get => gameName; }
         public Button StartButton { get => startButton; }
         public Button ScorePanelButton { get => scorePanelButton; }
         public Button SettingPanelButton { get => settingPanelButton; }
     }
-
-
 
     public class StartPanelController : MonoBehaviour
     {

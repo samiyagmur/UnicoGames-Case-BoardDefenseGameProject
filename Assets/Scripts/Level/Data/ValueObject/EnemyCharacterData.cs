@@ -1,11 +1,9 @@
 ﻿using System;
-using System.Collections;
-using UnityEngine;
 
 namespace Data.ValueObject
 {
     [Serializable]
-    public class EnemyCharacterData 
+    public class EnemyCharacterData
     {
         public int Healt;
         public float Speed;

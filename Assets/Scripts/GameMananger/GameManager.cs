@@ -1,17 +1,15 @@
 ﻿using Signals;
-using System;
-using System.Collections;
 using UnityEngine;
 
 namespace Assets.Scripts
 {
     public class GameManager : MonoBehaviour
     {
-
         private void Awake()
         {
             Application.targetFrameRate = 60;
         }
+
         private void OnEnable() => SubscribeEvents();
 
         private void SubscribeEvents()
@@ -28,13 +26,6 @@ namespace Assets.Scripts
 
         private void OnUpdateVibrationStatus(bool vibrationStatus)
         {
-            
         }
-
-        private void OnApplicationQuit()
-        {
-            
-        }
-
     }
 }

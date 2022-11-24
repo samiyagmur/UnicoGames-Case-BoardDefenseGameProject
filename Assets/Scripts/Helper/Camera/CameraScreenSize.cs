@@ -14,7 +14,6 @@ namespace Helper
 
         private void Awake()
         {
-           
             Init();
         }
 
@@ -28,7 +27,6 @@ namespace Helper
             _referansXScreenSize = 1080;
 
             _referansYScreenSize = 1920;
-
 
             if (_referansXScreenSize == Camera.main.pixelWidth && _referansYScreenSize != Camera.main.pixelHeight) return;
 
@@ -50,10 +48,5 @@ namespace Helper
             // cube.gameObject.transform.localScale = cube.gameObject.transform.localScale
             // multiply;Meaning Of that Line  adjusting to referanced object sclale for cam size;
         }
-
-
     }
 }
-
-
-

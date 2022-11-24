@@ -193,4 +193,5 @@ MonoBehaviour:
           defenderSpawnData:
             TotalCountOfDefender: 5
     FailAmount: 1
-  _levelID: 1
+  levelSave:
+    _levelID: 1

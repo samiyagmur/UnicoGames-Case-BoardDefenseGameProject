@@ -1,6 +1,4 @@
-﻿using Sirenix.OdinInspector;
-using Status;
-using System;
+﻿using System;
 using Type;
 
 namespace Data.ValueObject
@@ -15,6 +13,5 @@ namespace Data.ValueObject
         public int Price;
         public float Interval;
         public DefenderSpawnData defenderSpawnData;
-
     }
 }

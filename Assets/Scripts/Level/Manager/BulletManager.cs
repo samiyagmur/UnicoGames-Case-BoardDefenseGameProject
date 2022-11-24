@@ -1,6 +1,4 @@
 ﻿using Signals;
-using System;
-using System.Collections;
 using Type;
 using UnityEngine;
 
@@ -8,8 +6,6 @@ namespace Manager
 {
     public class BulletManager : MonoBehaviour
     {
-
-
         [SerializeField]
         private BulletType bulletType;
 
@@ -17,7 +13,6 @@ namespace Manager
 
         private void SubscribeEvents()
         {
-
             CoreGameSignals.Instance.onReset += OnReset;
         }
 
@@ -28,11 +23,11 @@ namespace Manager
 
         private void OnDisable() => UnsubscribeEvents();
 
-
         private void OnReset()
         {
             PushToPool((PoolObjectType)(int)bulletType, gameObject);
         }
+
         public void PushToPool(PoolObjectType poolObjectType, GameObject obj)
         {
             PoolSignals.Instance.onReleaseObjectFromPool?.Invoke(poolObjectType, obj);

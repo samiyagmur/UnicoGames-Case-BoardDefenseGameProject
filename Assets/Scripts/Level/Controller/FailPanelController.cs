@@ -1,6 +1,5 @@
 ﻿using Managers;
 using System;
-using System.Collections;
 using TMPro;
 using Type;
 using UnityEngine;
@@ -24,9 +23,9 @@ namespace Controller
         public TextMeshProUGUI LastGoldScore { get => lastGoldScore; }
         public Button TryAgainButton { get => tryAgainButton; }
     }
+
     public class FailPanelController : MonoBehaviour
     {
-
         [SerializeField]
         private UIManager manager;
 
@@ -42,10 +41,12 @@ namespace Controller
         {
             InitButton();
         }
+
         internal void SetGoldScore(int value)
         {
             failPanelAssignments.LastDiamondScore.text = value.ToString();
         }
+
         internal void SetDiamondScore(int value)
         {
             failPanelAssignments.LastGoldScore.text = value.ToString();
@@ -53,8 +54,8 @@ namespace Controller
 
         private void InitButton()
         {
-           failPanelAssignments.TryAgainButton.onClick
-                .AddListener(delegate { ArangePanelStatus(UIPanelType.FailPanel);});
+            failPanelAssignments.TryAgainButton.onClick
+                 .AddListener(delegate { ArangePanelStatus(UIPanelType.FailPanel); });
         }
 
         private void ArangePanelStatus(UIPanelType uIPanelType)

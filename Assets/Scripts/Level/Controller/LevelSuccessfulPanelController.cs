@@ -12,8 +12,10 @@ namespace Controller
     {
         [SerializeField]
         private TextMeshProUGUI levelSuccessful;
+
         [SerializeField]
         private Button onNext;
+
         public TextMeshProUGUI LevelSuccessful { get => levelSuccessful; }
         public Button OnNext { get => onNext; }
     }
@@ -38,7 +40,7 @@ namespace Controller
 
         internal void SetCurrenLevel(int levelID)
         {
-            levelSuccessfulPanelAssignments.LevelSuccessful.text =$"Level {levelID+1} Complated" ;
+            levelSuccessfulPanelAssignments.LevelSuccessful.text = $"Level {levelID + 1} Complated";
         }
 
         private void InitButton()
@@ -51,6 +53,5 @@ namespace Controller
         {
             manager.ChangePanelStatusOnPressNextLevel(uIPanelType);
         }
-
     }
 }

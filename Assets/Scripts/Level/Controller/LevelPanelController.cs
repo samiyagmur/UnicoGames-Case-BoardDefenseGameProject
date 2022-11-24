@@ -1,6 +1,5 @@
 ﻿using Managers;
 using System;
-using System.Collections;
 using TMPro;
 using Type;
 using UnityEngine;
@@ -13,23 +12,28 @@ namespace Controller
     {
         [SerializeField]
         private TextMeshProUGUI currentLevel;
+
         [SerializeField]
         private TextMeshProUGUI nextLevel;
+
         [SerializeField]
         private TextMeshProUGUI gold;
+
         [SerializeField]
         private TextMeshProUGUI diamond;
+
         [SerializeField]
         private Button exit;
+
         [SerializeField]
         private Button restart;
 
-        public TextMeshProUGUI CurrentLevel { get => currentLevel;  }
+        public TextMeshProUGUI CurrentLevel { get => currentLevel; }
         public TextMeshProUGUI NextLevel { get => nextLevel; }
         public TextMeshProUGUI Gold { get => gold; }
-        public TextMeshProUGUI Diamond { get => diamond;}
+        public TextMeshProUGUI Diamond { get => diamond; }
         public Button Exit { get => exit; }
-        public Button Restart { get => restart;}
+        public Button Restart { get => restart; }
     }
 
     public class LevelPanelController : MonoBehaviour
@@ -59,12 +63,13 @@ namespace Controller
         {
             startPanelassignments.Diamond.text = value.ToString();
         }
+
         internal void InitLevelID(int levelID)
         {
-
-            startPanelassignments.CurrentLevel.text= (levelID + 1).ToString();
-            startPanelassignments.NextLevel.text = (levelID+2).ToString();
+            startPanelassignments.CurrentLevel.text = (levelID + 1).ToString();
+            startPanelassignments.NextLevel.text = (levelID + 2).ToString();
         }
+
         private void InitButton()
         {
             startPanelassignments.Exit.onClick.
@@ -82,8 +87,5 @@ namespace Controller
         {
             manager.ChangePanelStatusOnExit(uIPanelType);
         }
-
-       
     }
-
 }

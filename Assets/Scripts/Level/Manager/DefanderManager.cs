@@ -1,11 +1,8 @@
-﻿using System.Collections;
-using UnityEngine;
-using Controller;
-using Type;
+﻿using Controller;
 using Data.ValueObject;
-using Data.UnityObject;
-using System;
 using Signals;
+using Type;
+using UnityEngine;
 
 namespace Manager
 {
@@ -23,7 +20,6 @@ namespace Manager
         [SerializeField]
         private DefanderType _defanderType;
 
-
         private LevelData _levelData;
         private RoteteStatus _roteteStatus;
 
@@ -32,35 +28,32 @@ namespace Manager
             _levelData = CoreGameSignals.Instance.onGetLevelDataWhenSpawn?.Invoke();
             Init(_levelData);
         }
+
         private void Init(LevelData leveldata)
         {
-           
             atackController.SetData(leveldata.DefanderData.DefanderCharacterData[_defanderType]);
             _roteteStatus = _levelData.DefanderData.DefanderCharacterData[_defanderType].roteteStatus;
             defenderDetectController.SetData(_levelData.DefanderData.DefanderCharacterData[_defanderType]);
-
-         
         }
 
         private void OnEnable() => SubscribeEvents();
 
         private void SubscribeEvents()
         {
-
             CoreGameSignals.Instance.onReset += OnReset;
         }
 
         private void UnsubscribeEvents()
         {
-
             CoreGameSignals.Instance.onReset -= OnReset;
         }
 
-
         private void OnDisable() => UnsubscribeEvents();
+
         internal void WhenEnemyEnterDetectArea(GameObject gameObject)
         {
             movementController.AddDeathList(gameObject);
+
             if (_roteteStatus == RoteteStatus.Static) return;
 
             movementController.StartFollowAsDefenderType();
@@ -73,10 +66,9 @@ namespace Manager
 
         internal void WhenEnterDetectArea()
         {
+            if (movementController.GetTarger() == null) return;
 
-           if (movementController.GetTarger() == null) return;
-
-           atackController.StartAtack( movementController.GetTarger());
+            atackController.StartAtack(movementController.GetTarger());
         }
 
         internal void WhenExitDetectArea()
@@ -93,8 +85,8 @@ namespace Manager
             if (_roteteStatus == RoteteStatus.Static) return;
 
             movementController.StopFollow();
-
         }
+
         public void PushToPool(PoolObjectType poolObjectType, GameObject obj)
         {
             PoolSignals.Instance.onReleaseObjectFromPool?.Invoke(poolObjectType, obj);
@@ -104,7 +96,5 @@ namespace Manager
         {
             defenderDetectController.OpenDetectPyhsic(_levelData.DefanderData.DefanderCharacterData[_defanderType].Range);
         }
-
-
     }
 }

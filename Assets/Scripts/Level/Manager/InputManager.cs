@@ -1,5 +1,4 @@
 ﻿using Signals;
-using System;
 using UnityEngine;
 
 namespace Managers
@@ -15,14 +14,12 @@ namespace Managers
         {
             CoreGameSignals.Instance.onPlay += OnPlay;
             CoreGameSignals.Instance.onReset += OnReset;
-
         }
 
         private void UnsubscribeEvents()
         {
             CoreGameSignals.Instance.onPlay -= OnPlay;
             CoreGameSignals.Instance.onReset -= OnReset;
-
         }
 
         private void OnDisable() => UnsubscribeEvents();
@@ -48,8 +45,8 @@ namespace Managers
                     InputSignals.Instance.onInputTouch?.Invoke();
                 }
             }
-
         }
+
         private void OnPlay() => StartToInput();
 
         private void OnReset() => StopToInput();

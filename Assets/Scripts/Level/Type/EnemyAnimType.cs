@@ -1,9 +1,6 @@
-﻿using System.Collections;
-using UnityEngine;
-
-namespace Type
+﻿namespace Type
 {
-    public enum EnemyAnimType 
+    public enum EnemyAnimType
     {
         Run,
         Die

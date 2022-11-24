@@ -1,7 +1,5 @@
 ﻿using Data.ValueObject;
 using Manager;
-using System;
-using System.Collections;
 using Type;
 using UnityEngine;
 
@@ -19,6 +17,7 @@ namespace Controller
         public BoxCollider detectColliderStaticRotate;
 
         private DefanderCharacterData _defanderCharacterData;
+
         private RoteteStatus _roteteStatus;
 
         internal void SetData(DefanderCharacterData defanderCharacterData)
@@ -26,7 +25,6 @@ namespace Controller
             _defanderCharacterData = defanderCharacterData;
 
             SelectRotateMod(_defanderCharacterData.roteteStatus, _defanderCharacterData.Range);
-
         }
 
         private void SelectRotateMod(RoteteStatus roteteStatus, float range)
@@ -37,46 +35,47 @@ namespace Controller
                 case RoteteStatus.Static:
                     detectColliderDynamicRotate.enabled = false;
                     detectColliderStaticRotate.enabled = true;
-                  
+
                     break;
-                case RoteteStatus.Dynamic:
+
+                case RoteteStatus.DynamicRotete:
                     detectColliderDynamicRotate.enabled = true;
                     detectColliderStaticRotate.enabled = false;
 
                     break;
+
                 default:
                     break;
             }
         }
+
         internal void OpenDetectPyhsic(float range)
         {
             detectColliderStaticRotate.size = new Vector3(2, 1, 16);
             detectColliderDynamicRotate.radius = 16;
         }
 
-
         private void OnTriggerEnter(Collider other)
         {
             if (other.TryGetComponent(out EnemyPhysicController enemyPhysicController))
             {
+
+
+                Debug.Log(other.name);
                 defanderManager.WhenEnemyEnterDetectArea(other.gameObject);
 
                 defanderManager.WhenEnterDetectArea();
             }
         }
 
-
         private void OnTriggerExit(Collider other)
         {
             if (other.TryGetComponent(out EnemyPhysicController enemyPhysicController))
             {
-                 defanderManager.WhenEnemyExitDetectArea(other.gameObject);
+                defanderManager.WhenEnemyExitDetectArea(other.gameObject);
 
-                 defanderManager.WhenExitDetectArea();
+                defanderManager.WhenExitDetectArea();
             }
         }
-
-     
-       
     }
 }

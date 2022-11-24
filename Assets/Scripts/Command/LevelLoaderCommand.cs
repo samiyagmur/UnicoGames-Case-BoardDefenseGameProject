@@ -1,8 +1,4 @@
-﻿using Interfaces;
-using Signals;
-using System.Collections;
-using Type;
-using UnityEngine;
+﻿using UnityEngine;
 
 namespace Command
 {
@@ -10,9 +6,7 @@ namespace Command
     {
         public void InsitializeLevel(int _levelID, Transform levelHolder)
         {
-     
             Instantiate(Resources.Load<GameObject>($"LevelPrefabs/level{_levelID}"), levelHolder);
         }
-
     }
 }

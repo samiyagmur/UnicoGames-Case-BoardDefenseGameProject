@@ -1,12 +1,8 @@
 ﻿using Data.ValueObject;
 using Interfaces;
 using Signals;
-using System;
-using System.Collections;
-using System.Threading.Tasks;
 using Type;
 using UnityEngine;
-using UnityEngine.Rendering;
 
 namespace Controller
 {
@@ -29,7 +25,7 @@ namespace Controller
             _defanderCharacterData = defanderCharacterData;
         }
 
-        internal void StartAtack( GameObject gameObject)
+        internal void StartAtack(GameObject gameObject)
         {
             if (gameObject == null) return;
 
@@ -52,25 +48,24 @@ namespace Controller
 
                 if (_timer < 0)
                 {
-                     Fire();
                     _timer = _defanderCharacterData.Interval;
+                    Fire();
                 }
             }
         }
+
         private void Fire()
         {
-
+            Debug.Log("ss");
             GameObject chosenBullet = PullFromPool(_poolObjectType);///lookagain
 
             _rigidbody = chosenBullet.GetComponent<Rigidbody>();
-
 
             _rigidbody.transform.position = transform.position;
 
             _rigidbody.transform.rotation = transform.rotation;
 
-            
-             _rigidbody.AddForce(transform.forward * 5f, ForceMode.VelocityChange);
+            _rigidbody.AddForce(transform.forward * 5f, ForceMode.VelocityChange);
         }
 
         public GameObject PullFromPool(PoolObjectType poolObjectType)
@@ -90,9 +85,7 @@ namespace Controller
 
         internal void StopAtack()
         {
-          _isAttack=false;
+            _isAttack = false;
         }
     }
-
-
 }

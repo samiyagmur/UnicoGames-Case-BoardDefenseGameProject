@@ -1,6 +1,4 @@
-﻿using System;
-using System.Collections;
-using Type;
+﻿using Type;
 using UnityEngine;
 
 namespace Controller
@@ -9,6 +7,7 @@ namespace Controller
     {
         [SerializeField]
         private Animator camAnimator;
+
         internal void WhenPressPlay() => ChangeCameraState(CameraStateType.Level);
 
         internal void WhenCharacterFail() => ChangeCameraState(CameraStateType.Fail);
@@ -20,7 +19,5 @@ namespace Controller
         internal void WhenPressReset() => ChangeCameraState(CameraStateType.Start);
 
         public void ChangeCameraState(CameraStateType cameraStateType) => camAnimator.Play(cameraStateType.ToString());
-
-
     }
 }

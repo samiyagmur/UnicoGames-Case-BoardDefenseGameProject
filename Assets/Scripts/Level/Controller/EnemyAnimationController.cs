@@ -1,6 +1,4 @@
-﻿using System;
-using System.Collections;
-using Type;
+﻿using Type;
 using UnityEngine;
 
 namespace Controller
@@ -12,9 +10,7 @@ namespace Controller
 
         private void OnEnable() => ChangeAnimaimation(EnemyAnimType.Run);
 
-
         private void OnDisable() => ChangeAnimaimation(EnemyAnimType.Die);
-
 
         private void ChangeAnimaimation(EnemyAnimType animType)
         {

@@ -1,6 +1,4 @@
-﻿using Interfaces;
-using Manager;
-using System.Collections;
+﻿using Manager;
 using UnityEngine;
 
 namespace Controller
@@ -14,9 +12,10 @@ namespace Controller
         {
             if (other.CompareTag("GridElement"))
             {
-               defenderMeneger.WhenDropOnGridElement();
+                defenderMeneger.WhenDropOnGridElement();
+
+               // other.transform.tag = "GridUnSelectable";
             }
-            
         }
     }
 }

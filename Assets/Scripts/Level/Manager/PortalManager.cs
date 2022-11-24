@@ -1,17 +1,11 @@
-﻿using Controller;
-using Data.UnityObject;
-using Data.ValueObject;
+﻿using Data.ValueObject;
 using Signals;
-using System;
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
 namespace Manager
 {
     public class PortalManager : MonoBehaviour
     {
-
         private int _numberOfPasses;
         private LevelData _levelData;
 
@@ -26,7 +20,6 @@ namespace Manager
         {
             CoreGameSignals.Instance.onGetLevelData += OnLevelInitilize;
             CoreGameSignals.Instance.onReset += OnReset;
-
         }
 
         private void UnsubscribeEvents()
@@ -34,13 +27,13 @@ namespace Manager
             CoreGameSignals.Instance.onGetLevelData -= OnLevelInitilize;
             CoreGameSignals.Instance.onReset -= OnReset;
         }
+
         private void OnDisable() => UnsubscribeEvents();
 
         internal void WhenEnterPortal()
-        { 
+        {
             _numberOfPasses++;
             if (_numberOfPasses == _levelData.FailAmount) CoreGameSignals.Instance.onFail?.Invoke();
-
 
             EnemySignals.Instance.onPassEnemyFromPortal?.Invoke();
         }
@@ -49,7 +42,5 @@ namespace Manager
         {
             _numberOfPasses = 0;
         }
-
-
     }
 }

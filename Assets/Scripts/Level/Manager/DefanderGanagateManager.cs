@@ -1,10 +1,6 @@
 ﻿using Controller;
-using Data.UnityObject;
 using Data.ValueObject;
 using Signals;
-using System;
-using System.Collections;
-using System.Collections.Generic;
 using Type;
 using UnityEngine;
 
@@ -14,6 +10,7 @@ namespace Manager
     {
         [SerializeField]
         public DefanderSpawnController spawnController;
+
         private LevelData _levelData;
 
         private void OnLevelInitilize(LevelData levelData)
@@ -33,7 +30,6 @@ namespace Manager
             CoreGameSignals.Instance.onInitDefenderInfo?.Invoke(levelData.DefanderData);
         }
 
-
         private void OnEnable() => SubscribeEvents();
 
         private void SubscribeEvents()
@@ -43,8 +39,6 @@ namespace Manager
             CoreGameSignals.Instance.onReset += OnReset;
             InputSignals.Instance.onInputTouch += OnInputTouch;
             InputSignals.Instance.onDragMouse += OnDragMause;
- 
-
         }
 
         private void UnsubscribeEvents()
@@ -54,11 +48,9 @@ namespace Manager
             CoreGameSignals.Instance.onReset -= OnReset;
             InputSignals.Instance.onInputTouch -= OnInputTouch;
             InputSignals.Instance.onDragMouse -= OnDragMause;
-
         }
 
         private void OnDisable() => UnsubscribeEvents();
-
 
         private void OnClickCharacterButton(DefanderType value)
         {
@@ -67,17 +59,18 @@ namespace Manager
 
         private void OnDragMause(RaycastHit hitObj)
         {
-            spawnController.SetSpawnPoint(hitObj);
+            spawnController.SetPlantPoint(hitObj);
         }
+
         private void OnInputTouch()
         {
-            spawnController.ChosePlantPoint();
+            spawnController.Plant();
         }
+
         private void OnReset()
         {
             InitDefenderCount(_levelData);
-            spawnController.ResetSpawn();
+           
         }
-
     }
 }

@@ -2,8 +2,6 @@
 using Interfaces;
 using Manager;
 using Signals;
-using System;
-using System.Collections;
 using TMPro;
 using Type;
 using UnityEngine;
@@ -11,17 +9,16 @@ using Random = UnityEngine.Random;
 
 namespace Controller
 {
-    public class EnemyHealtController : MonoBehaviour,IPushObject
+    public class EnemyHealtController : MonoBehaviour, IPushObject
     {
         private EnemyCharacterData _enemyCharacterData;
         private int _healt;
+
         [SerializeField]
         private EnemyManager enemyManager;
 
         [SerializeField]
         private TextMeshPro healt;
-
-        
 
         internal void SetData(EnemyCharacterData enemyCharacterData)
         {
@@ -38,8 +35,8 @@ namespace Controller
 
         private void UpdateHealt(int damage, EnemyType _enemyType)
         {
-            _healt +=damage;
-        
+            _healt += damage;
+
             UpdateHealtText(_healt);
 
             IsDeadEnemy(_healt, _enemyType);
@@ -47,16 +44,15 @@ namespace Controller
 
         private void IsDeadEnemy(int healt, EnemyType _enemyType)
         {
-            if (healt<=0)
-            {   
-               
+            if (healt <= 0)
+            {
                 PushToPool((PoolObjectType)(int)_enemyType, transform.parent.gameObject);
 
                 enemyManager.IsDeadEnemy(true);
 
-                int percent= Random.Range(0,100);
+                int percent = Random.Range(0, 100);
 
-                if (percent<_enemyCharacterData.PercentOfDropGem)
+                if (percent < _enemyCharacterData.PercentOfDropGem)
                 {
                     enemyManager.IsGemDropFromEnemy(true);
                 }

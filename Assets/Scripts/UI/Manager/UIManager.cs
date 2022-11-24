@@ -1,18 +1,13 @@
 using Controller;
 using Data.ValueObject;
 using Signals;
-using System;
-using System.Collections.Generic;
-using TMPro;
 using Type;
 using UnityEngine;
-using UnityEngine.Rendering;
 
 namespace Managers
 {
     public class UIManager : MonoBehaviour
     {
-
         [SerializeField]
         private UIPanelController uIPanelController;
 
@@ -36,10 +31,10 @@ namespace Managers
 
         private void SubscribeEvents()
         {
-           // CoreGameSignals.Instance.onScoreReNew += OnScoreReNew;
+            // CoreGameSignals.Instance.onScoreReNew += OnScoreReNew;
             UISignals.Instance.onOpenPanel += OnOpenPanel;
             UISignals.Instance.onClosePanel += OnClosePanel;
-            ScoreSignals.Instance.onInitLastGoldScore +=OnInitLastGoldScore;
+            ScoreSignals.Instance.onInitLastGoldScore += OnInitLastGoldScore;
             ScoreSignals.Instance.onInitLastDiamondScore += OnInitLastDiamondScore;
             CoreGameSignals.Instance.onFail += OnFail;
             CoreGameSignals.Instance.onLevelSuccessfull += OnLevelSuccessfull;
@@ -59,7 +54,6 @@ namespace Managers
             CoreGameSignals.Instance.onLevelInitilize -= OnLevelInitilize;
             CoreGameSignals.Instance.onPlay -= OnPlay;
             CoreGameSignals.Instance.onInitDefenderInfo -= OnInitDefenderInfo;
-
         }
 
         internal void OnBuyNewChar(int charPrice)
@@ -68,29 +62,27 @@ namespace Managers
         }
 
         internal void HasClickCharacterButton(DefanderType characterType)
-        {  
+        {
             CoreGameSignals.Instance.onClickCharacterButton?.Invoke(characterType);
         }
 
         private void OnDisable() => UnsubscribeEvents();
 
-
         private void OnOpenPanel(UIPanelType panelType) => uIPanelController.ChangePanel(panelType, true);
 
         internal void OnClosePanel(UIPanelType panelType) => uIPanelController.ChangePanel(panelType, false);
 
- 
-       
         private void OnLevelInitilize(int levelID)
         {
             _levelID = levelID;
             levelPanelController.InitLevelID(levelID);
-
         }
+
         internal void ChangePanelStatusOnPlay()
         {
             CoreGameSignals.Instance.onPlay?.Invoke();
         }
+
         private void OnPlay()
         {
             OnClosePanel(UIPanelType.StartPanel);
@@ -103,10 +95,10 @@ namespace Managers
             OnOpenPanel(uIPanelType);
             OnClosePanel(UIPanelType.StartPanel);
         }
+
         internal void ChangePanelOnRestart()
         {
-            CoreGameSignals.Instance.onClearActiveLevel?.Invoke();
-            CoreGameSignals.Instance.onPlay?.Invoke();
+            CoreGameSignals.Instance.rePlay?.Invoke();
         }
 
         internal void ChangePanelStatusOnExit(UIPanelType uIPanelType)
@@ -116,7 +108,7 @@ namespace Managers
             OnClosePanel(UIPanelType.CharPanel);
             CoreGameSignals.Instance.onClearActiveLevel?.Invoke();
         }
-       
+
         private void OnFail()
         {
             failPanelController.SetDiamondScore(_lastDiamondScore);
@@ -126,14 +118,16 @@ namespace Managers
 
         internal void ChangePanelStatusOnPressTryAgain(UIPanelType uIPanelType)
         {
-             OnClosePanel(uIPanelType);
-             OnOpenPanel(UIPanelType.StartPanel);
+            OnClosePanel(uIPanelType);
+            OnOpenPanel(UIPanelType.StartPanel);
         }
+
         private void OnLevelSuccessfull()
         {
             levelSuccessfulPanel.SetCurrenLevel(_levelID);
             OnOpenPanel(UIPanelType.LevelSuccesful);
         }
+
         internal void ChangePanelStatusOnPressNextLevel(UIPanelType uIPanelType)
         {
             OnClosePanel(uIPanelType);
@@ -141,16 +135,15 @@ namespace Managers
             OnOpenPanel(UIPanelType.CharPanel);
             CoreGameSignals.Instance.onNextLevel?.Invoke();
         }
+
         internal void ChangePanelStatusOnSetting(UIPanelType uIPanelType)
         {
             OnClosePanel(uIPanelType);
             OnOpenPanel(UIPanelType.StartPanel);
         }
 
-
         private void OnInitLastDiamondScore(int value)
         {
-
             _lastDiamondScore = value;
             levelPanelController.InitDiamondScore(value);
         }
@@ -161,7 +154,6 @@ namespace Managers
             levelPanelController.InitGoldScore(value);
         }
 
-
         internal void ChangeVibrationStatus(bool vibrationStatus)
         {
             CoreGameSignals.Instance.onUpdateVibrationStatus?.Invoke(vibrationStatus);
@@ -169,7 +161,6 @@ namespace Managers
 
         private void OnInitDefenderInfo(DefanderData defenderCount)
         {
-            
             characterPanelController.InitCharCount(defenderCount);
         }
     }

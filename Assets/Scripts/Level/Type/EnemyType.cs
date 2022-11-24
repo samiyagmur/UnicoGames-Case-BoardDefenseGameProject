@@ -1,13 +1,9 @@
-﻿using System.Collections;
-using UnityEngine;
-
-namespace Type
+﻿namespace Type
 {
-    public enum EnemyType 
+    public enum EnemyType
     {
         Prometreus,
         Kerberos,
         Kronos
-
     }
 }

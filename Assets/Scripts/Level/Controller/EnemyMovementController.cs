@@ -1,6 +1,4 @@
 ﻿using Data.ValueObject;
-using System;
-using System.Collections;
 using UnityEngine;
 
 namespace Controller
@@ -8,7 +6,7 @@ namespace Controller
     public class EnemyMovementController : MonoBehaviour
     {
         [SerializeField]
-        private new  Rigidbody rigidbody;
+        private new Rigidbody rigidbody;
 
         private Vector3 velocity;
 
@@ -25,15 +23,15 @@ namespace Controller
         {
             if (IsMoving)
             {
-               MoveForward(); 
+                MoveForward();
             }
         }
+
         private void MoveForward()
         {
             velocity = rigidbody.velocity;
-            rigidbody.velocity=new Vector3 (velocity.x, velocity.y,-_enemyCharacterData.Speed);
+            rigidbody.velocity = new Vector3(velocity.x, velocity.y, -_enemyCharacterData.Speed);
         }
-
 
         internal void StartToMoveForward()
         {
@@ -42,7 +40,7 @@ namespace Controller
 
         internal void StopToMoveForward()
         {
-            IsMoving = false;
+             IsMoving = false;
         }
     }
 }

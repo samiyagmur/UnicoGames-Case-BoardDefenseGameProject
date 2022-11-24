@@ -8,6 +8,5 @@
         FailPanel,
         Setting,
         CharPanel
-
     }
 }

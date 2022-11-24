@@ -1,5 +1,4 @@
 ﻿using System;
-using System.Collections;
 using UnityEngine;
 
 namespace Data.ValueObject
@@ -7,7 +6,6 @@ namespace Data.ValueObject
     [Serializable]
     public class LevelSaveData
     {
-
         [SerializeField]
         public int _levelID;
 
@@ -33,6 +31,5 @@ namespace Data.ValueObject
         {
             _levelID = levelID;
         }
-
     }
 }

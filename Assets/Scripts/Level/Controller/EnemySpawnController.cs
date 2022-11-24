@@ -9,36 +9,36 @@ using Random = UnityEngine.Random;
 
 namespace Controller
 {
-    public class EnemySpawnController : MonoBehaviour,IPullObject
+    public class EnemySpawnController : MonoBehaviour, IPullObject
     {
         private Dictionary<EnemyType, EnemyCharacterData> characterData;
 
         [SerializeField]
-        private List<Vector3> spawnPoints=new List<Vector3>();
+        private List<Vector3> spawnPoints = new List<Vector3>();
 
         [SerializeField]
         private List<EnemyType> willSpawnEnemyList = new List<EnemyType>();
 
-
         private EnemySpawnData _enemyspawndata;
 
         private int _spawnedCount;
-        private bool _isSpawn=false;
 
+        private bool _isSpawn = false;
+        [SerializeField]
+        private List<GridElements> _levelGridElementList;
 
-        internal  void SetData(Dictionary<EnemyType, EnemyCharacterData> enemySpawnData)
+        internal void SetData(Dictionary<EnemyType, EnemyCharacterData> enemySpawnData)
         {
-             
             this.characterData = enemySpawnData;
         }
+
         internal void StartSpawn()
         {
-        
             _isSpawn = true;
             LoadSpawnList();
         }
 
-        private  void LoadSpawnList()
+        private void LoadSpawnList()
         {
             for (int i = 0; i < characterData.Count; i++)
             {
@@ -46,59 +46,52 @@ namespace Controller
 
                 for (int j = 0; j < _enemyspawndata.numberOFEnemy; j++)
                 {
-                    willSpawnEnemyList.Add((EnemyType)i);//prometreus//permetreus//prometreus
+                    willSpawnEnemyList.Add((EnemyType)i);
                 }
-
             }
 
             _spawnedCount = willSpawnEnemyList.Count;
 
-             StartLoopForSpawn();
-
+            StartLoopForSpawn();
         }
 
         private async void StartLoopForSpawn()
         {
             while (willSpawnEnemyList.Count != 0 && _isSpawn)
             {
-
                 await Task.Delay(500);
                 ArrangePersentage();
             }
         }
 
-        private  void ArrangePersentage()
+        private void ArrangePersentage()
         {
-
             if (willSpawnEnemyList.Count <= 0) return;
 
             int selectRandomEnemy = Random.Range(0, characterData.Count);
 
             int percentage = Random.Range(0, 100);
 
-            if (!willSpawnEnemyList.Contains((EnemyType)selectRandomEnemy))return ;
+            if (!willSpawnEnemyList.Contains((EnemyType)selectRandomEnemy)) return;
 
             if (percentage < characterData[(EnemyType)selectRandomEnemy].enemySpawnData.percentOfSpawn)
             {
                 SpawnEnemy((EnemyType)selectRandomEnemy);
 
                 willSpawnEnemyList.Remove((EnemyType)selectRandomEnemy);
- 
+
                 willSpawnEnemyList.TrimExcess();
             }
-
-            
         }
 
         internal void SetSpawnPoint(List<GridElements> levelGridElementList)
         {
-
+            _levelGridElementList = levelGridElementList;
             float _totalGridHeigh = levelGridElementList[0].TotalHeight;
             float _totalGridWeight = levelGridElementList[0].TotalWeight;
 
             float scaleX = levelGridElementList[0].Scale.x;
             float scaleY = levelGridElementList[0].Scale.z;
-
 
             for (int i = 0; i < levelGridElementList.Count; i++)//29 30 31 32
             {
@@ -110,18 +103,15 @@ namespace Controller
                                                 levelGridElementList[i].GridElement.transform.position.z));
                 }
             }
-
         }
 
         private void SpawnEnemy(EnemyType type)
         {
-
             int randomSpawnPoint = Random.Range(0, spawnPoints.Count);
 
             GameObject willSpawnEnemy = PullFromPool((PoolObjectType)(int)type);
-
+            if(willSpawnEnemy!=null)
             willSpawnEnemy.transform.position = spawnPoints[randomSpawnPoint];
-
         }
 
         public GameObject PullFromPool(PoolObjectType poolObjectType)
@@ -141,12 +131,7 @@ namespace Controller
             willSpawnEnemyList.Clear();
             willSpawnEnemyList.TrimExcess();
 
-
-            _isSpawn =false;
-           
+            _isSpawn = false;
         }
-
-
-
     }
 }

@@ -1,5 +1,4 @@
 ﻿using Data.ValueObject;
-using Interfaces;
 using UnityEngine;
 
 namespace Data.UnityObject
@@ -12,11 +11,10 @@ namespace Data.UnityObject
         private const string Key = "scoreData";
 
         private const string uniqID = "1";
+
         public string GetKey()
         {
             return Key;
         }
-
-   
     }
 }

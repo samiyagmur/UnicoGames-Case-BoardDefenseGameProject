@@ -1,11 +1,7 @@
-﻿using Sirenix.OdinInspector;
-using System;
-using System.Collections.Generic;
-using UnityEngine;
+﻿using System;
 
 namespace Data.ValueObject
 {
-
     [Serializable]
     public class ScoreData
     {
@@ -13,5 +9,4 @@ namespace Data.ValueObject
 
         public int LastGoldScore;
     }
-    
 }

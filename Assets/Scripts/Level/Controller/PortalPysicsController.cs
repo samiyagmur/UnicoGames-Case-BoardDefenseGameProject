@@ -1,5 +1,4 @@
 ﻿using Manager;
-using System.Collections;
 using UnityEngine;
 
 namespace Controller
