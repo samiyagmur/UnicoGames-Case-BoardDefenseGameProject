@@ -8,7 +8,7 @@ namespace Data.ValueObject
     [Serializable]
     public class DefanderCharacterData
     {
-        
+        public RoteteStatus roteteStatus;
         public DefenderAtackDirections defenderMoveStatus;
         public BulletType bulletType;
         public int Damage;

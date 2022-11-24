@@ -14,7 +14,7 @@ namespace Controller
         {
             if (other.CompareTag("GridElement"))
             {
-                defenderMeneger.WhenDropOnGridElement();
+               defenderMeneger.WhenDropOnGridElement();
             }
             
         }

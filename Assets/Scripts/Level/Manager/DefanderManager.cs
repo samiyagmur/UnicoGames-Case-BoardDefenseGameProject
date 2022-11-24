@@ -23,8 +23,9 @@ namespace Manager
         [SerializeField]
         private DefanderType _defanderType;
 
-        private bool _ısStartAttack;
+
         private LevelData _levelData;
+        private RoteteStatus _roteteStatus;
 
         private void Start()
         {
@@ -35,6 +36,10 @@ namespace Manager
         {
            
             atackController.SetData(leveldata.DefanderData.DefanderCharacterData[_defanderType]);
+            _roteteStatus = _levelData.DefanderData.DefanderCharacterData[_defanderType].roteteStatus;
+            defenderDetectController.SetData(_levelData.DefanderData.DefanderCharacterData[_defanderType]);
+
+         
         }
 
         private void OnEnable() => SubscribeEvents();
@@ -53,23 +58,46 @@ namespace Manager
 
 
         private void OnDisable() => UnsubscribeEvents();
-        internal void WhenHitEnemy(GameObject gameObject)
+        internal void WhenEnemyEnterDetectArea(GameObject gameObject)
         {
-            
             movementController.AddDeathList(gameObject);
-            _ısStartAttack = true;
+
+
+            //_roteteStatus = RoteteStatus.Dynamic;
+            Debug.Log(_roteteStatus);
+            if (_roteteStatus == RoteteStatus.Static) return;
+
+            movementController.StartFollowAsDefenderType();
+        }
+
+        internal void WhenEnemyExitDetectArea(GameObject enemy)
+        {
+            movementController.RemoveDeathList(enemy);
         }
 
         internal void WhenEnterDetectArea()
         {
-            atackController.StartAtack( _ısStartAttack, movementController.GetTarger());
+
+           if (movementController.GetTarger() == null) return;
+
+           atackController.StartAtack( movementController.GetTarger());
         }
 
+        internal void WhenExitDetectArea()
+        {
+            atackController.StopAtack();
+        }
 
         private void OnReset()
         {
             atackController.ResetAtack();
+
             PushToPool((PoolObjectType)(int)_defanderType, gameObject);
+
+            if (_roteteStatus == RoteteStatus.Static) return;
+
+            movementController.StopFollow();
+
         }
         public void PushToPool(PoolObjectType poolObjectType, GameObject obj)
         {

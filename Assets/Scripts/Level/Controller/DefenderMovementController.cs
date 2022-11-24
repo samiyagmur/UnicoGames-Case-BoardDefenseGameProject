@@ -2,6 +2,7 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.Threading.Tasks;
 using Type;
 using UnityEngine;
 
@@ -16,62 +17,101 @@ namespace Controller
 
         #region Private Variables
 
-        [SerializeField]
-        private List<GameObject> _enemyDeadList = new List<GameObject>();
+        [ShowInInspector]
+        private LinkedList<GameObject> _enemyDeadList = new LinkedList<GameObject>();
 
-        private GameObject _botTarget;
-        private DefanderType _defanderType;
+        [SerializeField]
+        private new Rigidbody rigidbody;
+
+        private GameObject _targetEnemy;
+
 
 
         #endregion Private Variables
 
         #endregion Self Variabels
-
-
-        internal void AddDeathList(GameObject enemy, DefanderType defanderType)
+        internal void StartFollowAsDefenderType()
         {
-            _defanderType = defanderType;
-            _enemyDeadList.Add(enemy);
+            Debug.Log("ss");
+            FollowEnemy(true);
+            
         }
-        public void RemoveDeathList(GameObject gameObject)
-        {
-            //Debug.Log(gameObject);
-            //if (!_deadList.Contains(gameObject)) return;
 
-            //if (_deadList.Count <= 0) return;
-            //_deadList.Dequeue();
+        internal void StopFollow()
+        {
+            FollowEnemy(false);
+        }
 
-            //_botTarget = _deadList.Peek();
-        }
-        public GameObject GetTarger()
+
+        internal void AddDeathList(GameObject enemy)
         {
-            return _enemyDeadList[0];
+            Debug.Log(enemy.transform.name);
+            _enemyDeadList.AddLast(enemy);
         }
-       
-        private void Update()
+        public void RemoveDeathList(GameObject enemy)
         {
-            RotateToEnemy();
+         
+            if (!_enemyDeadList.Contains(enemy)) return;
+
+            if (_enemyDeadList.Count <= 0) return;
+
+            _enemyDeadList.Remove(enemy);
+
+        }
+        public async  void FollowEnemy(bool _isFollow)
+        {
+    
+            while (true)
+            {
+                await Task.Delay(1);
+
+                RotateToEnemy();
+            }
         }
 
         public void RotateToEnemy()
         {
-            if (_deadList.Count <= 0) return;
+            if (_enemyDeadList.Count <= 0) return;
+
+          //  if (_enemyDeadList.Last.Value == null) return;
+         
+            _targetEnemy = _enemyDeadList.Last.Value;
+
+            Debug.Log(_targetEnemy.activeInHierarchy);
+
+            if (!_targetEnemy.activeInHierarchy)
+            {
+                if (!_enemyDeadList.Contains(_enemyDeadList.Last.Value)) return;
+
+                _enemyDeadList.Remove(_enemyDeadList.Last.Value);
+
+                _targetEnemy = _enemyDeadList.Last.Value;
+            }
+                
+             
 
 
 
+            if (_targetEnemy.transform.position == Vector3.zero) return;
 
+            Vector3 oldPos=new Vector3(transform.position.x,0, transform.position.z);
 
+            Vector3 _shotPositon = new Vector3(_targetEnemy.transform.position.x, 0, _targetEnemy.transform.position.z);
+            Vector3  _relativePos = _shotPositon - oldPos;
+            Quaternion _rotation = Quaternion.LookRotation(_relativePos);
+            transform.rotation = Quaternion.Lerp(transform.rotation, _rotation,0.1f);
 
         }
 
+    
+        public GameObject GetTarger()
+        {
+          
+            return _enemyDeadList.First.Value;
+        }
 
 
-
-        //internal void RoteteToEnemy()
-        //{
-
-        //}
-
+      
 
 
     }

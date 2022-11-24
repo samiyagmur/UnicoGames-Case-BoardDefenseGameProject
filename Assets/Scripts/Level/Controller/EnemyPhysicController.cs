@@ -31,10 +31,6 @@ namespace Controller
                  PushToPool(poolObject, transform.parent.gameObject);
             }
 
-            //if (other.CompareTag("Portal"))
-            //{
-            //    enemyManager.WhenSpawnOnBoard();
-            //}
         }
 
         public int GetDamage()

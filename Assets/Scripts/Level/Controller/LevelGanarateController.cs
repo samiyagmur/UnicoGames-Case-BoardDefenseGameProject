@@ -11,20 +11,6 @@ using Type;
 
 namespace Controller
 {
-   
-    //[Serializable]
-    //public class GridElements
-    //{
-    //    public GameObject _gridElement;
-    //    public Material Material;
-    //    public float Height;
-    //    public float Width;
-    //    public float TotalHeight;
-    //    public float TotalWeight;
-    //    public Vector3 Scale;
-    //    public GridElementStatus GridElementStatus;
-    //    public GridData LevelGanarateData;
-    //}
 
     [ExecuteInEditMode]
     public class LevelGanarater :OdinEditorWindow

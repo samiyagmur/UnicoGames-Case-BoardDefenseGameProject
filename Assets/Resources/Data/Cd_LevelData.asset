@@ -48,7 +48,8 @@ MonoBehaviour:
       DefanderCharacterData:
         m_Keys: 030000000400000005000000
         m_Values:
-        - defenderMoveStatus: 0
+        - roteteStatus: 0
+          defenderMoveStatus: 0
           bulletType: 6
           Damage: 3
           Range: 1
@@ -56,7 +57,8 @@ MonoBehaviour:
           Interval: 0.5
           defenderSpawnData:
             TotalCountOfDefender: 3
-        - defenderMoveStatus: 0
+        - roteteStatus: 0
+          defenderMoveStatus: 0
           bulletType: 7
           Damage: 5
           Range: 2
@@ -64,7 +66,8 @@ MonoBehaviour:
           Interval: 0.5
           defenderSpawnData:
             TotalCountOfDefender: 1
-        - defenderMoveStatus: 0
+        - roteteStatus: 1
+          defenderMoveStatus: 0
           bulletType: 8
           Damage: 10
           Range: 16
@@ -108,7 +111,8 @@ MonoBehaviour:
       DefanderCharacterData:
         m_Keys: 030000000400000005000000
         m_Values:
-        - defenderMoveStatus: 0
+        - roteteStatus: 0
+          defenderMoveStatus: 0
           bulletType: 6
           Damage: 3
           Range: 1
@@ -116,7 +120,8 @@ MonoBehaviour:
           Interval: 0.5
           defenderSpawnData:
             TotalCountOfDefender: 3
-        - defenderMoveStatus: 0
+        - roteteStatus: 0
+          defenderMoveStatus: 0
           bulletType: 7
           Damage: 5
           Range: 2
@@ -124,7 +129,8 @@ MonoBehaviour:
           Interval: 0.5
           defenderSpawnData:
             TotalCountOfDefender: 1
-        - defenderMoveStatus: 0
+        - roteteStatus: 0
+          defenderMoveStatus: 0
           bulletType: 8
           Damage: 10
           Range: 16
@@ -168,7 +174,8 @@ MonoBehaviour:
       DefanderCharacterData:
         m_Keys: 030000000400000005000000
         m_Values:
-        - defenderMoveStatus: 0
+        - roteteStatus: 0
+          defenderMoveStatus: 0
           bulletType: 6
           Damage: 3
           Range: 1
@@ -176,7 +183,8 @@ MonoBehaviour:
           Interval: 0.5
           defenderSpawnData:
             TotalCountOfDefender: 3
-        - defenderMoveStatus: 0
+        - roteteStatus: 0
+          defenderMoveStatus: 0
           bulletType: 7
           Damage: 5
           Range: 2
@@ -184,7 +192,8 @@ MonoBehaviour:
           Interval: 0.5
           defenderSpawnData:
             TotalCountOfDefender: 1
-        - defenderMoveStatus: 0
+        - roteteStatus: 0
+          defenderMoveStatus: 0
           bulletType: 8
           Damage: 10
           Range: 16

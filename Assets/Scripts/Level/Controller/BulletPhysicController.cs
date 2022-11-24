@@ -22,7 +22,11 @@ namespace Controller
             }
             if (other.TryGetComponent(out WeaponAtackController weaponAtackController))
             {
-              defenderPower=  weaponAtackController.GetPowerToDefender();
+                transform.parent.rotation = weaponAtackController.gameObject.transform.rotation;
+
+
+
+              defenderPower =  weaponAtackController.GetPowerToDefender();
             }
         }
 

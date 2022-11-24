@@ -29,7 +29,7 @@ namespace Manager
         {
             _levelData = CoreGameSignals.Instance.onGetLevelDataWhenSpawn?.Invoke();
 
-           Init(_levelData);
+            Init(_levelData);
         }
 
         private void OnGetLevelData( LevelData levelData)

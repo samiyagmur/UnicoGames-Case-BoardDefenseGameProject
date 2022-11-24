@@ -6,7 +6,7 @@ using UnityEngine;
 
 namespace Command
 {
-    public class LevelLoaderCommand : MonoBehaviour//,IPullObject
+    public class LevelLoaderCommand : MonoBehaviour
     {
         public void InsitializeLevel(int _levelID, Transform levelHolder)
         {
@@ -14,9 +14,5 @@ namespace Command
             Instantiate(Resources.Load<GameObject>($"LevelPrefabs/level{_levelID}"), levelHolder);
         }
 
-        //public GameObject PullFromPool(PoolObjectType poolObjectType)
-        //{
-        //   return PoolSignals.Instance.onGetObjectFromPool(poolObjectType);
-        //}
     }
 }

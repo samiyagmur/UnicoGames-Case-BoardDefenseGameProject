@@ -18,7 +18,7 @@ namespace Managers
 
         [SerializeField]
         private ClearActiveLevelCommand clearActiveLevelCommand;
-
+        [SerializeField]
         private int _levelID;
 
         private const string _dataPath = "Data/Cd_LevelData";
@@ -28,7 +28,7 @@ namespace Managers
         private void OnEnable()
         {
             SubscribeEvents();
-          
+
         }
 
         private void SubscribeEvents()
@@ -57,7 +57,7 @@ namespace Managers
             Init();
         }
         private void Init()
-        {  
+        {
             CoreGameSignals.Instance.onLevelInitilize(_levelID);
 
             CoreGameSignals.Instance.onGetLevelData?.Invoke(GetData());
@@ -81,8 +81,8 @@ namespace Managers
         {
             Debug.Log("OnLevelSuccessfull");
             CoreGameSignals.Instance.onClearActiveLevel?.Invoke();
-           
-     
+
+
         }
 
         private void OnClearActiveLevel()
@@ -90,9 +90,9 @@ namespace Managers
             Debug.Log("OnClearActiveLevel");
             clearActiveLevelCommand.ClearActiveLevel(levelholder);
             CoreGameSignals.Instance.onReset?.Invoke();
-            
 
-            
+
+
         }
         private void OnNextLevel()
         {

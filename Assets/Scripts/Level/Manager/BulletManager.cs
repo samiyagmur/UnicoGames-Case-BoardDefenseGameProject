@@ -28,6 +28,7 @@ namespace Manager
 
         private void OnDisable() => UnsubscribeEvents();
 
+
         private void OnReset()
         {
             PushToPool((PoolObjectType)(int)bulletType, gameObject);

@@ -15,7 +15,9 @@ namespace Controller
         private DefanderCharacterData _defanderCharacterData;
 
         private bool _isAttack;
+
         private GameObject _gameObject;
+
         private Rigidbody _rigidbody;
 
         private float _timer=0.5f;
@@ -27,11 +29,11 @@ namespace Controller
             _defanderCharacterData = defanderCharacterData;
         }
 
-        internal void StartAtack(bool ısStartAttack, GameObject gameObject)
+        internal void StartAtack( GameObject gameObject)
         {
             if (gameObject == null) return;
 
-            _isAttack = ısStartAttack;
+            _isAttack = true;
 
             _gameObject = gameObject;
 
@@ -42,7 +44,7 @@ namespace Controller
         {
             if (_gameObject == null) return;
 
-            if (!_gameObject.activeInHierarchy) return;
+           
 
             if (_isAttack)
             {
@@ -51,7 +53,7 @@ namespace Controller
 
                 if (_timer < 0)
                 {
-                     Fire();
+                    // Fire();
                     _timer = _defanderCharacterData.Interval;
                 }
             }
@@ -59,13 +61,20 @@ namespace Controller
         private void Fire()
         {
    
+            
+
             GameObject chosenBullet = PullFromPool(_poolObjectType);///lookagain
 
             _rigidbody = chosenBullet.GetComponent<Rigidbody>();
 
-            chosenBullet.transform.position = transform.position;
 
-            _rigidbody.velocity = new Vector3(_rigidbody.velocity.x, _rigidbody.velocity.y, 0.5f);
+
+            _rigidbody.transform.position = transform.position;
+
+            _rigidbody.transform.rotation = transform.rotation;
+
+            
+             _rigidbody.AddForce(transform.forward * 0.5f, ForceMode.VelocityChange);
         }
 
         public GameObject PullFromPool(PoolObjectType poolObjectType)
@@ -83,7 +92,10 @@ namespace Controller
             _isAttack = false;
         }
 
-
+        internal void StopAtack()
+        {
+          _isAttack=false;
+        }
     }
 
 
