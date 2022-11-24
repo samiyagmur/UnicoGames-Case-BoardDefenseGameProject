@@ -43,7 +43,9 @@ namespace Manager
           
             enemyHealtController.SetData(levelData.EnemyData.enemies[_enemyType]);
             enemyMovementController.SetData(levelData.EnemyData.enemies[_enemyType]);
-       
+            enemyMovementController.StartToMoveForward();
+
+
         }
 
         private void OnEnable() => SubscribeEvents();
@@ -97,7 +99,7 @@ namespace Manager
         }
 
         private void OnReset()
-        {
+        {   
             PushToPool((PoolObjectType)(int)_enemyType, gameObject);
         }
         public void PushToPool(PoolObjectType poolObjectType, GameObject obj)

@@ -7,7 +7,6 @@
         LevelSuccesful,
         FailPanel,
         Setting,
-        TopScore,
         CharPanel
 
     }

@@ -20,30 +20,25 @@ namespace Managers
 
         [SerializeField]
         private ClearActiveLevelCommand clearActiveLevelCommand;
-        [SerializeField]
+
         private int _levelID;
 
         private ISaver _saver;
         private ILoader _loader;
-        private LevelData _LevelData;
+        private LevelData _levelData;
 
         private void Awake()
         {
             _saver = new SaveLoadManager();
             _loader = new SaveLoadManager();
-            gameLoad();
-
-            _LevelData = GetData();
-        }
-
-        private void gameLoad()
-        {
             Load();
         }
 
+
+
         private const string _dataPath = "Data/Cd_LevelData";
 
-        private LevelData GetData() => Resources.Load<Cd_LevelData>(_dataPath).LevelData[_levelID];
+        private Cd_LevelData GetData() => Resources.Load<Cd_LevelData>(_dataPath);
 
         private void OnEnable()
         {
@@ -78,9 +73,10 @@ namespace Managers
         }
         private void Init()
         {
+            Load();
             CoreGameSignals.Instance.onLevelInitilize(_levelID);
 
-            CoreGameSignals.Instance.onGetLevelData?.Invoke(GetData());
+            CoreGameSignals.Instance.onGetLevelData?.Invoke(GetData().LevelData[_levelID]);
 
 
         }
@@ -116,29 +112,32 @@ namespace Managers
         }
         private void OnNextLevel()
         {
-  
+
+            GetData().LevelID++;
             _levelID++;
-            CoreGameSignals.Instance.onGetLevelData?.Invoke(GetData());
+            CoreGameSignals.Instance.onGetLevelData?.Invoke(GetData().LevelData[_levelID]);
             CoreGameSignals.Instance.onLevelInitilize(_levelID);
             CoreGameSignals.Instance.onPlay?.Invoke();
             Save();
         }
 
+        private void OnApplicationQuit()
+        {
+            Save();
+        }
+
         private LevelData OnGetLevelDataWhenSpawn()
         {
-            return GetData();
+            return GetData().LevelData[_levelID];
         }
         private void Save()
         {
-            _saver.UpdateSave(_LevelData);
+            //_saver.UpdateSave(_levelID);
         }
 
         private void Load()
         {
-            _LevelData = _loader.UpdateLoad<LevelData>();
-
-            OnLevelSuccessfull(); ;
-
+            //_levelID = _loader.UpdateLoad<Cd_LevelData> ().LevelID;
         }
 
 

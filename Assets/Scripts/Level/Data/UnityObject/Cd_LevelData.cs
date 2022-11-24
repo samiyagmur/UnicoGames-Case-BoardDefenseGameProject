@@ -8,5 +8,10 @@ namespace Data.UnityObject
     public class Cd_LevelData : ScriptableObject
     {
         public List<LevelData> LevelData;
+
+
+        private int _levelData;
+
+        public int LevelID { get => _levelData; set => _levelData = value; }
     }
 }

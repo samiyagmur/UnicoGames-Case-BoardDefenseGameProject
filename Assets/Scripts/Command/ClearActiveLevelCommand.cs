@@ -9,6 +9,7 @@ namespace Command
     {
         public void ClearActiveLevel(Transform levelHolder)
         {
+
             PushToPool(PoolObjectType.Level, levelHolder.GetChild(0).gameObject);
 
             levelHolder.GetChild(0).gameObject.transform.SetParent(null);

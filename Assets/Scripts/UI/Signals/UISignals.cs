@@ -11,6 +11,5 @@ namespace Signals
         public UnityAction<UIPanelType> onOpenPanel = delegate { };
         public UnityAction<UIPanelType> onClosePanel = delegate { };
 
-        public UnityAction<List<RankedScore>> onSetTopScore = delegate { };
     }
 }

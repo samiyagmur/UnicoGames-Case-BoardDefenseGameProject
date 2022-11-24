@@ -59,7 +59,6 @@ namespace Controller
         {
             if (other.TryGetComponent(out EnemyPhysicController enemyPhysicController))
             {
-                Debug.Log(_roteteStatus);
                 defanderManager.WhenEnemyEnterDetectArea(other.gameObject);
 
                 defanderManager.WhenEnterDetectArea();

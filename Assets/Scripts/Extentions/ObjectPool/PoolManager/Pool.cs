@@ -100,8 +100,6 @@ namespace Extantions
         {
 
             objectPool[type].Enqueue(obj);
-
-            Debug.Log(objectPool.Count);
         }
     }
 }

@@ -71,18 +71,14 @@ namespace Controller
         {
             if (_enemyDeadList.Count <= 0) return;
 
-          //  if (_enemyDeadList.Last.Value == null) return;
-         
             _targetEnemy = _enemyDeadList.Last.Value;
-
-            Debug.Log(_targetEnemy.activeInHierarchy);
 
             if (!_targetEnemy.activeInHierarchy)
             {
                 if (!_enemyDeadList.Contains(_enemyDeadList.Last.Value)) return;
 
                 _enemyDeadList.Remove(_enemyDeadList.Last.Value);
-
+                if (_enemyDeadList.Count <= 0) return;
                 _targetEnemy = _enemyDeadList.Last.Value;
             }
                 
@@ -92,7 +88,7 @@ namespace Controller
 
             if (_targetEnemy.transform.position == Vector3.zero) return;
 
-            Vector3 oldPos=new Vector3(defender.transform.position.x,0, defender.transform.position.z);
+            Vector3 oldPos=new Vector3(defender.transform.position.x,0, defender.transform.position.z+0.4f);
 
             Vector3 _shotPositon = new Vector3(_targetEnemy.transform.position.x, 0, _targetEnemy.transform.position.z);
             Vector3  _relativePos = _shotPositon - oldPos;
@@ -105,7 +101,7 @@ namespace Controller
         public GameObject GetTarger()
         {
           
-            return _enemyDeadList.First.Value;
+            return _enemyDeadList.Last.Value;
         }
 
 

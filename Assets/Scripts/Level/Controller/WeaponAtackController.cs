@@ -20,7 +20,7 @@ namespace Controller
 
         private Rigidbody _rigidbody;
 
-        private float _timer=0.5f;
+        private float _timer;
 
         private PoolObjectType _poolObjectType;
 
@@ -46,9 +46,8 @@ namespace Controller
 
             if (!_gameObject.activeInHierarchy) return;
 
-            if (_isAttack)
+            if (true)
             {
-                //sphereCollider.radius = 0.1f;
                 _timer -= Time.fixedDeltaTime;
 
                 if (_timer < 0)
@@ -66,13 +65,12 @@ namespace Controller
             _rigidbody = chosenBullet.GetComponent<Rigidbody>();
 
 
-
             _rigidbody.transform.position = transform.position;
 
             _rigidbody.transform.rotation = transform.rotation;
 
             
-             _rigidbody.AddForce(transform.forward * 0.5f, ForceMode.VelocityChange);
+             _rigidbody.AddForce(transform.forward * 5f, ForceMode.VelocityChange);
         }
 
         public GameObject PullFromPool(PoolObjectType poolObjectType)

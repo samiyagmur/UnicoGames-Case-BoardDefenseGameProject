@@ -56,8 +56,6 @@ namespace Controller
         {
             startPanelassignments.StartButton.onClick.
                 AddListener(delegate { ArangeStartPanelStatus(); });
-            startPanelassignments.ScorePanelButton.onClick.
-                AddListener(delegate { ArangePanelStatus(UIPanelType.TopScore); });
             startPanelassignments.SettingPanelButton.onClick.
                 AddListener(delegate { ArangePanelStatus(UIPanelType.Setting); });
         }

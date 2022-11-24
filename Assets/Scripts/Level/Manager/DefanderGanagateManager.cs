@@ -14,9 +14,11 @@ namespace Manager
     {
         [SerializeField]
         public DefanderSpawnController spawnController;
+        private LevelData _levelData;
 
         private void OnLevelInitilize(LevelData levelData)
         {
+            _levelData = levelData;
             Init(levelData);
         }
 
@@ -73,6 +75,7 @@ namespace Manager
         }
         private void OnReset()
         {
+            InitDefenderCount(_levelData);
             spawnController.ResetSpawn();
         }
 

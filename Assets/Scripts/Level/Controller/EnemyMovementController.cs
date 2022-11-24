@@ -23,7 +23,7 @@ namespace Controller
 
         private void FixedUpdate()
         {
-            if (true)
+            if (IsMoving)
             {
                MoveForward(); 
             }
@@ -35,10 +35,10 @@ namespace Controller
         }
 
 
-        //internal void StartToMoveForward()
-        //{
-        //    IsMoving=true;
-        //}
+        internal void StartToMoveForward()
+        {
+            IsMoving = true;
+        }
 
         internal void StopToMoveForward()
         {

@@ -9,7 +9,6 @@ namespace Data.ValueObject
     public class DefanderCharacterData
     {
         public RoteteStatus roteteStatus;
-        public DefenderAtackDirections defenderMoveStatus;
         public BulletType bulletType;
         public int Damage;
         public float Range;

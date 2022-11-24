@@ -26,9 +26,6 @@ namespace Managers
         private LevelSuccessfulPanelController levelSuccessfulPanel;
 
         [SerializeField]
-        private TopScorePanelController topScorePanel;
-
-        [SerializeField]
         private CharacterPanelController characterPanelController;
 
         private int _lastGoldScore;
@@ -42,13 +39,11 @@ namespace Managers
            // CoreGameSignals.Instance.onScoreReNew += OnScoreReNew;
             UISignals.Instance.onOpenPanel += OnOpenPanel;
             UISignals.Instance.onClosePanel += OnClosePanel;
-            UISignals.Instance.onSetTopScore += OnSetTopScore;
             ScoreSignals.Instance.onInitLastGoldScore +=OnInitLastGoldScore;
             ScoreSignals.Instance.onInitLastDiamondScore += OnInitLastDiamondScore;
             CoreGameSignals.Instance.onFail += OnFail;
             CoreGameSignals.Instance.onLevelSuccessfull += OnLevelSuccessfull;
             CoreGameSignals.Instance.onLevelInitilize += OnLevelInitilize;
-            CoreGameSignals.Instance.onReset += OnReset;
             CoreGameSignals.Instance.onPlay += OnPlay;
             CoreGameSignals.Instance.onInitDefenderInfo += OnInitDefenderInfo;
         }
@@ -57,13 +52,11 @@ namespace Managers
         {
             UISignals.Instance.onOpenPanel -= OnOpenPanel;
             UISignals.Instance.onClosePanel -= OnClosePanel;
-            UISignals.Instance.onSetTopScore -= OnSetTopScore;
             ScoreSignals.Instance.onInitLastGoldScore -= OnInitLastGoldScore;
             ScoreSignals.Instance.onInitLastDiamondScore -= OnInitLastDiamondScore;
             CoreGameSignals.Instance.onFail -= OnFail;
             CoreGameSignals.Instance.onLevelSuccessfull -= OnLevelSuccessfull;
             CoreGameSignals.Instance.onLevelInitilize -= OnLevelInitilize;
-            CoreGameSignals.Instance.onReset -= OnReset;
             CoreGameSignals.Instance.onPlay -= OnPlay;
             CoreGameSignals.Instance.onInitDefenderInfo -= OnInitDefenderInfo;
 
@@ -113,6 +106,7 @@ namespace Managers
         internal void ChangePanelOnRestart()
         {
             CoreGameSignals.Instance.onClearActiveLevel?.Invoke();
+            CoreGameSignals.Instance.onPlay?.Invoke();
         }
 
         internal void ChangePanelStatusOnExit(UIPanelType uIPanelType)
@@ -147,29 +141,13 @@ namespace Managers
             OnOpenPanel(UIPanelType.CharPanel);
             CoreGameSignals.Instance.onNextLevel?.Invoke();
         }
-        private void OnReset()
-        {
-            levelPanelController.InitDiamondScore(0);
-            levelPanelController.InitGoldScore(0);
-        }
-
-        internal void ChangePanelStatusOnTopScore(UIPanelType uIPanelType)
-        {
-            OnClosePanel(uIPanelType);
-            OnOpenPanel(UIPanelType.StartPanel);
-        }
-
         internal void ChangePanelStatusOnSetting(UIPanelType uIPanelType)
         {
             OnClosePanel(uIPanelType);
             OnOpenPanel(UIPanelType.StartPanel);
         }
 
-       
-        private void OnSetTopScore(List<RankedScore> value)
-        {
-            topScorePanel.SetTopScore(value);
-        }
+
         private void OnInitLastDiamondScore(int value)
         {
 

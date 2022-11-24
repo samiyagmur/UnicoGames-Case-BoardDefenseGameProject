@@ -15,5 +15,6 @@ namespace Data.ValueObject
         [BoxGroup("DefanderData", centerLabel: true)]
         public int FailAmount;
 
+
     }
 }

@@ -53,7 +53,7 @@ namespace Manager
             CoreGameSignals.Instance.onGetLevelData+=OnGetLevelData;
             CoreGameSignals.Instance.onReset += OnReset;
             CoreGameSignals.Instance.onPlay += OnPlay;
-            EnemySignals.Instance.onPassEnemyFromPortal += OnPassEnemyFromPortal;
+            EnemySignals.Instance.onPassEnemyFromPortal += OnGetSpawnEnemyCount;
             EnemySignals.Instance.onEnemyDeadFromDefander += OnGetSpawnEnemyCount;
             
 
@@ -62,7 +62,7 @@ namespace Manager
         private void UnsubscribeEvents()
         {
             EnemySignals.Instance.onEnemyDeadFromDefander -= OnGetSpawnEnemyCount;
-            EnemySignals.Instance.onPassEnemyFromPortal -= OnPassEnemyFromPortal;
+            EnemySignals.Instance.onPassEnemyFromPortal -= OnGetSpawnEnemyCount;
             EnemySignals.Instance.onLevelInit -= OnLevelInit;
             CoreGameSignals.Instance.onGetLevelData -= OnGetLevelData;
             CoreGameSignals.Instance.onReset -= OnReset;
@@ -80,28 +80,12 @@ namespace Manager
 
         private void OnGetSpawnEnemyCount()
         {
-            _deadCountFromDefender++;
+            _totalSpawnedEnemy--; 
 
-            _totalDeat = _deadCountFromDefender + _passEnemyCountFromPortal;
-
-
-            Debug.Log(_totalDeat);
-
-            if (_totalDeat == _totalSpawnedEnemy)
+            if (_totalSpawnedEnemy==0)
             {
-                int _enoughCountForPassToLevel = _totalSpawnedEnemy - _levelData.FailAmount;
-
-                if (_enoughCountForPassToLevel < _deadCountFromDefender)
-                {
-                    CoreGameSignals.Instance.onLevelSuccessfull?.Invoke();
-                }
+                CoreGameSignals.Instance.onLevelSuccessfull?.Invoke();
             }
-
-        }
-
-        private void OnPassEnemyFromPortal()
-        {
-            _passEnemyCountFromPortal++;
         }
         private void OnReset()
         {

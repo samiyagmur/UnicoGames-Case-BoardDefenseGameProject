@@ -13,10 +13,5 @@ MonoBehaviour:
   m_Name: Cd_ScoreData
   m_EditorClassIdentifier: 
   ScoreData:
-    RankedScore:
-    - name: sami
-      score: 234
-    - name: yagmur
-      score: 32532
-    LastDiamondScore: 1000
-    LastGoldScore: 9850
+    LastDiamondScore: 560
+    LastGoldScore: 100000
